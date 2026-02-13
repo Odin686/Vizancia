@@ -215,7 +215,7 @@ struct LessonView: View {
                     .padding(.vertical, 16)
                     .background(
                         RoundedRectangle(cornerRadius: 14)
-                            .fill(selectedAnswer.isEmpty && !showingResult ? Color.aiPrimary.opacity(0.4) : Color.aiPrimaryGradient)
+                            .fill(selectedAnswer.isEmpty && !showingResult ? AnyShapeStyle(Color.aiPrimary.opacity(0.4)) : AnyShapeStyle(Color.aiPrimaryGradient))
                     )
             }
             .disabled(selectedAnswer.isEmpty && !showingResult)
@@ -231,7 +231,7 @@ struct LessonView: View {
         
         let correct: Bool
         if currentQuestion.type == .sortOrder {
-            correct = selectedAnswer == (currentQuestion.correctAnswers ?? []).joined(separator: "||")
+            correct = selectedAnswer == currentQuestion.correctAnswers.joined(separator: "||")
         } else if currentQuestion.type == .matchPairs {
             correct = selectedAnswer == "matched"
         } else {
@@ -282,7 +282,7 @@ struct LessonView: View {
     private func completeLessonAndShow() {
         // Bonus XP
         let isPerfect = correctCount == questions.count
-        xpEarned += XPService.shared.lessonCompletionBonus
+        xpEarned += XPService.shared.lessonBonus
         if isPerfect { xpEarned += XPService.shared.perfectLessonBonus }
         
         user.addXP(xpEarned)

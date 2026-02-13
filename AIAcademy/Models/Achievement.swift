@@ -41,21 +41,21 @@ struct AchievementData: Identifiable {
             name: "AI Basics Master",
             icon: "🧠",
             description: "Complete all AI Basics lessons",
-            condition: { $0.categoryProgressData["ai_basics"]?.isCompleted ?? false }
+            condition: { $0.categoryProgressList.first(where: { $0.categoryId == "ai_basics" })?.isComplete ?? false }
         ),
         AchievementData(
             id: "speed_demon",
             name: "Speed Demon",
             icon: "⚡",
-            description: "Complete Speed Round under 60 seconds",
-            condition: { ($0.gameHighScores["speedRound_time"] ?? Int.max) < 60 }
+            description: "Score 15+ in Speed Round",
+            condition: { ($0.gameHighScores["speedRound"] ?? 0) >= 15 }
         ),
         AchievementData(
             id: "sharpshooter",
             name: "Sharpshooter",
             icon: "🎯",
-            description: "Answer 20 questions correctly in a row",
-            condition: { $0.consecutiveCorrect >= 20 }
+            description: "Answer 100 questions correctly",
+            condition: { $0.totalCorrectAnswers >= 100 }
         ),
         AchievementData(
             id: "well_rounded",
@@ -65,16 +65,16 @@ struct AchievementData: Identifiable {
             condition: { profile in
                 let allCats = LessonContentProvider.shared.allCategories
                 return allCats.allSatisfy { cat in
-                    (profile.categoryProgressData[cat.id]?.lessonsCompleted ?? 0) >= 1
+                    profile.categoryProgressList.first(where: { $0.categoryId == cat.id })?.completedLessonIds.isEmpty == false
                 }
             }
         ),
         AchievementData(
-            id: "crown_collector",
-            name: "Crown Collector",
+            id: "half_way",
+            name: "Halfway There",
             icon: "🏆",
-            description: "Earn 5 crowns in any category",
-            condition: { $0.categoryProgressData.values.contains(where: { $0.crownLevel >= 5 }) }
+            description: "Complete 30 lessons",
+            condition: { $0.totalLessonsCompleted >= 30 }
         ),
         AchievementData(
             id: "graduate",
@@ -83,15 +83,17 @@ struct AchievementData: Identifiable {
             description: "Complete all categories",
             condition: { profile in
                 let allCats = LessonContentProvider.shared.allCategories
-                return allCats.allSatisfy { profile.categoryProgressData[$0.id]?.isCompleted ?? false }
+                return allCats.allSatisfy { cat in
+                    profile.categoryProgressList.first(where: { $0.categoryId == cat.id })?.isComplete ?? false
+                }
             }
         ),
         AchievementData(
             id: "game_night",
             name: "Game Night",
             icon: "🕹️",
-            description: "Play all 5 mini-games",
-            condition: { $0.gamesPlayedByType.count >= 5 }
+            description: "Play 10 mini-games",
+            condition: { $0.gamesPlayed >= 10 }
         ),
         AchievementData(
             id: "bookworm",
@@ -104,15 +106,15 @@ struct AchievementData: Identifiable {
             id: "ethics_expert",
             name: "Ethics Expert",
             icon: "🔬",
-            description: "Complete AI Ethics category with all crowns",
-            condition: { ($0.categoryProgressData["ai_ethics"]?.crownLevel ?? 0) >= 5 }
+            description: "Complete all AI Ethics lessons",
+            condition: { $0.categoryProgressList.first(where: { $0.categoryId == "ai_ethics" })?.isComplete ?? false }
         ),
         AchievementData(
             id: "survivor",
             name: "Survivor",
             icon: "❤️",
             description: "Complete a lesson with only 1 heart remaining",
-            condition: { $0.hasAchievement("survivor") }
+            condition: { $0.unlockedAchievementIds.contains("survivor") }
         ),
         AchievementData(
             id: "century_club",
@@ -139,15 +141,15 @@ struct AchievementData: Identifiable {
             id: "puzzle_master",
             name: "Puzzle Master",
             icon: "🧩",
-            description: "Win Match Pairs 10 times without mistakes",
-            condition: { ($0.gameHighScores["matchPairsPerfect"] ?? 0) >= 10 }
+            description: "Score 10+ in Buzzword Buster",
+            condition: { ($0.gameHighScores["buzzwordBuster"] ?? 0) >= 10 }
         ),
         AchievementData(
             id: "prompt_pro",
             name: "Prompt Pro",
             icon: "🤖",
             description: "Complete all Prompt Engineering lessons",
-            condition: { $0.categoryProgressData["prompt_engineering"]?.isCompleted ?? false }
+            condition: { $0.categoryProgressList.first(where: { $0.categoryId == "prompt_engineering" })?.isComplete ?? false }
         ),
         AchievementData(
             id: "ai_visionary",

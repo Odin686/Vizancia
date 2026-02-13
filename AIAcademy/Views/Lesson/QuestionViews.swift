@@ -16,7 +16,7 @@ struct MultipleChoiceView: View {
                 .fixedSize(horizontal: false, vertical: true)
             
             VStack(spacing: 10) {
-                ForEach(question.options ?? [], id: \.self) { option in
+                ForEach(question.options, id: \.self) { option in
                     OptionButton(
                         text: option,
                         isSelected: selectedAnswer == option,
@@ -116,7 +116,7 @@ struct FillInBlankView: View {
                 .fixedSize(horizontal: false, vertical: true)
             
             VStack(spacing: 10) {
-                ForEach(question.options ?? [], id: \.self) { option in
+                ForEach(question.options, id: \.self) { option in
                     OptionButton(
                         text: option,
                         isSelected: selectedAnswer == option,
@@ -168,7 +168,7 @@ struct ScenarioJudgmentView: View {
             )
             
             VStack(spacing: 10) {
-                ForEach(question.options ?? [], id: \.self) { option in
+                ForEach(question.options, id: \.self) { option in
                     OptionButton(
                         text: option,
                         isSelected: selectedAnswer == option,
@@ -196,7 +196,7 @@ struct MatchPairsView: View {
     @State private var matchedPairs: [String: String] = [:]
     @State private var shuffledDefinitions: [String] = []
     
-    private var pairs: [MatchPair] { question.matchPairs ?? [] }
+    private var pairs: [MatchPair] { question.matchPairs }
     
     var body: some View {
         VStack(spacing: 16) {
@@ -331,7 +331,7 @@ struct SortOrderView: View {
     
     @State private var items: [String] = []
     
-    private var correctOrder: [String] { question.correctAnswers ?? [] }
+    private var correctOrder: [String] { question.correctAnswers }
     
     var body: some View {
         VStack(spacing: 16) {
@@ -386,7 +386,7 @@ struct SortOrderView: View {
                         Button {
                             items.append(option)
                             HapticService.shared.lightTap()
-                            if items.count == (question.options?.count ?? 0) {
+                            if items.count == question.options.count {
                                 selectedAnswer = items.joined(separator: "||")
                             }
                         } label: {

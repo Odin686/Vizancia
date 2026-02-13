@@ -29,12 +29,7 @@ class StreakService {
     
     func checkStreakFreeze(for user: UserProfile) {
         if user.currentStreak > 0 && user.currentStreak % 7 == 0 && user.streakFreezes < 2 {
-            let lastEarned = user.streakFreezeLastEarned?.startOfDay
-            let today = Date().startOfDay
-            if lastEarned == nil || lastEarned != today {
-                user.streakFreezes = min(2, user.streakFreezes + 1)
-                user.streakFreezeLastEarned = today
-            }
+            user.streakFreezes = min(2, user.streakFreezes + 1)
         }
     }
     
