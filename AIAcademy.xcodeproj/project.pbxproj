@@ -1,0 +1,597 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		A10001 /* AIAcademyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10001; };
+		A10002 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10002; };
+		A10003 /* Color+Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10003; };
+		A10004 /* Date+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10004; };
+		A10005 /* Font+Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10005; };
+		A10006 /* View+Modifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10006; };
+		A10007 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10007; };
+		A10008 /* Question.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10008; };
+		A10009 /* Achievement.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10009; };
+		A10010 /* LessonContentProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10010; };
+		A10011 /* CategoryContent1.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10011; };
+		A10012 /* CategoryContent2.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10012; };
+		A10013 /* CategoryContent3.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10013; };
+		A10014 /* CategoryContent4.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10014; };
+		A10015 /* CategoryContent5.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10015; };
+		A10016 /* CategoryContent6.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10016; };
+		A10017 /* CategoryContent7.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10017; };
+		A10018 /* CategoryContent8.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10018; };
+		A10019 /* CategoryContent9.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10019; };
+		A10020 /* CategoryContent10.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10020; };
+		A10021 /* HapticService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10021; };
+		A10022 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10022; };
+		A10023 /* SoundService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10023; };
+		A10024 /* StreakService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10024; };
+		A10025 /* XPService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10025; };
+		A10026 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10026; };
+		A10027 /* CategoryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10027; };
+		A10028 /* LessonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10028; };
+		A10029 /* QuestionViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10029; };
+		A10030 /* LessonCompleteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10030; };
+		A10031 /* GamesHubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10031; };
+		A10032 /* SpeedRoundGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10032; };
+		A10033 /* AIOrNotGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10033; };
+		A10034 /* EthicsCourtGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10034; };
+		A10035 /* PromptCraftGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10035; };
+		A10036 /* BuzzwordBusterGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10036; };
+		A10037 /* ProgressDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10037; };
+		A10038 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10038; };
+		A10039 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10039; };
+		A10040 /* SharedComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10040; };
+		A10041 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B10041; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		P10001 /* AIAcademy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AIAcademy.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B10001 /* AIAcademyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIAcademyApp.swift; sourceTree = "<group>"; };
+		B10002 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		B10003 /* Color+Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Theme.swift"; sourceTree = "<group>"; };
+		B10004 /* Date+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Helpers.swift"; sourceTree = "<group>"; };
+		B10005 /* Font+Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Font+Theme.swift"; sourceTree = "<group>"; };
+		B10006 /* View+Modifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Modifiers.swift"; sourceTree = "<group>"; };
+		B10007 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		B10008 /* Question.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Question.swift; sourceTree = "<group>"; };
+		B10009 /* Achievement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Achievement.swift; sourceTree = "<group>"; };
+		B10010 /* LessonContentProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonContentProvider.swift; sourceTree = "<group>"; };
+		B10011 /* CategoryContent1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryContent1.swift; sourceTree = "<group>"; };
+		B10012 /* CategoryContent2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryContent2.swift; sourceTree = "<group>"; };
+		B10013 /* CategoryContent3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryContent3.swift; sourceTree = "<group>"; };
+		B10014 /* CategoryContent4.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryContent4.swift; sourceTree = "<group>"; };
+		B10015 /* CategoryContent5.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryContent5.swift; sourceTree = "<group>"; };
+		B10016 /* CategoryContent6.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryContent6.swift; sourceTree = "<group>"; };
+		B10017 /* CategoryContent7.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryContent7.swift; sourceTree = "<group>"; };
+		B10018 /* CategoryContent8.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryContent8.swift; sourceTree = "<group>"; };
+		B10019 /* CategoryContent9.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryContent9.swift; sourceTree = "<group>"; };
+		B10020 /* CategoryContent10.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryContent10.swift; sourceTree = "<group>"; };
+		B10021 /* HapticService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticService.swift; sourceTree = "<group>"; };
+		B10022 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
+		B10023 /* SoundService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundService.swift; sourceTree = "<group>"; };
+		B10024 /* StreakService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreakService.swift; sourceTree = "<group>"; };
+		B10025 /* XPService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XPService.swift; sourceTree = "<group>"; };
+		B10026 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		B10027 /* CategoryDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDetailView.swift; sourceTree = "<group>"; };
+		B10028 /* LessonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonView.swift; sourceTree = "<group>"; };
+		B10029 /* QuestionViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionViews.swift; sourceTree = "<group>"; };
+		B10030 /* LessonCompleteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonCompleteView.swift; sourceTree = "<group>"; };
+		B10031 /* GamesHubView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamesHubView.swift; sourceTree = "<group>"; };
+		B10032 /* SpeedRoundGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedRoundGame.swift; sourceTree = "<group>"; };
+		B10033 /* AIOrNotGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIOrNotGame.swift; sourceTree = "<group>"; };
+		B10034 /* EthicsCourtGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EthicsCourtGame.swift; sourceTree = "<group>"; };
+		B10035 /* PromptCraftGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromptCraftGame.swift; sourceTree = "<group>"; };
+		B10036 /* BuzzwordBusterGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuzzwordBusterGame.swift; sourceTree = "<group>"; };
+		B10037 /* ProgressDashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressDashboardView.swift; sourceTree = "<group>"; };
+		B10038 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		B10039 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		B10040 /* SharedComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedComponents.swift; sourceTree = "<group>"; };
+		B10041 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		F10001 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		G10000 = {
+			isa = PBXGroup;
+			children = (
+				G10001 /* AIAcademy */,
+				G10099 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		G10001 /* AIAcademy */ = {
+			isa = PBXGroup;
+			children = (
+				G10002 /* App */,
+				G10003 /* Models */,
+				G10004 /* Data */,
+				G10005 /* Services */,
+				G10006 /* Extensions */,
+				G10007 /* Views */,
+				B10041 /* Assets.xcassets */,
+			);
+			path = AIAcademy;
+			sourceTree = "<group>";
+		};
+		G10002 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				B10001 /* AIAcademyApp.swift */,
+				B10002 /* ContentView.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		G10003 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				B10007 /* User.swift */,
+				B10008 /* Question.swift */,
+				B10009 /* Achievement.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		G10004 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				B10010 /* LessonContentProvider.swift */,
+				B10011 /* CategoryContent1.swift */,
+				B10012 /* CategoryContent2.swift */,
+				B10013 /* CategoryContent3.swift */,
+				B10014 /* CategoryContent4.swift */,
+				B10015 /* CategoryContent5.swift */,
+				B10016 /* CategoryContent6.swift */,
+				B10017 /* CategoryContent7.swift */,
+				B10018 /* CategoryContent8.swift */,
+				B10019 /* CategoryContent9.swift */,
+				B10020 /* CategoryContent10.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		G10005 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				B10021 /* HapticService.swift */,
+				B10022 /* NotificationService.swift */,
+				B10023 /* SoundService.swift */,
+				B10024 /* StreakService.swift */,
+				B10025 /* XPService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		G10006 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				B10003 /* Color+Theme.swift */,
+				B10004 /* Date+Helpers.swift */,
+				B10005 /* Font+Theme.swift */,
+				B10006 /* View+Modifiers.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		G10007 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				G10008 /* Home */,
+				G10009 /* Lesson */,
+				G10010 /* Games */,
+				G10011 /* Progress */,
+				G10012 /* Profile */,
+				G10013 /* Onboarding */,
+				G10014 /* Shared */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		G10008 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				B10026 /* HomeView.swift */,
+				B10027 /* CategoryDetailView.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		G10009 /* Lesson */ = {
+			isa = PBXGroup;
+			children = (
+				B10028 /* LessonView.swift */,
+				B10029 /* QuestionViews.swift */,
+				B10030 /* LessonCompleteView.swift */,
+			);
+			path = Lesson;
+			sourceTree = "<group>";
+		};
+		G10010 /* Games */ = {
+			isa = PBXGroup;
+			children = (
+				B10031 /* GamesHubView.swift */,
+				B10032 /* SpeedRoundGame.swift */,
+				B10033 /* AIOrNotGame.swift */,
+				B10034 /* EthicsCourtGame.swift */,
+				B10035 /* PromptCraftGame.swift */,
+				B10036 /* BuzzwordBusterGame.swift */,
+			);
+			path = Games;
+			sourceTree = "<group>";
+		};
+		G10011 /* Progress */ = {
+			isa = PBXGroup;
+			children = (
+				B10037 /* ProgressDashboardView.swift */,
+			);
+			path = Progress;
+			sourceTree = "<group>";
+		};
+		G10012 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				B10038 /* ProfileView.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		G10013 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				B10039 /* OnboardingView.swift */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		G10014 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				B10040 /* SharedComponents.swift */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		G10099 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				P10001 /* AIAcademy.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		T10001 /* AIAcademy */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C10003 /* Build configuration list for PBXNativeTarget "AIAcademy" */;
+			buildPhases = (
+				S10001 /* Sources */,
+				F10001 /* Frameworks */,
+				R10001 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = AIAcademy;
+			productName = AIAcademy;
+			productReference = P10001 /* AIAcademy.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		PR0001 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+					T10001 = {
+						CreatedOnToolsVersion = 15.0;
+					};
+				};
+			};
+			buildConfigurationList = C10001 /* Build configuration list for PBXProject "AIAcademy" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = G10000;
+			productRefGroup = G10099 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				T10001 /* AIAcademy */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		R10001 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A10041 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		S10001 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A10001 /* AIAcademyApp.swift in Sources */,
+				A10002 /* ContentView.swift in Sources */,
+				A10003 /* Color+Theme.swift in Sources */,
+				A10004 /* Date+Helpers.swift in Sources */,
+				A10005 /* Font+Theme.swift in Sources */,
+				A10006 /* View+Modifiers.swift in Sources */,
+				A10007 /* User.swift in Sources */,
+				A10008 /* Question.swift in Sources */,
+				A10009 /* Achievement.swift in Sources */,
+				A10010 /* LessonContentProvider.swift in Sources */,
+				A10011 /* CategoryContent1.swift in Sources */,
+				A10012 /* CategoryContent2.swift in Sources */,
+				A10013 /* CategoryContent3.swift in Sources */,
+				A10014 /* CategoryContent4.swift in Sources */,
+				A10015 /* CategoryContent5.swift in Sources */,
+				A10016 /* CategoryContent6.swift in Sources */,
+				A10017 /* CategoryContent7.swift in Sources */,
+				A10018 /* CategoryContent8.swift in Sources */,
+				A10019 /* CategoryContent9.swift in Sources */,
+				A10020 /* CategoryContent10.swift in Sources */,
+				A10021 /* HapticService.swift in Sources */,
+				A10022 /* NotificationService.swift in Sources */,
+				A10023 /* SoundService.swift in Sources */,
+				A10024 /* StreakService.swift in Sources */,
+				A10025 /* XPService.swift in Sources */,
+				A10026 /* HomeView.swift in Sources */,
+				A10027 /* CategoryDetailView.swift in Sources */,
+				A10028 /* LessonView.swift in Sources */,
+				A10029 /* QuestionViews.swift in Sources */,
+				A10030 /* LessonCompleteView.swift in Sources */,
+				A10031 /* GamesHubView.swift in Sources */,
+				A10032 /* SpeedRoundGame.swift in Sources */,
+				A10033 /* AIOrNotGame.swift in Sources */,
+				A10034 /* EthicsCourtGame.swift in Sources */,
+				A10035 /* PromptCraftGame.swift in Sources */,
+				A10036 /* BuzzwordBusterGame.swift in Sources */,
+				A10037 /* ProgressDashboardView.swift in Sources */,
+				A10038 /* ProfileView.swift in Sources */,
+				A10039 /* OnboardingView.swift in Sources */,
+				A10040 /* SharedComponents.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		BC0001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		BC0002 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		BC0003 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "AI Academy";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.aiacademy.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		BC0004 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "AI Academy";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.aiacademy.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C10001 /* Build configuration list for PBXProject "AIAcademy" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BC0001 /* Debug */,
+				BC0002 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C10003 /* Build configuration list for PBXNativeTarget "AIAcademy" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BC0003 /* Debug */,
+				BC0004 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = PR0001 /* Project object */;
+}
