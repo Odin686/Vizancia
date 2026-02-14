@@ -20,7 +20,7 @@
 
 ## Getting Started
 
-1. Clone: `git clone https://github.com/Odin686/Allyai.git`
+1. Clone: `git clone https://github.com/Odin686/Vizancia.git`
 2. Open `Vizancia.xcodeproj` in Xcode 15+
 3. Select a simulator and press `⌘R`
 

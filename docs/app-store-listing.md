@@ -91,10 +91,10 @@ Master AI concepts through interactive lessons & mini-games. 10 learning paths, 
 • 100% offline — no account or internet needed
 
 ## Support URL
-https://odin686.github.io/Allyai/privacy-policy.html
+https://odin686.github.io/Vizancia/privacy-policy.html
 
 ## Support Email
 info@vizancia.ca
 
 ## Marketing URL (optional)
-https://github.com/Odin686/Allyai
+https://github.com/Odin686/Vizancia
