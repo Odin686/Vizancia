@@ -19,7 +19,7 @@ Free
 
 ## Description
 
-🧠 **Learn Artificial Intelligence — no coding or math required.**
+**Learn Artificial Intelligence — no coding or math required.**
 
 Vizancia turns complex AI concepts into bite-sized, interactive lessons that anyone can understand. Whether you're curious about ChatGPT, worried about AI ethics, or want to master prompt engineering — we've got you covered.
 
@@ -35,11 +35,11 @@ Explore 10 structured learning paths covering everything from AI basics to the f
 • Sort Order — Understand sequences and processes
 
 **5 ADDICTIVE MINI-GAMES**
-• ⚡ Speed Round — Race against the clock
-• 🤖 AI or Not? — Can you spot AI-generated content?
-• ⚖️ Ethics Court — Judge real AI dilemmas
-• ✍️ Prompt Craft — Master the art of prompting
-• 🔤 Buzzword Buster — Real AI terms or total nonsense?
+• Speed Round — Race against the clock
+• AI or Not? — Can you spot AI-generated content?
+• Ethics Court — Judge real AI dilemmas
+• Prompt Craft — Master the art of prompting
+• Buzzword Buster — Real AI terms or total nonsense?
 
 **GAMIFICATION THAT KEEPS YOU COMING BACK**
 • Earn XP and level up from "AI Curious" to "Singularity Scholar"
@@ -70,7 +70,7 @@ No technical background needed. Vizancia explains concepts in plain language wit
 • No data collected — ever
 • All progress stored locally on your device
 
-Download Vizancia today and start your AI journey! 🚀
+Download Vizancia today and start your AI journey! 
 
 ---
 
@@ -81,7 +81,7 @@ AI,artificial intelligence,learn AI,ChatGPT,machine learning,AI course,AI quiz,p
 Master AI concepts through interactive lessons & mini-games. 10 learning paths, 360 questions, 5 games. No coding required. 100% free & offline. Start your AI journey today!
 
 ## What's New (for v1.0)
-🎉 Welcome to Vizancia!
+Welcome to Vizancia!
 
 • 10 AI learning paths with 60 lessons and 360 questions
 • 6 interactive question types

@@ -1,4 +1,4 @@
-# 🧠 Vizancia
+#  Vizancia
 
 **Learn AI the fun way** — An interactive iOS app that teaches Artificial Intelligence concepts through bite-sized lessons and mini-games.
 
