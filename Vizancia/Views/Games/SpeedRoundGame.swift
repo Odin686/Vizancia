@@ -13,12 +13,25 @@ struct SpeedRoundGame: View {
     @State private var allQuestions: [Question] = []
     @State private var shuffledOptions: [String] = []
     @State private var flashColor: Color = .clear
-    
+    @State private var showTutorial = true
+
     var body: some View {
         ZStack {
             Color.aiBackground.ignoresSafeArea()
-            
-            if isGameOver {
+
+            if showTutorial {
+                GameTutorialView(
+                    title: "Speed Round",
+                    icon: "bolt.fill",
+                    color: .aiOrange,
+                    rules: [
+                        "Answer as many questions as you can in 60 seconds",
+                        "Each correct answer earns 1 point",
+                        "Questions come from all categories",
+                        "Tap fast — the clock is ticking!"
+                    ]
+                ) { showTutorial = false; startGame() }
+            } else if isGameOver {
                 gameOverView
             } else {
                 VStack(spacing: 16) {
@@ -90,7 +103,7 @@ struct SpeedRoundGame: View {
                 .allowsHitTesting(false)
                 .animation(.easeOut(duration: 0.3), value: flashColor)
         }
-        .onAppear { startGame() }
+        .onAppear { if !showTutorial { startGame() } }
         .onDisappear { timer?.invalidate() }
     }
     

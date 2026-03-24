@@ -31,6 +31,7 @@ class UserProfile {
     var todayXP: Int
     var activeDays: [String]
     var dailyGoalTierRaw: String
+    var missedQuestionIds: [String]
 
     init(
         name: String = "Learner",
@@ -64,6 +65,7 @@ class UserProfile {
         self.todayXP = 0
         self.activeDays = []
         self.dailyGoalTierRaw = "casual"
+        self.missedQuestionIds = []
     }
 
     // MARK: - Daily Goal Tier
@@ -141,5 +143,15 @@ class UserProfile {
 
     func earnHeart() {
         hearts = min(5, hearts + 1)
+    }
+
+    func addMissedQuestion(_ questionId: String) {
+        if !missedQuestionIds.contains(questionId) {
+            missedQuestionIds.append(questionId)
+        }
+    }
+
+    func removeMissedQuestion(_ questionId: String) {
+        missedQuestionIds.removeAll { $0 == questionId }
     }
 }

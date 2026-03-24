@@ -33,4 +33,9 @@ class LessonContentProvider {
               let cat = category(byId: lesson.categoryId) else { return nil }
         return cat.lessons.first(where: { $0.order == lesson.order + 1 })
     }
+
+    func missedQuestions(for questionIds: [String]) -> [Question] {
+        let allQuestions = allCategories.flatMap { $0.lessons }.flatMap { $0.questions }
+        return questionIds.compactMap { id in allQuestions.first(where: { $0.id == id }) }
+    }
 }

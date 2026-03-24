@@ -8,11 +8,21 @@ struct LessonCompleteView: View {
     let totalQuestions: Int
     let xpEarned: Int
     let firstTryCount: Int
-    
+    var onNextLesson: ((LessonData) -> Void)?
+
     @Environment(\.dismiss) private var dismiss
     @State private var animateXP = false
     @State private var animateStars = false
     @State private var showAchievement: AchievementData?
+
+    private var nextLesson: LessonData? {
+        LessonContentProvider.shared.nextLesson(after: lesson.id)
+    }
+
+    private var isNextLessonUnlocked: Bool {
+        // Next lesson is unlocked since the current one is now complete
+        nextLesson != nil
+    }
     
     private var stars: Int {
         if correctCount == totalQuestions { return 3 }
@@ -106,19 +116,51 @@ struct LessonCompleteView: View {
                     )
                     .padding(.horizontal)
                     
-                    // Continue Button
-                    Button {
-                        dismiss()
-                    } label: {
-                        Text("Continue")
-                            .font(.aiHeadline())
-                            .foregroundColor(.white)
-                            .frame(maxWidth: .infinity)
-                            .padding(.vertical, 16)
-                            .background(
-                                RoundedRectangle(cornerRadius: 14)
-                                    .fill(Color.aiPrimaryGradient)
-                            )
+                    // Action Buttons
+                    VStack(spacing: 12) {
+                        if let next = nextLesson, onNextLesson != nil {
+                            Button {
+                                dismiss()
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                                    onNextLesson?(next)
+                                }
+                            } label: {
+                                HStack(spacing: 8) {
+                                    Text("Next Lesson")
+                                    Image(systemName: "arrow.right")
+                                }
+                                .font(.aiHeadline())
+                                .foregroundColor(.white)
+                                .frame(maxWidth: .infinity)
+                                .padding(.vertical, 16)
+                                .background(
+                                    RoundedRectangle(cornerRadius: 14)
+                                        .fill(Color.aiPrimaryGradient)
+                                )
+                            }
+
+                            Button {
+                                dismiss()
+                            } label: {
+                                Text("Back to \(category.name)")
+                                    .font(.aiBody())
+                                    .foregroundColor(.aiTextSecondary)
+                            }
+                        } else {
+                            Button {
+                                dismiss()
+                            } label: {
+                                Text(category.lessons.allSatisfy({ user.categoryProgressList.first(where: { $0.categoryId == category.id })?.completedLessonIds.contains($0.id) ?? false }) ? "Category Complete!" : "Continue")
+                                    .font(.aiHeadline())
+                                    .foregroundColor(.white)
+                                    .frame(maxWidth: .infinity)
+                                    .padding(.vertical, 16)
+                                    .background(
+                                        RoundedRectangle(cornerRadius: 14)
+                                            .fill(Color.aiPrimaryGradient)
+                                    )
+                            }
+                        }
                     }
                     .padding(.horizontal)
                     .padding(.bottom, 30)

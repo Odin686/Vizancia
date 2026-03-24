@@ -4,8 +4,9 @@ struct LessonView: View {
     @Bindable var user: UserProfile
     let lesson: LessonData
     let category: CategoryData
+    var onNextLesson: ((LessonData) -> Void)?
     @Environment(\.dismiss) private var dismiss
-    
+
     @State private var currentIndex = 0
     @State private var correctCount = 0
     @State private var firstTryCount = 0
@@ -19,6 +20,9 @@ struct LessonView: View {
     @State private var xpFloatText = ""
     @State private var showLessonComplete = false
     @State private var showNoHeartsAlert = false
+    @State private var comboCount = 0
+    @State private var showCombo = false
+    @State private var comboText = ""
     
     @State private var shuffledQuestions: [Question] = []
     private var questions: [Question] { shuffledQuestions.isEmpty ? lesson.questions : shuffledQuestions }
@@ -63,6 +67,26 @@ struct LessonView: View {
                         .foregroundColor(.aiSuccess)
                         .transition(.move(edge: .bottom).combined(with: .opacity))
                 }
+
+                // Combo streak banner
+                if showCombo {
+                    VStack {
+                        Spacer()
+                        Text(comboText)
+                            .font(.system(size: 20, weight: .bold, design: .rounded))
+                            .foregroundColor(.white)
+                            .padding(.horizontal, 24)
+                            .padding(.vertical, 12)
+                            .background(
+                                Capsule()
+                                    .fill(Color.aiOrange)
+                                    .shadow(color: .aiOrange.opacity(0.4), radius: 8, y: 4)
+                            )
+                            .transition(.scale.combined(with: .opacity))
+                        Spacer()
+                    }
+                    .allowsHitTesting(false)
+                }
             }
             .navigationBarHidden(true)
             .onAppear {
@@ -78,14 +102,20 @@ struct LessonView: View {
                     correctCount: correctCount,
                     totalQuestions: questions.count,
                     xpEarned: xpEarned,
-                    firstTryCount: firstTryCount
+                    firstTryCount: firstTryCount,
+                    onNextLesson: { nextLesson in
+                        dismiss()
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                            onNextLesson?(nextLesson)
+                        }
+                    }
                 )
             }
             .alert("No Hearts Left!", isPresented: $showNoHeartsAlert) {
                 Button("Leave Lesson") { dismiss() }
-                Button("Wait for Refill", role: .cancel) { }
+                Button("Keep Trying", role: .cancel) { }
             } message: {
-                Text("You've run out of hearts. Hearts refill over time, or complete this lesson correctly to earn them back!")
+                Text(heartsRefillMessage)
             }
         }
     }
@@ -231,6 +261,14 @@ struct LessonView: View {
         .background(Color.aiBackground)
     }
     
+    private var heartsRefillMessage: String {
+        let tomorrow = Calendar.current.startOfDay(for: Date()).addingTimeInterval(86400)
+        let remaining = tomorrow.timeIntervalSince(Date())
+        let hours = Int(remaining) / 3600
+        let minutes = (Int(remaining) % 3600) / 60
+        return "You've run out of hearts. Hearts refill in \(hours)h \(minutes)m. You can keep trying this lesson, but be careful!"
+    }
+
     // MARK: - Logic
     private func checkAnswer() {
         guard !selectedAnswer.isEmpty else { return }
@@ -251,12 +289,26 @@ struct LessonView: View {
 
         if correct {
             correctCount += 1
+            comboCount += 1
             if wasFirstAttempt { firstTryCount += 1 }
             let xp = XPService.shared.xpForCorrectAnswer(firstTry: wasFirstAttempt)
             xpEarned += xp
+            user.removeMissedQuestion(currentQuestion.id)
             HapticService.shared.success()
             SoundService.shared.play(.correct)
+
+            // Combo celebration
+            if comboCount >= 3 {
+                comboText = comboCount == 3 ? "3 in a row!" : comboCount == 4 ? "4 in a row!" : comboCount == 5 ? "5 in a row! On fire!" : "\(comboCount)x Combo!"
+                withAnimation(.spring(response: 0.4, dampingFraction: 0.6)) { showCombo = true }
+                HapticService.shared.success()
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
+                    withAnimation { showCombo = false }
+                }
+            }
         } else {
+            comboCount = 0
+            user.addMissedQuestion(currentQuestion.id)
             HapticService.shared.error()
             SoundService.shared.play(.wrong)
             user.loseHeart()
@@ -264,7 +316,7 @@ struct LessonView: View {
                 showNoHeartsAlert = true
             }
         }
-        
+
         withAnimation(.spring(response: 0.3)) { }
     }
     

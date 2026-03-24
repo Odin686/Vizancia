@@ -27,12 +27,25 @@ struct EthicsCourtGame: View {
     ]
     
     @State private var shuffled: [(scenario: String, options: [String], correct: String, explanation: String)] = []
-    
+    @State private var showTutorial = true
+
     var body: some View {
         ZStack {
             Color.aiBackground.ignoresSafeArea()
-            
-            if isGameOver {
+
+            if showTutorial {
+                GameTutorialView(
+                    title: "Ethics Court",
+                    icon: "building.columns.fill",
+                    color: .aiError,
+                    rules: [
+                        "Read each AI ethics scenario",
+                        "Pick the most responsible verdict",
+                        "Consider privacy, fairness, and safety",
+                        "8 cases — think carefully!"
+                    ]
+                ) { showTutorial = false }
+            } else if isGameOver {
                 gameOverView
             } else if round < min(totalRounds, shuffled.count) {
                 let c = shuffled[round]

@@ -25,12 +25,25 @@ struct PromptCraftGame: View {
     
     @State private var shuffled: [(task: String, options: [String], best: String, explanation: String)] = []
     @State private var currentShuffledOptions: [String] = []
-    
+    @State private var showTutorial = true
+
     var body: some View {
         ZStack {
             Color.aiBackground.ignoresSafeArea()
-            
-            if isGameOver {
+
+            if showTutorial {
+                GameTutorialView(
+                    title: "Prompt Craft",
+                    icon: "text.cursor",
+                    color: .aiSuccess,
+                    rules: [
+                        "You'll see a task you want AI to do",
+                        "Pick the best prompt from 3 options",
+                        "Better prompts are specific and detailed",
+                        "8 rounds — become a prompt master!"
+                    ]
+                ) { showTutorial = false }
+            } else if isGameOver {
                 gameOverView
             } else if round < min(totalRounds, shuffled.count) {
                 let ch = shuffled[round]
