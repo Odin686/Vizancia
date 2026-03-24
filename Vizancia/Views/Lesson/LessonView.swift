@@ -20,7 +20,8 @@ struct LessonView: View {
     @State private var showLessonComplete = false
     @State private var showNoHeartsAlert = false
     
-    private var questions: [Question] { lesson.questions }
+    @State private var shuffledQuestions: [Question] = []
+    private var questions: [Question] { shuffledQuestions.isEmpty ? lesson.questions : shuffledQuestions }
     private var currentQuestion: Question { questions[currentIndex] }
     private var progressValue: Double { Double(currentIndex) / Double(questions.count) }
     
@@ -64,6 +65,11 @@ struct LessonView: View {
                 }
             }
             .navigationBarHidden(true)
+            .onAppear {
+                if shuffledQuestions.isEmpty {
+                    shuffledQuestions = lesson.questions.shuffled()
+                }
+            }
             .fullScreenCover(isPresented: $showLessonComplete) {
                 LessonCompleteView(
                     user: user,
@@ -239,13 +245,14 @@ struct LessonView: View {
         }
         
         isCorrect = correct
+        let wasFirstAttempt = !hasAnsweredCurrent
         hasAnsweredCurrent = true
         showingResult = true
-        
+
         if correct {
             correctCount += 1
-            if !hasAnsweredCurrent { firstTryCount += 1 }
-            let xp = XPService.shared.xpForCorrectAnswer(firstTry: true)
+            if wasFirstAttempt { firstTryCount += 1 }
+            let xp = XPService.shared.xpForCorrectAnswer(firstTry: wasFirstAttempt)
             xpEarned += xp
             HapticService.shared.success()
             SoundService.shared.play(.correct)

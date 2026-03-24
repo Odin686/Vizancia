@@ -11,6 +11,7 @@ struct SpeedRoundGame: View {
     @State private var isGameOver = false
     @State private var timer: Timer?
     @State private var allQuestions: [Question] = []
+    @State private var shuffledOptions: [String] = []
     @State private var flashColor: Color = .clear
     
     var body: some View {
@@ -56,7 +57,7 @@ struct SpeedRoundGame: View {
                             .fixedSize(horizontal: false, vertical: true)
                         
                         VStack(spacing: 10) {
-                            ForEach(q.options ?? [], id: \.self) { option in
+                            ForEach(shuffledOptions, id: \.self) { option in
                                 Button {
                                     checkAnswer(option, for: q)
                                 } label: {
@@ -153,6 +154,7 @@ struct SpeedRoundGame: View {
             allQuestions = LessonContentProvider.shared.allCategories.flatMap { $0.lessons }.flatMap { $0.questions }.filter { $0.type == .multipleChoice || $0.type == .trueFalse }.shuffled()
         }
         currentQ = allQuestions.removeFirst()
+        shuffledOptions = currentQ?.options.shuffled() ?? []
     }
     
     private func checkAnswer(_ answer: String, for question: Question) {

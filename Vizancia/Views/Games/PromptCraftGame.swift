@@ -24,6 +24,7 @@ struct PromptCraftGame: View {
     ]
     
     @State private var shuffled: [(task: String, options: [String], best: String, explanation: String)] = []
+    @State private var currentShuffledOptions: [String] = []
     
     var body: some View {
         ZStack {
@@ -57,11 +58,16 @@ struct PromptCraftGame: View {
                             }.font(.aiHeadline()).foregroundColor(lastCorrect ? .aiSuccess : .aiError)
                             Text(ch.explanation).font(.aiCaption()).foregroundColor(.aiTextSecondary).multilineTextAlignment(.center)
                             
-                            Button { showResult = false; round += 1; if round >= totalRounds { endGame() } } label: {
+                            Button {
+                                showResult = false
+                                round += 1
+                                if round >= totalRounds { endGame() }
+                                else if round < shuffled.count { currentShuffledOptions = shuffled[round].options.shuffled() }
+                            } label: {
                                 Text("Next").font(.aiHeadline()).foregroundColor(.white).frame(maxWidth: .infinity).padding(.vertical, 16).background(RoundedRectangle(cornerRadius: 14).fill(Color.aiPrimaryGradient))
                             }
                         } else {
-                            ForEach(ch.options, id: \.self) { opt in
+                            ForEach(currentShuffledOptions, id: \.self) { opt in
                                 Button {
                                     lastCorrect = opt == ch.best
                                     if lastCorrect { score += 1; HapticService.shared.success() } else { HapticService.shared.error() }
@@ -76,7 +82,10 @@ struct PromptCraftGame: View {
                 }
             }
         }
-        .onAppear { shuffled = challenges.shuffled() }
+        .onAppear {
+            shuffled = challenges.shuffled()
+            if !shuffled.isEmpty { currentShuffledOptions = shuffled[0].options.shuffled() }
+        }
     }
     
     private var gameOverView: some View {
@@ -86,7 +95,7 @@ struct PromptCraftGame: View {
             Text("\(score)/\(totalRounds)").font(.system(size: 44, weight: .bold, design: .rounded)).foregroundColor(.aiPrimary)
             if score > (user.gameHighScores["promptCraft"] ?? 0) { Text("🎉 New High Score!").font(.aiHeadline()).foregroundColor(.aiWarning) }
             VStack(spacing: 12) {
-                Button { round = 0; score = 0; isGameOver = false; shuffled = challenges.shuffled() } label: {
+                Button { round = 0; score = 0; isGameOver = false; shuffled = challenges.shuffled(); currentShuffledOptions = shuffled[0].options.shuffled() } label: {
                     Text("Play Again").font(.aiHeadline()).foregroundColor(.white).frame(maxWidth: .infinity).padding(.vertical, 16).background(RoundedRectangle(cornerRadius: 14).fill(Color.aiPrimaryGradient))
                 }
                 Button("Done") { dismiss() }.font(.aiBody()).foregroundColor(.aiTextSecondary)
