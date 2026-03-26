@@ -31,12 +31,25 @@ struct AIOrNotGame: View {
     ]
     
     @State private var shuffled: [(text: String, isAI: Bool, explanation: String)] = []
-    
+    @State private var showTutorial = true
+
     var body: some View {
         ZStack {
             Color.aiBackground.ignoresSafeArea()
-            
-            if isGameOver {
+
+            if showTutorial {
+                GameTutorialView(
+                    title: "AI or Not?",
+                    icon: "questionmark.circle.fill",
+                    color: .aiPrimary,
+                    rules: [
+                        "Read each quote carefully",
+                        "Decide if it was said by AI or a human",
+                        "10 rounds — score as many as you can",
+                        "Look for clues in the tone and content"
+                    ]
+                ) { showTutorial = false }
+            } else if isGameOver {
                 gameOverView
             } else if round < min(totalRounds, shuffled.count) {
                 let statement = shuffled[round]

@@ -6,7 +6,9 @@ struct MultipleChoiceView: View {
     @Binding var selectedAnswer: String
     let hasAnswered: Bool
     let isCorrect: Bool
-    
+
+    @State private var shuffledOptions: [String] = []
+
     var body: some View {
         VStack(spacing: 16) {
             Text(question.questionText)
@@ -14,9 +16,9 @@ struct MultipleChoiceView: View {
                 .foregroundColor(.aiTextPrimary)
                 .multilineTextAlignment(.center)
                 .fixedSize(horizontal: false, vertical: true)
-            
+
             VStack(spacing: 10) {
-                ForEach(question.options, id: \.self) { option in
+                ForEach(shuffledOptions, id: \.self) { option in
                     OptionButton(
                         text: option,
                         isSelected: selectedAnswer == option,
@@ -28,6 +30,11 @@ struct MultipleChoiceView: View {
                         HapticService.shared.lightTap()
                     }
                 }
+            }
+        }
+        .onAppear {
+            if shuffledOptions.isEmpty {
+                shuffledOptions = question.options.shuffled()
             }
         }
     }
@@ -106,7 +113,9 @@ struct FillInBlankView: View {
     @Binding var selectedAnswer: String
     let hasAnswered: Bool
     let isCorrect: Bool
-    
+
+    @State private var shuffledOptions: [String] = []
+
     var body: some View {
         VStack(spacing: 20) {
             Text(question.questionText)
@@ -114,9 +123,9 @@ struct FillInBlankView: View {
                 .foregroundColor(.aiTextPrimary)
                 .multilineTextAlignment(.center)
                 .fixedSize(horizontal: false, vertical: true)
-            
+
             VStack(spacing: 10) {
-                ForEach(question.options, id: \.self) { option in
+                ForEach(shuffledOptions, id: \.self) { option in
                     OptionButton(
                         text: option,
                         isSelected: selectedAnswer == option,
@@ -130,6 +139,11 @@ struct FillInBlankView: View {
                 }
             }
         }
+        .onAppear {
+            if shuffledOptions.isEmpty {
+                shuffledOptions = question.options.shuffled()
+            }
+        }
     }
 }
 
@@ -139,7 +153,9 @@ struct ScenarioJudgmentView: View {
     @Binding var selectedAnswer: String
     let hasAnswered: Bool
     let isCorrect: Bool
-    
+
+    @State private var shuffledOptions: [String] = []
+
     var body: some View {
         VStack(spacing: 16) {
             VStack(spacing: 8) {
@@ -151,7 +167,7 @@ struct ScenarioJudgmentView: View {
                         .foregroundColor(.aiWarning)
                     Spacer()
                 }
-                
+
                 Text(question.questionText)
                     .font(.aiBody())
                     .foregroundColor(.aiTextPrimary)
@@ -166,9 +182,9 @@ struct ScenarioJudgmentView: View {
                             .stroke(Color.aiWarning.opacity(0.2), lineWidth: 1)
                     )
             )
-            
+
             VStack(spacing: 10) {
-                ForEach(question.options, id: \.self) { option in
+                ForEach(shuffledOptions, id: \.self) { option in
                     OptionButton(
                         text: option,
                         isSelected: selectedAnswer == option,
@@ -180,6 +196,11 @@ struct ScenarioJudgmentView: View {
                         HapticService.shared.lightTap()
                     }
                 }
+            }
+        }
+        .onAppear {
+            if shuffledOptions.isEmpty {
+                shuffledOptions = question.options.shuffled()
             }
         }
     }

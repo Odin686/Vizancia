@@ -31,6 +31,11 @@ class UserProfile {
     var todayXP: Int
     var activeDays: [String]
     var dailyGoalTierRaw: String
+    var missedQuestionIds: [String]
+    var lastDailyChallengeDate: String
+    var dailyChallengeStreak: Int
+    var categoryCorrectCounts: [String: Int]
+    var categoryQuestionCounts: [String: Int]
 
     init(
         name: String = "Learner",
@@ -64,6 +69,11 @@ class UserProfile {
         self.todayXP = 0
         self.activeDays = []
         self.dailyGoalTierRaw = "casual"
+        self.missedQuestionIds = []
+        self.lastDailyChallengeDate = ""
+        self.dailyChallengeStreak = 0
+        self.categoryCorrectCounts = [:]
+        self.categoryQuestionCounts = [:]
     }
 
     // MARK: - Daily Goal Tier
@@ -141,5 +151,46 @@ class UserProfile {
 
     func earnHeart() {
         hearts = min(5, hearts + 1)
+    }
+
+    func addMissedQuestion(_ questionId: String) {
+        if !missedQuestionIds.contains(questionId) {
+            missedQuestionIds.append(questionId)
+        }
+    }
+
+    func removeMissedQuestion(_ questionId: String) {
+        missedQuestionIds.removeAll { $0 == questionId }
+    }
+
+    func recordCategoryAnswer(categoryId: String, correct: Bool) {
+        categoryQuestionCounts[categoryId] = (categoryQuestionCounts[categoryId] ?? 0) + 1
+        if correct {
+            categoryCorrectCounts[categoryId] = (categoryCorrectCounts[categoryId] ?? 0) + 1
+        }
+    }
+
+    func categoryAccuracy(for categoryId: String) -> Double {
+        let total = categoryQuestionCounts[categoryId] ?? 0
+        let correct = categoryCorrectCounts[categoryId] ?? 0
+        guard total > 0 else { return 0 }
+        return Double(correct) / Double(total)
+    }
+
+    var hasCompletedDailyChallenge: Bool {
+        lastDailyChallengeDate == Date().dateKey
+    }
+
+    func completeDailyChallenge(xp: Int) {
+        let today = Date().dateKey
+        let yesterday = Date().daysAgo(1).dateKey
+        if lastDailyChallengeDate == yesterday {
+            dailyChallengeStreak += 1
+        } else if lastDailyChallengeDate != today {
+            dailyChallengeStreak = 1
+        }
+        lastDailyChallengeDate = today
+        addXP(xp)
+        todayXP += xp
     }
 }

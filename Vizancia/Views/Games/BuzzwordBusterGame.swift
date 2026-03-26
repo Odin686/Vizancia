@@ -36,12 +36,25 @@ struct BuzzwordBusterGame: View {
     ]
     
     @State private var shuffled: [(term: String, isReal: Bool, explanation: String)] = []
-    
+    @State private var showTutorial = true
+
     var body: some View {
         ZStack {
             Color.aiBackground.ignoresSafeArea()
-            
-            if isGameOver {
+
+            if showTutorial {
+                GameTutorialView(
+                    title: "Buzzword Buster",
+                    icon: "textformat.abc",
+                    color: .aiSecondary,
+                    rules: [
+                        "You'll see an AI-related term",
+                        "Decide if it's a real term or made up",
+                        "Some fake ones sound very convincing!",
+                        "10 rounds — test your AI vocabulary"
+                    ]
+                ) { showTutorial = false }
+            } else if isGameOver {
                 gameOverView
             } else if round < min(totalRounds, shuffled.count) {
                 let t = shuffled[round]

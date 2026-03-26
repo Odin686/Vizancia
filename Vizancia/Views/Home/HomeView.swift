@@ -5,7 +5,9 @@ struct HomeView: View {
     @State private var showCategoryDetail: CategoryData?
     @State private var xpFloatText = ""
     @State private var showXPFloat = false
-    
+    @State private var showPracticeMistakes = false
+    @State private var showDailyChallenge = false
+
     private let provider = LessonContentProvider.shared
     
     var body: some View {
@@ -18,7 +20,17 @@ struct HomeView: View {
                     // Daily Goal
                     DailyGoalWidget(user: user)
                         .padding(.horizontal)
-                    
+
+                    // Daily Challenge
+                    if !user.hasCompletedDailyChallenge {
+                        dailyChallengeCard
+                    }
+
+                    // Practice Mistakes
+                    if !user.missedQuestionIds.isEmpty {
+                        practiceMistakesCard
+                    }
+
                     // Categories Grid
                     categoriesSection
                 }
@@ -30,6 +42,12 @@ struct HomeView: View {
             .toolbar { headerToolbar }
             .sheet(item: $showCategoryDetail) { cat in
                 CategoryDetailView(user: user, category: cat)
+            }
+            .fullScreenCover(isPresented: $showPracticeMistakes) {
+                PracticeMistakesView(user: user)
+            }
+            .fullScreenCover(isPresented: $showDailyChallenge) {
+                DailyChallengeView(user: user)
             }
         }
     }
@@ -45,7 +63,7 @@ struct HomeView: View {
             .padding(.horizontal)
             
             HStack(spacing: 16) {
-                HeartsDisplay(hearts: user.hearts)
+                HeartsDisplay(hearts: user.hearts, showTimer: true, heartsLastRefill: user.heartsLastRefill)
                 Spacer()
                 StreakBadge(streak: user.currentStreak)
             }
@@ -78,7 +96,8 @@ struct HomeView: View {
                     CategoryCard(
                         category: category,
                         progress: progress,
-                        isLocked: locked
+                        isLocked: locked,
+                        unlockHint: unlockHint(for: category)
                     ) {
                         showCategoryDetail = category
                     }
@@ -88,6 +107,89 @@ struct HomeView: View {
         }
     }
     
+    // MARK: - Daily Challenge
+    private var dailyChallengeCard: some View {
+        Button { showDailyChallenge = true } label: {
+            HStack(spacing: 14) {
+                ZStack {
+                    RoundedRectangle(cornerRadius: 14)
+                        .fill(Color.aiWarning.opacity(0.15))
+                        .frame(width: 50, height: 50)
+                    Image(systemName: "star.circle.fill")
+                        .font(.title2)
+                        .foregroundColor(.aiWarning)
+                }
+                VStack(alignment: .leading, spacing: 3) {
+                    Text("Daily Challenge")
+                        .font(.aiHeadline())
+                        .foregroundColor(.aiTextPrimary)
+                    Text("Answer today's question for bonus XP!")
+                        .font(.aiCaption())
+                        .foregroundColor(.aiTextSecondary)
+                }
+                Spacer()
+                VStack(spacing: 2) {
+                    Text("+25")
+                        .font(.system(size: 16, weight: .bold, design: .rounded))
+                        .foregroundColor(.aiWarning)
+                    Text("XP")
+                        .font(.system(size: 10, weight: .medium, design: .rounded))
+                        .foregroundColor(.aiWarning)
+                }
+            }
+            .padding(16)
+            .background(
+                RoundedRectangle(cornerRadius: 16)
+                    .fill(Color.aiCard)
+                    .shadow(color: .black.opacity(0.05), radius: 6, y: 3)
+            )
+            .overlay(
+                RoundedRectangle(cornerRadius: 16)
+                    .stroke(Color.aiWarning.opacity(0.3), lineWidth: 1)
+            )
+        }
+        .padding(.horizontal)
+    }
+
+    // MARK: - Practice Mistakes
+    private var practiceMistakesCard: some View {
+        Button { showPracticeMistakes = true } label: {
+            HStack(spacing: 14) {
+                ZStack {
+                    RoundedRectangle(cornerRadius: 14)
+                        .fill(Color.aiOrange.opacity(0.15))
+                        .frame(width: 50, height: 50)
+                    Image(systemName: "arrow.counterclockwise")
+                        .font(.title2)
+                        .foregroundColor(.aiOrange)
+                }
+                VStack(alignment: .leading, spacing: 3) {
+                    Text("Practice Mistakes")
+                        .font(.aiHeadline())
+                        .foregroundColor(.aiTextPrimary)
+                    Text("\(user.missedQuestionIds.count) questions to review")
+                        .font(.aiCaption())
+                        .foregroundColor(.aiTextSecondary)
+                }
+                Spacer()
+                Image(systemName: "chevron.right")
+                    .foregroundColor(.aiTextSecondary)
+                    .font(.caption)
+            }
+            .padding(16)
+            .background(
+                RoundedRectangle(cornerRadius: 16)
+                    .fill(Color.aiCard)
+                    .shadow(color: .black.opacity(0.05), radius: 6, y: 3)
+            )
+            .overlay(
+                RoundedRectangle(cornerRadius: 16)
+                    .stroke(Color.aiOrange.opacity(0.3), lineWidth: 1)
+            )
+        }
+        .padding(.horizontal)
+    }
+
     // MARK: - Helpers
     private func isCategoryLocked(_ category: CategoryData) -> Bool {
         switch category.unlockRequirement {
@@ -98,6 +200,19 @@ struct HomeView: View {
         case .completeCategoryMinimum(let id):
             let progress = user.categoryProgressList.first { $0.categoryId == id }
             return (progress?.completedLessonIds.count ?? 0) < 2
+        }
+    }
+
+    private func unlockHint(for category: CategoryData) -> String? {
+        guard let requiredId = category.unlockRequirement.requiredCategoryId,
+              let requiredCategory = provider.category(byId: requiredId) else { return nil }
+        switch category.unlockRequirement {
+        case .none:
+            return nil
+        case .completeCategory:
+            return "Complete \(requiredCategory.name)"
+        case .completeCategoryMinimum:
+            return "Complete 2 lessons in \(requiredCategory.name)"
         }
     }
 }

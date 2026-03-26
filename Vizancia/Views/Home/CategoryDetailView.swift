@@ -57,7 +57,11 @@ struct CategoryDetailView: View {
                 }
             }
             .fullScreenCover(item: $showLesson) { lesson in
-                LessonView(user: user, lesson: lesson, category: category)
+                LessonView(user: user, lesson: lesson, category: category) { nextLesson in
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                        showLesson = nextLesson
+                    }
+                }
             }
         }
     }

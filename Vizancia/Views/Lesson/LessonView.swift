@@ -4,8 +4,9 @@ struct LessonView: View {
     @Bindable var user: UserProfile
     let lesson: LessonData
     let category: CategoryData
+    var onNextLesson: ((LessonData) -> Void)?
     @Environment(\.dismiss) private var dismiss
-    
+
     @State private var currentIndex = 0
     @State private var correctCount = 0
     @State private var firstTryCount = 0
@@ -19,8 +20,12 @@ struct LessonView: View {
     @State private var xpFloatText = ""
     @State private var showLessonComplete = false
     @State private var showNoHeartsAlert = false
+    @State private var comboCount = 0
+    @State private var showCombo = false
+    @State private var comboText = ""
     
-    private var questions: [Question] { lesson.questions }
+    @State private var shuffledQuestions: [Question] = []
+    private var questions: [Question] { shuffledQuestions.isEmpty ? lesson.questions : shuffledQuestions }
     private var currentQuestion: Question { questions[currentIndex] }
     private var progressValue: Double { Double(currentIndex) / Double(questions.count) }
     
@@ -62,8 +67,33 @@ struct LessonView: View {
                         .foregroundColor(.aiSuccess)
                         .transition(.move(edge: .bottom).combined(with: .opacity))
                 }
+
+                // Combo streak banner
+                if showCombo {
+                    VStack {
+                        Spacer()
+                        Text(comboText)
+                            .font(.system(size: 20, weight: .bold, design: .rounded))
+                            .foregroundColor(.white)
+                            .padding(.horizontal, 24)
+                            .padding(.vertical, 12)
+                            .background(
+                                Capsule()
+                                    .fill(Color.aiOrange)
+                                    .shadow(color: .aiOrange.opacity(0.4), radius: 8, y: 4)
+                            )
+                            .transition(.scale.combined(with: .opacity))
+                        Spacer()
+                    }
+                    .allowsHitTesting(false)
+                }
             }
             .navigationBarHidden(true)
+            .onAppear {
+                if shuffledQuestions.isEmpty {
+                    shuffledQuestions = buildQuestionList()
+                }
+            }
             .fullScreenCover(isPresented: $showLessonComplete) {
                 LessonCompleteView(
                     user: user,
@@ -72,14 +102,20 @@ struct LessonView: View {
                     correctCount: correctCount,
                     totalQuestions: questions.count,
                     xpEarned: xpEarned,
-                    firstTryCount: firstTryCount
+                    firstTryCount: firstTryCount,
+                    onNextLesson: { nextLesson in
+                        dismiss()
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                            onNextLesson?(nextLesson)
+                        }
+                    }
                 )
             }
             .alert("No Hearts Left!", isPresented: $showNoHeartsAlert) {
                 Button("Leave Lesson") { dismiss() }
-                Button("Wait for Refill", role: .cancel) { }
+                Button("Keep Trying", role: .cancel) { }
             } message: {
-                Text("You've run out of hearts. Hearts refill over time, or complete this lesson correctly to earn them back!")
+                Text(heartsRefillMessage)
             }
         }
     }
@@ -225,6 +261,14 @@ struct LessonView: View {
         .background(Color.aiBackground)
     }
     
+    private var heartsRefillMessage: String {
+        let tomorrow = Calendar.current.startOfDay(for: Date()).addingTimeInterval(86400)
+        let remaining = tomorrow.timeIntervalSince(Date())
+        let hours = Int(remaining) / 3600
+        let minutes = (Int(remaining) % 3600) / 60
+        return "You've run out of hearts. Hearts refill in \(hours)h \(minutes)m. You can keep trying this lesson, but be careful!"
+    }
+
     // MARK: - Logic
     private func checkAnswer() {
         guard !selectedAnswer.isEmpty else { return }
@@ -239,17 +283,33 @@ struct LessonView: View {
         }
         
         isCorrect = correct
+        let wasFirstAttempt = !hasAnsweredCurrent
         hasAnsweredCurrent = true
         showingResult = true
-        
+        user.recordCategoryAnswer(categoryId: category.id, correct: correct)
+
         if correct {
             correctCount += 1
-            if !hasAnsweredCurrent { firstTryCount += 1 }
-            let xp = XPService.shared.xpForCorrectAnswer(firstTry: true)
+            comboCount += 1
+            if wasFirstAttempt { firstTryCount += 1 }
+            let xp = XPService.shared.xpForCorrectAnswer(firstTry: wasFirstAttempt)
             xpEarned += xp
+            user.removeMissedQuestion(currentQuestion.id)
             HapticService.shared.success()
             SoundService.shared.play(.correct)
+
+            // Combo celebration
+            if comboCount >= 3 {
+                comboText = comboCount == 3 ? "3 in a row!" : comboCount == 4 ? "4 in a row!" : comboCount == 5 ? "5 in a row! On fire!" : "\(comboCount)x Combo!"
+                withAnimation(.spring(response: 0.4, dampingFraction: 0.6)) { showCombo = true }
+                HapticService.shared.success()
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
+                    withAnimation { showCombo = false }
+                }
+            }
         } else {
+            comboCount = 0
+            user.addMissedQuestion(currentQuestion.id)
             HapticService.shared.error()
             SoundService.shared.play(.wrong)
             user.loseHeart()
@@ -257,7 +317,7 @@ struct LessonView: View {
                 showNoHeartsAlert = true
             }
         }
-        
+
         withAnimation(.spring(response: 0.3)) { }
     }
     
@@ -272,6 +332,46 @@ struct LessonView: View {
         }
     }
     
+    // MARK: - Spaced Repetition & Difficulty Adaptation
+    private func buildQuestionList() -> [Question] {
+        // Sort by difficulty based on user's category accuracy
+        let accuracy = user.categoryAccuracy(for: category.id)
+        var questions: [Question]
+        if accuracy >= 0.85 {
+            // High accuracy: put harder questions first
+            questions = lesson.questions.sorted { q1, q2 in
+                difficultyRank(q1.difficulty) > difficultyRank(q2.difficulty)
+            }
+        } else if accuracy <= 0.5 && accuracy > 0 {
+            // Low accuracy: put easier questions first
+            questions = lesson.questions.sorted { q1, q2 in
+                difficultyRank(q1.difficulty) < difficultyRank(q2.difficulty)
+            }
+        } else {
+            questions = lesson.questions.shuffled()
+        }
+
+        // Inject up to 2 missed questions from other lessons for spaced repetition
+        let missedFromOtherLessons = LessonContentProvider.shared.missedQuestions(for: user.missedQuestionIds)
+            .filter { q in !lesson.questions.contains(where: { $0.id == q.id }) }
+            .prefix(2)
+        if !missedFromOtherLessons.isEmpty {
+            for (i, q) in missedFromOtherLessons.enumerated() {
+                let insertIndex = min(questions.count, 2 + i * 2)
+                questions.insert(q, at: insertIndex)
+            }
+        }
+        return questions
+    }
+
+    private func difficultyRank(_ difficulty: Difficulty) -> Int {
+        switch difficulty {
+        case .beginner: return 0
+        case .intermediate: return 1
+        case .advanced: return 2
+        }
+    }
+
     private func resetQuestionState() {
         selectedAnswer = ""
         hasAnsweredCurrent = false

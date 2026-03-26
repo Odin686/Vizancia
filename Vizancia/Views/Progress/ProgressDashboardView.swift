@@ -87,18 +87,40 @@ struct ProgressDashboardView: View {
                 HStack(spacing: 12) {
                     ForEach(AchievementData.all) { achievement in
                         let unlocked = user.unlockedAchievementIds.contains(achievement.id)
-                        VStack(spacing: 6) {
+                        let progress = achievement.progressInfo?(user)
+                        VStack(spacing: 4) {
                             Text(achievement.icon)
-                                .font(.system(size: 30))
+                                .font(.system(size: 28))
                                 .grayscale(unlocked ? 0 : 1)
                                 .opacity(unlocked ? 1 : 0.4)
                             Text(achievement.name)
                                 .font(.system(size: 10, weight: .medium, design: .rounded))
                                 .foregroundColor(unlocked ? .aiTextPrimary : .aiTextSecondary)
-                                .lineLimit(2)
+                                .lineLimit(1)
                                 .multilineTextAlignment(.center)
+                            if !unlocked, let p = progress, p.target > 0 {
+                                // Progress bar
+                                GeometryReader { geo in
+                                    ZStack(alignment: .leading) {
+                                        RoundedRectangle(cornerRadius: 2)
+                                            .fill(Color.aiPrimary.opacity(0.12))
+                                        RoundedRectangle(cornerRadius: 2)
+                                            .fill(Color.aiPrimary.opacity(0.5))
+                                            .frame(width: geo.size.width * min(Double(p.current) / Double(p.target), 1.0))
+                                    }
+                                }
+                                .frame(height: 4)
+                                .padding(.horizontal, 6)
+                                Text("\(p.current)/\(p.target)")
+                                    .font(.system(size: 9, weight: .medium, design: .rounded))
+                                    .foregroundColor(.aiTextSecondary)
+                            } else if unlocked {
+                                Image(systemName: "checkmark.circle.fill")
+                                    .font(.system(size: 12))
+                                    .foregroundColor(.aiSuccess)
+                            }
                         }
-                        .frame(width: 80, height: 90)
+                        .frame(width: 80, height: 100)
                         .background(
                             RoundedRectangle(cornerRadius: 12)
                                 .fill(unlocked ? Color.aiPrimary.opacity(0.08) : Color.aiCard)

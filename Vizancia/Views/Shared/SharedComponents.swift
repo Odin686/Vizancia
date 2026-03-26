@@ -35,13 +35,32 @@ struct XPProgressBar: View {
 // MARK: - Hearts Display
 struct HeartsDisplay: View {
     let hearts: Int
-    
+    var showTimer: Bool = false
+    var heartsLastRefill: Date = Date()
+
+    private var timeUntilRefill: String? {
+        guard showTimer, hearts < 5 else { return nil }
+        let tomorrow = Calendar.current.startOfDay(for: Date()).addingTimeInterval(86400)
+        let remaining = tomorrow.timeIntervalSince(Date())
+        guard remaining > 0 else { return nil }
+        let hours = Int(remaining) / 3600
+        let minutes = (Int(remaining) % 3600) / 60
+        return "\(hours)h \(minutes)m"
+    }
+
     var body: some View {
-        HStack(spacing: 2) {
-            ForEach(0..<5) { i in
-                Image(systemName: i < hearts ? "heart.fill" : "heart")
-                    .font(.system(size: 14))
-                    .foregroundColor(i < hearts ? .aiRed : .aiTextSecondary.opacity(0.4))
+        HStack(spacing: 4) {
+            HStack(spacing: 2) {
+                ForEach(0..<5) { i in
+                    Image(systemName: i < hearts ? "heart.fill" : "heart")
+                        .font(.system(size: 14))
+                        .foregroundColor(i < hearts ? .aiRed : .aiTextSecondary.opacity(0.4))
+                }
+            }
+            if let time = timeUntilRefill {
+                Text(time)
+                    .font(.system(size: 11, weight: .medium, design: .rounded))
+                    .foregroundColor(.aiTextSecondary)
             }
         }
     }
@@ -90,8 +109,9 @@ struct CategoryCard: View {
     let category: CategoryData
     let progress: CategoryProgress?
     let isLocked: Bool
+    var unlockHint: String?
     let onTap: () -> Void
-    
+
     private var completedLessons: Int { progress?.completedLessonIds.count ?? 0 }
     private var totalLessons: Int { category.lessons.count }
     private var progressFraction: Double {
@@ -134,7 +154,18 @@ struct CategoryCard: View {
                     .font(.aiCaption())
                     .foregroundColor(.aiTextSecondary)
                     .lineLimit(2)
-                
+
+                if isLocked, let hint = unlockHint {
+                    HStack(spacing: 4) {
+                        Image(systemName: "lock.fill")
+                            .font(.system(size: 9))
+                        Text(hint)
+                            .font(.system(size: 11, weight: .medium, design: .rounded))
+                    }
+                    .foregroundColor(.aiTextSecondary)
+                    .lineLimit(1)
+                }
+
                 if !isLocked {
                     GeometryReader { geo in
                         ZStack(alignment: .leading) {

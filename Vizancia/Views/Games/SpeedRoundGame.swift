@@ -11,13 +11,27 @@ struct SpeedRoundGame: View {
     @State private var isGameOver = false
     @State private var timer: Timer?
     @State private var allQuestions: [Question] = []
+    @State private var shuffledOptions: [String] = []
     @State private var flashColor: Color = .clear
-    
+    @State private var showTutorial = true
+
     var body: some View {
         ZStack {
             Color.aiBackground.ignoresSafeArea()
-            
-            if isGameOver {
+
+            if showTutorial {
+                GameTutorialView(
+                    title: "Speed Round",
+                    icon: "bolt.fill",
+                    color: .aiOrange,
+                    rules: [
+                        "Answer as many questions as you can in 60 seconds",
+                        "Each correct answer earns 1 point",
+                        "Questions come from all categories",
+                        "Tap fast — the clock is ticking!"
+                    ]
+                ) { showTutorial = false; startGame() }
+            } else if isGameOver {
                 gameOverView
             } else {
                 VStack(spacing: 16) {
@@ -56,7 +70,7 @@ struct SpeedRoundGame: View {
                             .fixedSize(horizontal: false, vertical: true)
                         
                         VStack(spacing: 10) {
-                            ForEach(q.options ?? [], id: \.self) { option in
+                            ForEach(shuffledOptions, id: \.self) { option in
                                 Button {
                                     checkAnswer(option, for: q)
                                 } label: {
@@ -89,7 +103,7 @@ struct SpeedRoundGame: View {
                 .allowsHitTesting(false)
                 .animation(.easeOut(duration: 0.3), value: flashColor)
         }
-        .onAppear { startGame() }
+        .onAppear { if !showTutorial { startGame() } }
         .onDisappear { timer?.invalidate() }
     }
     
@@ -153,6 +167,7 @@ struct SpeedRoundGame: View {
             allQuestions = LessonContentProvider.shared.allCategories.flatMap { $0.lessons }.flatMap { $0.questions }.filter { $0.type == .multipleChoice || $0.type == .trueFalse }.shuffled()
         }
         currentQ = allQuestions.removeFirst()
+        shuffledOptions = currentQ?.options.shuffled() ?? []
     }
     
     private func checkAnswer(_ answer: String, for question: Question) {
