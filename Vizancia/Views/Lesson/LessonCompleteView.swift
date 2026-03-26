@@ -14,6 +14,10 @@ struct LessonCompleteView: View {
     @State private var animateXP = false
     @State private var animateStars = false
     @State private var showAchievement: AchievementData?
+    @State private var showConfetti = false
+    @State private var showLevelUp = false
+    @State private var levelUpTitle = ""
+    @State private var levelUpLevel = 0
 
     private var nextLesson: LessonData? {
         LessonContentProvider.shared.nextLesson(after: lesson.id)
@@ -175,6 +179,38 @@ struct LessonCompleteView: View {
             SoundService.shared.play(.lessonComplete)
             HapticService.shared.success()
             checkNewAchievements()
+
+            // Confetti for perfect score
+            if isPerfect {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    showConfetti = true
+                }
+            }
+
+            // Check for level up
+            let oldXP = user.totalXP - xpEarned
+            if let newLevel = XPService.shared.didLevelUp(oldXP: oldXP, newXP: user.totalXP) {
+                levelUpLevel = newLevel.level
+                levelUpTitle = newLevel.title
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                    withAnimation(.spring(response: 0.5, dampingFraction: 0.7)) { showLevelUp = true }
+                    showConfetti = true
+                    HapticService.shared.success()
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+                        withAnimation { showLevelUp = false }
+                    }
+                }
+            }
+        }
+        .overlay {
+            ConfettiView(isActive: showConfetti)
+                .ignoresSafeArea()
+        }
+        .overlay {
+            if showLevelUp {
+                LevelUpBannerView(levelTitle: levelUpTitle, level: levelUpLevel)
+                    .transition(.scale.combined(with: .opacity))
+            }
         }
         .overlay(alignment: .top) {
             if let achievement = showAchievement {

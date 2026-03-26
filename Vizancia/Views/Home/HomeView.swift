@@ -6,6 +6,7 @@ struct HomeView: View {
     @State private var xpFloatText = ""
     @State private var showXPFloat = false
     @State private var showPracticeMistakes = false
+    @State private var showDailyChallenge = false
 
     private let provider = LessonContentProvider.shared
     
@@ -19,6 +20,11 @@ struct HomeView: View {
                     // Daily Goal
                     DailyGoalWidget(user: user)
                         .padding(.horizontal)
+
+                    // Daily Challenge
+                    if !user.hasCompletedDailyChallenge {
+                        dailyChallengeCard
+                    }
 
                     // Practice Mistakes
                     if !user.missedQuestionIds.isEmpty {
@@ -39,6 +45,9 @@ struct HomeView: View {
             }
             .fullScreenCover(isPresented: $showPracticeMistakes) {
                 PracticeMistakesView(user: user)
+            }
+            .fullScreenCover(isPresented: $showDailyChallenge) {
+                DailyChallengeView(user: user)
             }
         }
     }
@@ -98,6 +107,50 @@ struct HomeView: View {
         }
     }
     
+    // MARK: - Daily Challenge
+    private var dailyChallengeCard: some View {
+        Button { showDailyChallenge = true } label: {
+            HStack(spacing: 14) {
+                ZStack {
+                    RoundedRectangle(cornerRadius: 14)
+                        .fill(Color.aiWarning.opacity(0.15))
+                        .frame(width: 50, height: 50)
+                    Image(systemName: "star.circle.fill")
+                        .font(.title2)
+                        .foregroundColor(.aiWarning)
+                }
+                VStack(alignment: .leading, spacing: 3) {
+                    Text("Daily Challenge")
+                        .font(.aiHeadline())
+                        .foregroundColor(.aiTextPrimary)
+                    Text("Answer today's question for bonus XP!")
+                        .font(.aiCaption())
+                        .foregroundColor(.aiTextSecondary)
+                }
+                Spacer()
+                VStack(spacing: 2) {
+                    Text("+25")
+                        .font(.system(size: 16, weight: .bold, design: .rounded))
+                        .foregroundColor(.aiWarning)
+                    Text("XP")
+                        .font(.system(size: 10, weight: .medium, design: .rounded))
+                        .foregroundColor(.aiWarning)
+                }
+            }
+            .padding(16)
+            .background(
+                RoundedRectangle(cornerRadius: 16)
+                    .fill(Color.aiCard)
+                    .shadow(color: .black.opacity(0.05), radius: 6, y: 3)
+            )
+            .overlay(
+                RoundedRectangle(cornerRadius: 16)
+                    .stroke(Color.aiWarning.opacity(0.3), lineWidth: 1)
+            )
+        }
+        .padding(.horizontal)
+    }
+
     // MARK: - Practice Mistakes
     private var practiceMistakesCard: some View {
         Button { showPracticeMistakes = true } label: {

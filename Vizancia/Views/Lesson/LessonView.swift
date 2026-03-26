@@ -91,7 +91,7 @@ struct LessonView: View {
             .navigationBarHidden(true)
             .onAppear {
                 if shuffledQuestions.isEmpty {
-                    shuffledQuestions = lesson.questions.shuffled()
+                    shuffledQuestions = buildQuestionList()
                 }
             }
             .fullScreenCover(isPresented: $showLessonComplete) {
@@ -286,6 +286,7 @@ struct LessonView: View {
         let wasFirstAttempt = !hasAnsweredCurrent
         hasAnsweredCurrent = true
         showingResult = true
+        user.recordCategoryAnswer(categoryId: category.id, correct: correct)
 
         if correct {
             correctCount += 1
@@ -331,6 +332,46 @@ struct LessonView: View {
         }
     }
     
+    // MARK: - Spaced Repetition & Difficulty Adaptation
+    private func buildQuestionList() -> [Question] {
+        // Sort by difficulty based on user's category accuracy
+        let accuracy = user.categoryAccuracy(for: category.id)
+        var questions: [Question]
+        if accuracy >= 0.85 {
+            // High accuracy: put harder questions first
+            questions = lesson.questions.sorted { q1, q2 in
+                difficultyRank(q1.difficulty) > difficultyRank(q2.difficulty)
+            }
+        } else if accuracy <= 0.5 && accuracy > 0 {
+            // Low accuracy: put easier questions first
+            questions = lesson.questions.sorted { q1, q2 in
+                difficultyRank(q1.difficulty) < difficultyRank(q2.difficulty)
+            }
+        } else {
+            questions = lesson.questions.shuffled()
+        }
+
+        // Inject up to 2 missed questions from other lessons for spaced repetition
+        let missedFromOtherLessons = LessonContentProvider.shared.missedQuestions(for: user.missedQuestionIds)
+            .filter { q in !lesson.questions.contains(where: { $0.id == q.id }) }
+            .prefix(2)
+        if !missedFromOtherLessons.isEmpty {
+            for (i, q) in missedFromOtherLessons.enumerated() {
+                let insertIndex = min(questions.count, 2 + i * 2)
+                questions.insert(q, at: insertIndex)
+            }
+        }
+        return questions
+    }
+
+    private func difficultyRank(_ difficulty: Difficulty) -> Int {
+        switch difficulty {
+        case .beginner: return 0
+        case .intermediate: return 1
+        case .advanced: return 2
+        }
+    }
+
     private func resetQuestionState() {
         selectedAnswer = ""
         hasAnsweredCurrent = false
