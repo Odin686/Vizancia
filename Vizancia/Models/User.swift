@@ -31,11 +31,11 @@ class UserProfile {
     var todayXP: Int
     var activeDays: [String]
     var dailyGoalTierRaw: String
-    var missedQuestionIds: [String]
-    var lastDailyChallengeDate: String
-    var dailyChallengeStreak: Int
-    var categoryCorrectCounts: [String: Int]
-    var categoryQuestionCounts: [String: Int]
+    var missedQuestionIds: [String] = []
+    var lastDailyChallengeDate: String = ""
+    var dailyChallengeStreak: Int = 0
+    var categoryCorrectCounts: [String: Int] = [:]
+    var categoryQuestionCounts: [String: Int] = [:]
 
     init(
         name: String = "Learner",
