@@ -49,6 +49,10 @@
 		A10040 /* SharedComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10040; };
 		A10041 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B10041; };
 		A10042 /* LaunchScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10042; };
+		A10043 /* GameTutorialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10043; };
+		A10044 /* PracticeMistakesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10044; };
+		A10045 /* DailyChallengeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10045; };
+		A10046 /* ConfettiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10046; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -95,6 +99,10 @@
 		B10040 /* SharedComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedComponents.swift; sourceTree = "<group>"; };
 		B10041 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B10042 /* LaunchScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenView.swift; sourceTree = "<group>"; };
+		B10043 /* GameTutorialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameTutorialView.swift; sourceTree = "<group>"; };
+		B10044 /* PracticeMistakesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeMistakesView.swift; sourceTree = "<group>"; };
+		B10045 /* DailyChallengeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyChallengeView.swift; sourceTree = "<group>"; };
+		B10046 /* ConfettiView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfettiView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -219,6 +227,8 @@
 				B10028 /* LessonView.swift */,
 				B10029 /* QuestionViews.swift */,
 				B10030 /* LessonCompleteView.swift */,
+				B10044 /* PracticeMistakesView.swift */,
+				B10045 /* DailyChallengeView.swift */,
 			);
 			path = Lesson;
 			sourceTree = "<group>";
@@ -232,6 +242,7 @@
 				B10034 /* EthicsCourtGame.swift */,
 				B10035 /* PromptCraftGame.swift */,
 				B10036 /* BuzzwordBusterGame.swift */,
+				B10043 /* GameTutorialView.swift */,
 			);
 			path = Games;
 			sourceTree = "<group>";
@@ -265,6 +276,7 @@
 			children = (
 				B10040 /* SharedComponents.swift */,
 				B10042 /* LaunchScreenView.swift */,
+				B10046 /* ConfettiView.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -387,6 +399,10 @@
 				A10039 /* OnboardingView.swift in Sources */,
 				A10040 /* SharedComponents.swift in Sources */,
 				A10042 /* LaunchScreenView.swift in Sources */,
+				A10043 /* GameTutorialView.swift in Sources */,
+				A10044 /* PracticeMistakesView.swift in Sources */,
+				A10045 /* DailyChallengeView.swift in Sources */,
+				A10046 /* ConfettiView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
