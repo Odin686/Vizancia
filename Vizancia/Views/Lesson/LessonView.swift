@@ -46,7 +46,12 @@ struct LessonView: View {
                         VStack(spacing: 20) {
                             questionView
                                 .padding(.top, 20)
-                            
+                                .id(currentIndex)
+                                .transition(.asymmetric(
+                                    insertion: .move(edge: .trailing).combined(with: .opacity),
+                                    removal: .move(edge: .leading).combined(with: .opacity)
+                                ))
+
                             if showingResult {
                                 resultFeedback
                                     .transition(.move(edge: .bottom).combined(with: .opacity))
@@ -302,7 +307,7 @@ struct LessonView: View {
             if comboCount >= 3 {
                 comboText = comboCount == 3 ? "3 in a row!" : comboCount == 4 ? "4 in a row!" : comboCount == 5 ? "5 in a row! On fire!" : "\(comboCount)x Combo!"
                 withAnimation(.spring(response: 0.4, dampingFraction: 0.6)) { showCombo = true }
-                HapticService.shared.success()
+                HapticService.shared.comboPulse()
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
                     withAnimation { showCombo = false }
                 }

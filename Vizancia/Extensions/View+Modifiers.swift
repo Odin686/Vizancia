@@ -106,6 +106,20 @@ extension View {
         modifier(PulseModifier())
     }
     
+    func slideIn(from edge: Edge = .trailing, condition: Bool) -> some View {
+        self
+            .transition(.asymmetric(
+                insertion: .move(edge: edge).combined(with: .opacity),
+                removal: .move(edge: edge == .trailing ? .leading : .trailing).combined(with: .opacity)
+            ))
+    }
+
+    func bounceIn(delay: Double = 0) -> some View {
+        self
+            .transition(.scale(scale: 0.8).combined(with: .opacity))
+            .animation(.spring(response: 0.5, dampingFraction: 0.7).delay(delay), value: UUID())
+    }
+
     func glassMorphism(cornerRadius: CGFloat = 20) -> some View {
         self.background(
             RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)

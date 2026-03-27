@@ -64,7 +64,8 @@ struct LessonCompleteView: View {
                                     .font(.system(size: 36))
                                     .foregroundColor(i < stars ? .aiWarning : .aiTextSecondary.opacity(0.3))
                                     .scaleEffect(animateStars && i < stars ? 1 : 0.3)
-                                    .animation(.spring(response: 0.5, dampingFraction: 0.5).delay(Double(i) * 0.15 + 0.3), value: animateStars)
+                                    .rotationEffect(.degrees(animateStars && i < stars ? 0 : -30))
+                                    .animation(.spring(response: 0.5, dampingFraction: 0.5).delay(Double(i) * 0.2 + 0.3), value: animateStars)
                             }
                         }
                         
@@ -177,7 +178,7 @@ struct LessonCompleteView: View {
                 animateXP = true
             }
             SoundService.shared.play(.lessonComplete)
-            HapticService.shared.success()
+            if isPerfect { HapticService.shared.perfectScore() } else { HapticService.shared.success() }
             checkNewAchievements()
 
             // Confetti for perfect score
@@ -195,7 +196,7 @@ struct LessonCompleteView: View {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                     withAnimation(.spring(response: 0.5, dampingFraction: 0.7)) { showLevelUp = true }
                     showConfetti = true
-                    HapticService.shared.success()
+                    HapticService.shared.levelUp()
                     DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
                         withAnimation { showLevelUp = false }
                     }
