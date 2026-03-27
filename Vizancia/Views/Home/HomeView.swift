@@ -26,6 +26,11 @@ struct HomeView: View {
                         dailyChallengeCard
                     }
 
+                    // Recommended Next
+                    if let recommended = recommendedCategory {
+                        recommendedCard(recommended)
+                    }
+
                     // Practice Mistakes
                     if !user.missedQuestionIds.isEmpty {
                         practiceMistakesCard
@@ -80,17 +85,44 @@ struct HomeView: View {
     }
     
     // MARK: - Categories
+    private let tracks: [(name: String, icon: String, ids: [String])] = [
+        ("Foundations", "book.fill", ["ai_basics", "how_ai_learns", "ai_history"]),
+        ("Skills", "hammer.fill", ["generative_ai", "prompt_engineering", "ai_at_work"]),
+        ("Big Picture", "globe.americas.fill", ["ai_ethics", "ai_healthcare", "ai_creative_arts", "future_of_ai"]),
+    ]
+
     private var categoriesSection: some View {
-        VStack(alignment: .leading, spacing: 14) {
-            Text("Learning Paths")
-                .font(.aiTitle())
-                .padding(.horizontal)
-            
+        VStack(alignment: .leading, spacing: 24) {
+            ForEach(tracks, id: \.name) { track in
+                trackSection(track)
+            }
+        }
+    }
+
+    private func trackSection(_ track: (name: String, icon: String, ids: [String])) -> some View {
+        let categories = track.ids.compactMap { id in provider.category(byId: id) }
+        let completedCount = categories.filter { cat in
+            user.categoryProgressList.first { $0.categoryId == cat.id }?.isComplete ?? false
+        }.count
+
+        return VStack(alignment: .leading, spacing: 12) {
+            HStack(spacing: 8) {
+                Image(systemName: track.icon)
+                    .font(.system(size: 14))
+                    .foregroundColor(.aiPrimary)
+                Text(track.name)
+                    .font(.aiTitle())
+                Text("\(completedCount)/\(categories.count)")
+                    .font(.aiCaption())
+                    .foregroundColor(.aiTextSecondary)
+            }
+            .padding(.horizontal)
+
             LazyVGrid(columns: [
                 GridItem(.flexible(), spacing: 14),
                 GridItem(.flexible(), spacing: 14)
             ], spacing: 14) {
-                ForEach(provider.allCategories) { category in
+                ForEach(categories) { category in
                     let locked = isCategoryLocked(category)
                     let progress = user.categoryProgressList.first { $0.categoryId == category.id }
                     CategoryCard(
@@ -108,6 +140,68 @@ struct HomeView: View {
         }
     }
     
+    // MARK: - Recommended
+    private var recommendedCategory: CategoryData? {
+        // Experience-based starting suggestion
+        if user.totalLessonsCompleted == 0 {
+            switch user.experienceLevel {
+            case .beginner: return provider.category(byId: "ai_basics")
+            case .familiar: return provider.category(byId: "generative_ai")
+            case .regular: return provider.category(byId: "prompt_engineering")
+            case .builder: return provider.category(byId: "ai_ethics")
+            }
+        }
+        // Find first unlocked, incomplete category
+        for cat in provider.allCategories {
+            if !isCategoryLocked(cat) {
+                let progress = user.categoryProgressList.first { $0.categoryId == cat.id }
+                if !(progress?.isComplete ?? false) {
+                    return cat
+                }
+            }
+        }
+        return nil
+    }
+
+    private func recommendedCard(_ category: CategoryData) -> some View {
+        Button { showCategoryDetail = category } label: {
+            HStack(spacing: 14) {
+                ZStack {
+                    RoundedRectangle(cornerRadius: 14)
+                        .fill(Color.aiPrimary.opacity(0.15))
+                        .frame(width: 50, height: 50)
+                    Image(systemName: category.icon)
+                        .font(.title2)
+                        .foregroundColor(.aiPrimary)
+                }
+                VStack(alignment: .leading, spacing: 3) {
+                    Text("Recommended for You")
+                        .font(.system(size: 11, weight: .semibold, design: .rounded))
+                        .foregroundColor(.aiPrimary)
+                        .textCase(.uppercase)
+                        .tracking(0.5)
+                    Text(category.name)
+                        .font(.aiHeadline())
+                        .foregroundColor(.aiTextPrimary)
+                }
+                Spacer()
+                Image(systemName: "arrow.right.circle.fill")
+                    .font(.title3)
+                    .foregroundColor(.aiPrimary)
+            }
+            .padding(16)
+            .background(
+                RoundedRectangle(cornerRadius: 16)
+                    .fill(Color.aiPrimary.opacity(0.06))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 16)
+                            .stroke(Color.aiPrimary.opacity(0.2), lineWidth: 1)
+                    )
+            )
+        }
+        .padding(.horizontal)
+    }
+
     // MARK: - Daily Challenge
     private var dailyChallengeCard: some View {
         Button { showDailyChallenge = true } label: {
