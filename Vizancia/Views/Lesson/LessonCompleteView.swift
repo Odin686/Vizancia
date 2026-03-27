@@ -168,7 +168,27 @@ struct LessonCompleteView: View {
                         }
                     }
                     .padding(.horizontal)
-                    .padding(.bottom, 30)
+
+                    // What's Next suggestion
+                    if let tip = whatsNextTip {
+                        HStack(spacing: 10) {
+                            Image(systemName: "lightbulb.fill")
+                                .font(.system(size: 14))
+                                .foregroundColor(.aiWarning)
+                            Text(tip)
+                                .font(.system(size: 13, weight: .medium, design: .rounded))
+                                .foregroundColor(.aiTextSecondary)
+                        }
+                        .padding(12)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .background(
+                            RoundedRectangle(cornerRadius: 12)
+                                .fill(Color.aiWarning.opacity(0.06))
+                        )
+                        .padding(.horizontal)
+                    }
+
+                    Spacer(minLength: 30)
                 }
             }
         }
@@ -222,6 +242,19 @@ struct LessonCompleteView: View {
         }
     }
     
+    private var whatsNextTip: String? {
+        if correctCount < totalQuestions / 2 {
+            return "Try the Practice Mistakes mode on the home screen to review tricky questions!"
+        } else if isPerfect && nextLesson == nil {
+            return "Category complete! Try a mini-game to test your skills in a new way."
+        } else if isPerfect {
+            return "Perfect score! You're mastering \(category.name) — keep going!"
+        } else if user.gamesPlayed < 3 {
+            return "Have you tried the mini-games? They're a fun way to reinforce what you've learned."
+        }
+        return nil
+    }
+
     private func checkNewAchievements() {
         for achievement in AchievementData.all {
             if !user.unlockedAchievementIds.contains(achievement.id) && achievement.condition(user) {
