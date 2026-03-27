@@ -34,79 +34,92 @@ struct DailyChallengeView: View {
         }
     }
 
+    // MARK: - Challenge Header
+    private var challengeHeader: some View {
+        HStack {
+            Button { dismiss() } label: {
+                Image(systemName: "xmark")
+                    .font(.title3)
+                    .foregroundColor(.aiTextSecondary)
+            }
+            Spacer()
+            HStack(spacing: 6) {
+                Image(systemName: "star.circle.fill")
+                    .foregroundColor(.aiWarning)
+                Text("Daily Challenge")
+                    .font(.aiCaption())
+                    .foregroundColor(.aiWarning)
+            }
+            Spacer()
+            Text("+\(bonusXP) XP")
+                .font(.aiCaption())
+                .foregroundColor(.aiPrimary)
+        }
+        .padding(.horizontal)
+        .padding(.vertical, 12)
+    }
+
+    // MARK: - Challenge Title
+    private var challengeTitle: some View {
+        VStack(spacing: 8) {
+            Image(systemName: "star.circle.fill")
+                .font(.system(size: 44))
+                .foregroundColor(.aiWarning)
+            Text("Question of the Day")
+                .font(.aiTitle())
+                .foregroundColor(.aiTextPrimary)
+            if user.dailyChallengeStreak > 0 {
+                Text("Challenge streak: \(user.dailyChallengeStreak) days")
+                    .font(.aiCaption())
+                    .foregroundColor(.aiOrange)
+            }
+        }
+        .padding(.top, 10)
+    }
+
+    // MARK: - Check Button
+    private func checkButton(_ q: Question) -> some View {
+        VStack {
+            Divider()
+            Button {
+                checkAnswer(q)
+            } label: {
+                Text("Check")
+                    .font(.aiHeadline())
+                    .foregroundColor(.white)
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 16)
+                    .background(
+                        RoundedRectangle(cornerRadius: 14)
+                            .fill(selectedAnswer.isEmpty ? Color.aiWarning.opacity(0.4) : Color.aiWarning)
+                    )
+            }
+            .disabled(selectedAnswer.isEmpty)
+            .padding(.horizontal)
+            .padding(.bottom, 10)
+        }
+        .background(Color.aiBackground)
+    }
+
+    // MARK: - Challenge View
     private func challengeView(_ q: Question) -> some View {
         VStack(spacing: 0) {
-            // Header
-            HStack {
-                Button { dismiss() } label: {
-                    Image(systemName: "xmark")
-                        .font(.title3)
-                        .foregroundColor(.aiTextSecondary)
-                }
-                Spacer()
-                HStack(spacing: 6) {
-                    Image(systemName: "star.circle.fill")
-                        .foregroundColor(.aiWarning)
-                    Text("Daily Challenge")
-                        .font(.aiCaption())
-                        .foregroundColor(.aiWarning)
-                }
-                Spacer()
-                Text("+\(bonusXP) XP")
-                    .font(.aiCaption())
-                    .foregroundColor(.aiPrimary)
-            }
-            .padding(.horizontal)
-            .padding(.vertical, 12)
+            challengeHeader
 
-            // Challenge question
             ScrollView(showsIndicators: false) {
                 VStack(spacing: 20) {
-                    VStack(spacing: 8) {
-                        Image(systemName: "star.circle.fill")
-                            .font(.system(size: 44))
-                            .foregroundColor(.aiWarning)
-                        Text("Question of the Day")
-                            .font(.aiTitle())
-                            .foregroundColor(.aiTextPrimary)
-                        if user.dailyChallengeStreak > 0 {
-                            Text("Challenge streak: \(user.dailyChallengeStreak) days")
-                                .font(.aiCaption())
-                                .foregroundColor(.aiOrange)
-                        }
-                    }
-                    .padding(.top, 10)
-
+                    challengeTitle
                     questionContent(q)
                 }
                 .padding(.horizontal)
                 .padding(.bottom, 100)
             }
 
-            // Check button
-            VStack {
-                Divider()
-                Button {
-                    checkAnswer(q)
-                } label: {
-                    Text("Check")
-                        .font(.aiHeadline())
-                        .foregroundColor(.white)
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, 16)
-                        .background(
-                            RoundedRectangle(cornerRadius: 14)
-                                .fill(selectedAnswer.isEmpty ? AnyShapeStyle(Color.aiWarning.opacity(0.4)) : AnyShapeStyle(Color.aiWarning))
-                        )
-                }
-                .disabled(selectedAnswer.isEmpty)
-                .padding(.horizontal)
-                .padding(.bottom, 10)
-            }
-            .background(Color.aiBackground)
+            checkButton(q)
         }
     }
 
+    // MARK: - Result View
     private func resultView(_ q: Question) -> some View {
         VStack(spacing: 24) {
             Spacer()
@@ -158,6 +171,7 @@ struct DailyChallengeView: View {
         }
     }
 
+    // MARK: - Question Content
     @ViewBuilder
     private func questionContent(_ question: Question) -> some View {
         switch question.type {
@@ -174,8 +188,8 @@ struct DailyChallengeView: View {
         }
     }
 
+    // MARK: - Logic
     private func loadChallenge() {
-        // Deterministic daily question based on date seed
         let allQuestions = LessonContentProvider.shared.allCategories
             .flatMap { $0.lessons }
             .flatMap { $0.questions }
@@ -189,15 +203,7 @@ struct DailyChallengeView: View {
     private func checkAnswer(_ q: Question) {
         guard !selectedAnswer.isEmpty else { return }
 
-        let correct: Bool
-        if q.type == .sortOrder {
-            correct = selectedAnswer == q.correctAnswers.joined(separator: "||")
-        } else if q.type == .matchPairs {
-            correct = selectedAnswer == "matched"
-        } else {
-            correct = selectedAnswer == q.correctAnswer
-        }
-
+        let correct = selectedAnswer == q.correctAnswer
         isCorrect = correct
         hasAnswered = true
 

@@ -402,7 +402,7 @@ struct SortOrderView: View {
                         .font(.aiCaption())
                         .foregroundColor(.aiTextSecondary)
                     
-                    let remaining = (question.options ?? []).filter { !items.contains($0) }
+                    let remaining = question.options.filter { !items.contains($0) }
                     ForEach(remaining, id: \.self) { option in
                         Button {
                             items.append(option)
