@@ -36,6 +36,9 @@ class UserProfile {
     var dailyChallengeStreak: Int = 0
     var categoryCorrectCounts: [String: Int] = [:]
     var categoryQuestionCounts: [String: Int] = [:]
+    var experienceLevelRaw: String = "beginner"
+    var userRoleRaw: String = "curious"
+    var userName: String = ""
 
     init(
         name: String = "Learner",
@@ -179,6 +182,40 @@ class UserProfile {
 
     var hasCompletedDailyChallenge: Bool {
         lastDailyChallengeDate == Date().dateKey
+    }
+
+    enum ExperienceLevel: String, CaseIterable {
+        case beginner, familiar, regular, builder
+        var displayName: String {
+            switch self {
+            case .beginner: return "Beginner"
+            case .familiar: return "Familiar"
+            case .regular: return "Regular User"
+            case .builder: return "Builder"
+            }
+        }
+    }
+
+    enum UserRole: String, CaseIterable {
+        case curious, student, professional, fun
+        var displayName: String {
+            switch self {
+            case .curious: return "Curiosity"
+            case .student: return "School / Study"
+            case .professional: return "Career"
+            case .fun: return "Just for Fun"
+            }
+        }
+    }
+
+    var experienceLevel: ExperienceLevel {
+        get { ExperienceLevel(rawValue: experienceLevelRaw) ?? .beginner }
+        set { experienceLevelRaw = newValue.rawValue }
+    }
+
+    var userRole: UserRole {
+        get { UserRole(rawValue: userRoleRaw) ?? .curious }
+        set { userRoleRaw = newValue.rawValue }
     }
 
     func completeDailyChallenge(xp: Int) {

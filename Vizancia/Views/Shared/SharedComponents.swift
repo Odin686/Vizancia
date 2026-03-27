@@ -110,12 +110,36 @@ struct CategoryCard: View {
     let progress: CategoryProgress?
     let isLocked: Bool
     var unlockHint: String?
+    var categoryAccuracy: Double = 0
     let onTap: () -> Void
 
     private var completedLessons: Int { progress?.completedLessonIds.count ?? 0 }
     private var totalLessons: Int { category.lessons.count }
     private var progressFraction: Double {
         totalLessons > 0 ? Double(completedLessons) / Double(totalLessons) : 0
+    }
+
+    private var masteryTier: MasteryTier {
+        guard completedLessons == totalLessons, totalLessons > 0 else { return .none }
+        let stars = progress?.lessonStars ?? [:]
+        let totalStars = stars.values.reduce(0, +)
+        let maxStars = totalLessons * 3
+        let starRatio = maxStars > 0 ? Double(totalStars) / Double(maxStars) : 0
+
+        if starRatio >= 0.95 && categoryAccuracy >= 0.9 { return .gold }
+        if starRatio >= 0.7 && categoryAccuracy >= 0.8 { return .silver }
+        return .bronze
+    }
+
+    private var masteryBadge: some View {
+        HStack(spacing: 3) {
+            Image(systemName: masteryTier.icon)
+                .font(.system(size: 14))
+                .foregroundColor(masteryTier.color)
+            Text(masteryTier.label)
+                .font(.system(size: 10, weight: .bold, design: .rounded))
+                .foregroundColor(masteryTier.color)
+        }
     }
     
     var body: some View {
@@ -135,9 +159,7 @@ struct CategoryCard: View {
                         Image(systemName: "lock.fill")
                             .foregroundColor(.aiTextSecondary)
                     } else if completedLessons == totalLessons && totalLessons > 0 {
-                        Image(systemName: "checkmark.circle.fill")
-                            .foregroundColor(.aiSuccess)
-                            .font(.title3)
+                        masteryBadge
                     } else {
                         Text("\(completedLessons)/\(totalLessons)")
                             .font(.aiCaption())
@@ -387,5 +409,37 @@ struct StatCard: View {
                 .fill(Color.aiCard)
                 .shadow(color: .black.opacity(0.04), radius: 4, y: 2)
         )
+    }
+}
+
+// MARK: - Mastery Tier
+enum MasteryTier {
+    case none, bronze, silver, gold
+
+    var label: String {
+        switch self {
+        case .none: return ""
+        case .bronze: return "Bronze"
+        case .silver: return "Silver"
+        case .gold: return "Gold"
+        }
+    }
+
+    var icon: String {
+        switch self {
+        case .none: return "checkmark.circle.fill"
+        case .bronze: return "medal.fill"
+        case .silver: return "medal.fill"
+        case .gold: return "trophy.fill"
+        }
+    }
+
+    var color: Color {
+        switch self {
+        case .none: return .aiSuccess
+        case .bronze: return Color(red: 0.8, green: 0.5, blue: 0.2)
+        case .silver: return Color(red: 0.6, green: 0.65, blue: 0.7)
+        case .gold: return Color(red: 1.0, green: 0.84, blue: 0.0)
+        }
     }
 }

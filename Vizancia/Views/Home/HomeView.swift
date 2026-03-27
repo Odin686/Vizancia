@@ -16,7 +16,7 @@ struct HomeView: View {
                 VStack(spacing: 20) {
                     // Header Stats
                     headerSection
-                    
+
                     // Daily Goal
                     DailyGoalWidget(user: user)
                         .padding(.horizontal)
@@ -97,7 +97,8 @@ struct HomeView: View {
                         category: category,
                         progress: progress,
                         isLocked: locked,
-                        unlockHint: unlockHint(for: category)
+                        unlockHint: unlockHint(for: category),
+                        categoryAccuracy: user.categoryAccuracy(for: category.id)
                     ) {
                         showCategoryDetail = category
                     }
