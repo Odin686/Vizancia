@@ -173,10 +173,10 @@ enum DailyGoalTier: String, Codable, CaseIterable {
     
     var xpTarget: Int {
         switch self {
-        case .casual: return 30
-        case .regular: return 60
-        case .serious: return 100
-        case .intense: return 150
+        case .casual: return 200
+        case .regular: return 400
+        case .serious: return 600
+        case .intense: return 1000
         }
     }
     
