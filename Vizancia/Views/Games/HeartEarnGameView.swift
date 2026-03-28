@@ -152,7 +152,7 @@ struct HeartEarnGameView: View {
     }
 
     private func nextTerm() {
-        guard !terms.isEmpty else { terms = JargonTerm.all.shuffled() }
+        if terms.isEmpty { terms = JargonTerm.all.shuffled() }
         let term = terms.removeFirst()
         currentTerm = term
         var options = [term.definition]
