@@ -55,6 +55,7 @@
 		A10046 /* ConfettiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10046; };
 		A10047 /* AIPairsGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10047; };
 		A10048 /* FunFacts.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10048; };
+		A10049 /* VizMascotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10049; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -107,6 +108,7 @@
 		B10046 /* ConfettiView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfettiView.swift; sourceTree = "<group>"; };
 		B10047 /* AIPairsGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIPairsGame.swift; sourceTree = "<group>"; };
 		B10048 /* FunFacts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FunFacts.swift; sourceTree = "<group>"; };
+		B10049 /* VizMascotView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VizMascotView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -283,6 +285,7 @@
 				B10040 /* SharedComponents.swift */,
 				B10042 /* LaunchScreenView.swift */,
 				B10046 /* ConfettiView.swift */,
+				B10049 /* VizMascotView.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -411,6 +414,7 @@
 				A10046 /* ConfettiView.swift in Sources */,
 				A10047 /* AIPairsGame.swift in Sources */,
 				A10048 /* FunFacts.swift in Sources */,
+				A10049 /* VizMascotView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
