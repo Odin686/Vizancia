@@ -25,6 +25,7 @@ struct LessonView: View {
     @State private var comboText = ""
     @State private var showFunFact = false
     @State private var currentFunFact = ""
+    @State private var showHeartGame = false
     
     @State private var shuffledQuestions: [Question] = []
     private var questions: [Question] { shuffledQuestions.isEmpty ? lesson.questions : shuffledQuestions }
@@ -57,10 +58,18 @@ struct LessonView: View {
                             if showingResult {
                                 resultFeedback
                                     .transition(.move(edge: .bottom).combined(with: .opacity))
+
+                                Text("Tap anywhere to continue")
+                                    .font(.system(size: 12, weight: .medium, design: .rounded))
+                                    .foregroundColor(.aiTextSecondary.opacity(0.5))
+                                    .padding(.top, 4)
                             }
                         }
                         .padding(.horizontal)
                         .padding(.bottom, 100)
+                    }
+                    .onTapGesture {
+                        if showingResult { moveToNext() }
                     }
                     
                     // Bottom action
@@ -149,10 +158,14 @@ struct LessonView: View {
                 )
             }
             .alert("No Hearts Left!", isPresented: $showNoHeartsAlert) {
-                Button("Leave Lesson") { dismiss() }
+                Button("Play for Hearts") { showHeartGame = true }
                 Button("Keep Trying", role: .cancel) { }
+                Button("Leave Lesson", role: .destructive) { dismiss() }
             } message: {
-                Text(heartsRefillMessage)
+                Text("Score 3+ in Jargon Match to earn a heart back!")
+            }
+            .fullScreenCover(isPresented: $showHeartGame) {
+                HeartEarnGameView(user: user)
             }
         }
     }

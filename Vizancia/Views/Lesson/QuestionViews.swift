@@ -453,7 +453,10 @@ struct OptionButton: View {
     let isWrong: Bool
     let disabled: Bool
     let action: () -> Void
-    
+
+    @State private var shakeOffset: CGFloat = 0
+    @State private var pulseScale: CGFloat = 1.0
+
     var body: some View {
         Button(action: action) {
             HStack {
@@ -480,7 +483,24 @@ struct OptionButton: View {
                     )
             )
         }
+        .scaleEffect(isSelected && !isCorrect && !isWrong ? 1.03 : pulseScale)
+        .offset(x: shakeOffset)
+        .animation(.spring(response: 0.3, dampingFraction: 0.6), value: isSelected)
         .disabled(disabled)
+        .onChange(of: isCorrect) { _, correct in
+            if correct {
+                withAnimation(.easeInOut(duration: 0.15)) { pulseScale = 1.06 }
+                withAnimation(.easeInOut(duration: 0.15).delay(0.15)) { pulseScale = 1.0 }
+            }
+        }
+        .onChange(of: isWrong) { _, wrong in
+            if wrong {
+                withAnimation(.interpolatingSpring(stiffness: 600, damping: 10)) { shakeOffset = -8 }
+                withAnimation(.interpolatingSpring(stiffness: 600, damping: 10).delay(0.08)) { shakeOffset = 8 }
+                withAnimation(.interpolatingSpring(stiffness: 600, damping: 10).delay(0.16)) { shakeOffset = -4 }
+                withAnimation(.interpolatingSpring(stiffness: 600, damping: 10).delay(0.24)) { shakeOffset = 0 }
+            }
+        }
     }
     
     private var textColor: Color {

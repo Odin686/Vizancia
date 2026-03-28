@@ -18,6 +18,7 @@ struct LessonCompleteView: View {
     @State private var showLevelUp = false
     @State private var levelUpTitle = ""
     @State private var levelUpLevel = 0
+    @State private var displayedXP = 0
 
     private var nextLesson: LessonData? {
         LessonContentProvider.shared.nextLesson(after: lesson.id)
@@ -78,13 +79,14 @@ struct LessonCompleteView: View {
                             .foregroundColor(.aiTextSecondary)
                     }
                     
-                    // XP Earned
+                    // XP Earned (counting animation)
                     VStack(spacing: 6) {
-                        Text("+\(xpEarned)")
+                        Text("+\(displayedXP)")
                             .font(.system(size: 48, weight: .bold, design: .rounded))
                             .foregroundColor(.aiPrimary)
                             .scaleEffect(animateXP ? 1 : 0.5)
                             .animation(.spring(response: 0.5, dampingFraction: 0.4).delay(0.6), value: animateXP)
+                            .contentTransition(.numericText())
                         Text("XP Earned")
                             .font(.aiCaption())
                             .foregroundColor(.aiTextSecondary)
@@ -197,6 +199,10 @@ struct LessonCompleteView: View {
                 animateStars = true
                 animateXP = true
             }
+            // XP counting animation
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
+                countUpXP()
+            }
             if isPerfect {
                 SoundService.shared.play(.perfectFanfare)
                 HapticService.shared.perfectScore()
@@ -248,6 +254,22 @@ struct LessonCompleteView: View {
         }
     }
     
+    private func countUpXP() {
+        let steps = min(xpEarned, 20)
+        let stepValue = max(xpEarned / steps, 1)
+        for i in 0..<steps {
+            DispatchQueue.main.asyncAfter(deadline: .now() + Double(i) * 0.04) {
+                withAnimation(.easeOut(duration: 0.05)) {
+                    displayedXP = min((i + 1) * stepValue, xpEarned)
+                }
+            }
+        }
+        // Ensure final value is exact
+        DispatchQueue.main.asyncAfter(deadline: .now() + Double(steps) * 0.04) {
+            withAnimation { displayedXP = xpEarned }
+        }
+    }
+
     private var whatsNextTip: String? {
         if correctCount < totalQuestions / 2 {
             return "Try the Practice Mistakes mode on the home screen to review tricky questions!"

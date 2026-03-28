@@ -266,14 +266,19 @@ struct LessonRow: View {
                     Text(lesson.title)
                         .font(.aiBody())
                         .foregroundColor(isLocked ? .aiTextSecondary : .aiTextPrimary)
-                    Text(lesson.description)
-                        .font(.aiCaption())
-                        .foregroundColor(.aiTextSecondary)
-                        .lineLimit(1)
+                    HStack(spacing: 6) {
+                        Text(lesson.description)
+                            .font(.aiCaption())
+                            .foregroundColor(.aiTextSecondary)
+                            .lineLimit(1)
+                        Text("~\(max(lesson.questionCount / 2, 2)) min")
+                            .font(.system(size: 10, weight: .medium, design: .rounded))
+                            .foregroundColor(.aiTextSecondary.opacity(0.6))
+                    }
                 }
-                
+
                 Spacer()
-                
+
                 if isCompleted {
                     HStack(spacing: 2) {
                         ForEach(0..<3) { i in
