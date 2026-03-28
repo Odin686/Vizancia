@@ -108,7 +108,7 @@ struct ProfileView: View {
                     HStack {
                         Label("Version", systemImage: "info.circle")
                         Spacer()
-                        Text("1.0.0").foregroundColor(.aiTextSecondary)
+                        Text("2.0.0").foregroundColor(.aiTextSecondary)
                     }
                     Link(destination: URL(string: "https://odin686.github.io/Vizancia/privacy-policy.html")!) {
                         Label("Privacy Policy", systemImage: "hand.raised.fill")
@@ -117,7 +117,7 @@ struct ProfileView: View {
                         Label("Terms of Service", systemImage: "doc.text.fill")
                     }
                     Button {
-                        if let url = URL(string: "mailto:info@vizancia.com") {
+                        if let url = URL(string: "mailto:info@vizancia.ca") {
                             UIApplication.shared.open(url)
                         }
                     } label: {
