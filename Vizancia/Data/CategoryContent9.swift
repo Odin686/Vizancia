@@ -2,8 +2,8 @@ import Foundation
 
 struct CategoryContent9 {
     static let aiHistory = CategoryData(
-        id: "ai_history", name: "AI History & Pioneers", icon: "clock.arrow.circlepath", colorName: "aiBrown",
-        description: "Turing, McCarthy, AI winters, AlphaGo, ChatGPT moment",
+        id: "ai_history", name: "The Story of AI", icon: "clock.arrow.circlepath", colorName: "aiBrown",
+        description: "The people and breakthroughs that built AI",
         lessons: [lesson1, lesson2, lesson3, lesson4, lesson5, lesson6], order: 8,
         unlockRequirement: .completeCategoryMinimum("how_ai_learns")
     )

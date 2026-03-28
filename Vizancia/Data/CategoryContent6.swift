@@ -2,8 +2,8 @@ import Foundation
 
 struct CategoryContent6 {
     static let aiAtWork = CategoryData(
-        id: "ai_at_work", name: "AI at Work", icon: "briefcase", colorName: "aiGreen",
-        description: "Automation, copilots, AI in hiring, productivity tools, job impact",
+        id: "ai_at_work", name: "AI in Your Life", icon: "briefcase", colorName: "aiGreen",
+        description: "How AI shows up in school, games, and everyday life",
         lessons: [lesson1, lesson2, lesson3, lesson4, lesson5, lesson6], order: 5,
         unlockRequirement: .completeCategoryMinimum("how_ai_learns")
     )

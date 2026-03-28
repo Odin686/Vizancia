@@ -2,8 +2,8 @@ import Foundation
 
 struct CategoryContent10 {
     static let futureOfAI = CategoryData(
-        id: "future_of_ai", name: "Future of AI", icon: "arrow.trianglehead.merge", colorName: "aiCyan",
-        description: "AGI, superintelligence, AI governance, societal transformation",
+        id: "future_of_ai", name: "AI Tomorrow", icon: "arrow.trianglehead.merge", colorName: "aiCyan",
+        description: "What the future of AI looks like for you",
         lessons: [lesson1, lesson2, lesson3, lesson4, lesson5, lesson6], order: 9,
         unlockRequirement: .completeCategoryMinimum("how_ai_learns")
     )

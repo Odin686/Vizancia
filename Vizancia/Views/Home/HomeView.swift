@@ -7,6 +7,8 @@ struct HomeView: View {
     @State private var showXPFloat = false
     @State private var showPracticeMistakes = false
     @State private var showDailyChallenge = false
+    @State private var showQuickPlay: LessonData?
+    @State private var quickPlayCategory: CategoryData?
 
     private let provider = LessonContentProvider.shared
     
@@ -29,6 +31,9 @@ struct HomeView: View {
                     if !user.hasCompletedDailyChallenge {
                         dailyChallengeCard
                     }
+
+                    // Quick Play
+                    quickPlayButton
 
                     // Recommended Next
                     if let recommended = recommendedCategory {
@@ -57,6 +62,11 @@ struct HomeView: View {
             }
             .fullScreenCover(isPresented: $showDailyChallenge) {
                 DailyChallengeView(user: user)
+            }
+            .fullScreenCover(item: $showQuickPlay) { lesson in
+                if let cat = quickPlayCategory {
+                    LessonView(user: user, lesson: lesson, category: cat)
+                }
             }
         }
     }
@@ -143,10 +153,10 @@ struct HomeView: View {
     
     // MARK: - Categories
     private let tracks: [(name: String, icon: String, ids: [String])] = [
-        ("Foundations", "book.fill", ["ai_basics", "how_ai_learns", "ai_history"]),
-        ("Skills", "hammer.fill", ["generative_ai", "prompt_engineering", "ai_at_work"]),
-        ("Deep Dive", "magnifyingglass", ["ai_vocabulary", "ai_under_hood", "ai_tools"]),
-        ("Big Picture", "globe.americas.fill", ["ai_ethics", "ai_healthcare", "ai_creative_arts", "future_of_ai"]),
+        ("Start Here", "star.fill", ["ai_basics", "how_ai_learns", "ai_history"]),
+        ("Level Up", "arrow.up.circle.fill", ["generative_ai", "prompt_engineering", "ai_at_work"]),
+        ("Go Deeper", "magnifyingglass", ["ai_vocabulary", "ai_under_hood", "ai_tools"]),
+        ("Explore", "globe.americas.fill", ["ai_ethics", "ai_healthcare", "ai_creative_arts", "future_of_ai"]),
     ]
 
     private var categoriesSection: some View {
@@ -198,6 +208,54 @@ struct HomeView: View {
         }
     }
     
+    // MARK: - Quick Play
+    private var quickPlayButton: some View {
+        Button {
+            startQuickPlay()
+        } label: {
+            HStack(spacing: 12) {
+                Image(systemName: "play.circle.fill")
+                    .font(.system(size: 32))
+                    .foregroundColor(.white)
+                VStack(alignment: .leading, spacing: 2) {
+                    Text("Quick Play")
+                        .font(.system(size: 16, weight: .bold, design: .rounded))
+                        .foregroundColor(.white)
+                    Text("Jump into a random lesson")
+                        .font(.system(size: 12, weight: .medium, design: .rounded))
+                        .foregroundColor(.white.opacity(0.8))
+                }
+                Spacer()
+                Image(systemName: "shuffle")
+                    .font(.system(size: 16, weight: .semibold))
+                    .foregroundColor(.white.opacity(0.7))
+            }
+            .padding(16)
+            .background(
+                RoundedRectangle(cornerRadius: 16)
+                    .fill(Color.aiPrimaryGradient)
+                    .shadow(color: .aiPrimary.opacity(0.3), radius: 8, y: 4)
+            )
+        }
+        .padding(.horizontal)
+    }
+
+    private func startQuickPlay() {
+        let unlocked = provider.allCategories.filter { !isCategoryLocked($0) }
+        guard let cat = unlocked.randomElement() else { return }
+        let progress = user.categoryProgressList.first { $0.categoryId == cat.id }
+        // Pick first incomplete lesson, or random if all done
+        let incomplete = cat.lessons.first { lesson in
+            !(progress?.completedLessonIds.contains(lesson.id) ?? false)
+        }
+        let lesson = incomplete ?? cat.lessons.randomElement()
+        guard let selectedLesson = lesson else { return }
+        quickPlayCategory = cat
+        showQuickPlay = selectedLesson
+        HapticService.shared.mediumTap()
+        SoundService.shared.play(.whoosh)
+    }
+
     // MARK: - Recommended
     private var recommendedCategory: CategoryData? {
         // Experience-based starting suggestion

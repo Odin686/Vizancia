@@ -2,8 +2,8 @@ import Foundation
 
 struct CategoryContent7 {
     static let aiHealthcare = CategoryData(
-        id: "ai_healthcare", name: "AI in Healthcare", icon: "heart.text.square", colorName: "aiTeal",
-        description: "Medical imaging, drug discovery, diagnostics, patient data privacy",
+        id: "ai_healthcare", name: "AI Helping People", icon: "heart.text.square", colorName: "aiTeal",
+        description: "How AI helps doctors, scientists, and patients",
         lessons: [lesson1, lesson2, lesson3, lesson4, lesson5, lesson6], order: 6,
         unlockRequirement: .completeCategoryMinimum("how_ai_learns")
     )
