@@ -158,10 +158,7 @@ struct CategoryCard: View {
                 HStack {
                     ZStack {
                         Circle()
-                            .fill(
-                                isLocked ? Color.aiTextSecondary.opacity(0.1) :
-                                LinearGradient(colors: [categoryColor, categoryColor.opacity(0.7)], startPoint: .topLeading, endPoint: .bottomTrailing)
-                            )
+                            .fill(categoryColor.opacity(isLocked ? 0.1 : 1.0))
                             .frame(width: 44, height: 44)
                         Image(systemName: category.icon)
                             .font(.system(size: 20))
