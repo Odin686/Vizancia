@@ -64,6 +64,7 @@
 		A10055 /* AITimelineGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10055; };
 		A10056 /* FactOrFictionGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10056; };
 		A10057 /* WhoMadeItGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10057; };
+		A10058 /* LearnView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10058; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -125,6 +126,7 @@
 		B10055 /* AITimelineGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AITimelineGame.swift; sourceTree = "<group>"; };
 		B10056 /* FactOrFictionGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FactOrFictionGame.swift; sourceTree = "<group>"; };
 		B10057 /* WhoMadeItGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhoMadeItGame.swift; sourceTree = "<group>"; };
+		B10058 /* LearnView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearnView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -243,6 +245,7 @@
 			children = (
 				B10026 /* HomeView.swift */,
 				B10027 /* CategoryDetailView.swift */,
+				B10058 /* LearnView.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -447,6 +450,7 @@
 				A10055 /* AITimelineGame.swift in Sources */,
 				A10056 /* FactOrFictionGame.swift in Sources */,
 				A10057 /* WhoMadeItGame.swift in Sources */,
+				A10058 /* LearnView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

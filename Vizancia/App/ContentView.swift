@@ -3,27 +3,27 @@ import SwiftUI
 struct ContentView: View {
     @Bindable var user: UserProfile
     @State private var selectedTab = 0
-    
+
     var body: some View {
         TabView(selection: $selectedTab) {
             HomeView(user: user)
                 .tabItem {
-                    Label("Learn", systemImage: "house.fill")
+                    Label("Home", systemImage: "house.fill")
                 }
                 .tag(0)
-            
+
+            LearnView(user: user)
+                .tabItem {
+                    Label("Learn", systemImage: "book.fill")
+                }
+                .tag(1)
+
             GamesHubView(user: user)
                 .tabItem {
                     Label("Games", systemImage: "gamecontroller.fill")
                 }
-                .tag(1)
-            
-            ProgressDashboardView(user: user)
-                .tabItem {
-                    Label("Progress", systemImage: "chart.bar.fill")
-                }
                 .tag(2)
-            
+
             ProfileView(user: user)
                 .tabItem {
                     Label("Profile", systemImage: "person.fill")
