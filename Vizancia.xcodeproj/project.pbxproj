@@ -55,7 +55,7 @@
 		A10046 /* ConfettiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10046; };
 		A10047 /* AIPairsGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10047; };
 		A10048 /* FunFacts.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10048; };
-		A10049 /* VizMascotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10049; };
+
 		A10050 /* CategoryContent11.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10050; };
 		A10051 /* CategoryContent12.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10051; };
 		A10052 /* CategoryContent13.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10052; };
@@ -113,7 +113,7 @@
 		B10046 /* ConfettiView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfettiView.swift; sourceTree = "<group>"; };
 		B10047 /* AIPairsGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIPairsGame.swift; sourceTree = "<group>"; };
 		B10048 /* FunFacts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FunFacts.swift; sourceTree = "<group>"; };
-		B10049 /* VizMascotView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VizMascotView.swift; sourceTree = "<group>"; };
+
 		B10050 /* CategoryContent11.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryContent11.swift; sourceTree = "<group>"; };
 		B10051 /* CategoryContent12.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryContent12.swift; sourceTree = "<group>"; };
 		B10052 /* CategoryContent13.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryContent13.swift; sourceTree = "<group>"; };
@@ -300,7 +300,7 @@
 				B10040 /* SharedComponents.swift */,
 				B10042 /* LaunchScreenView.swift */,
 				B10046 /* ConfettiView.swift */,
-				B10049 /* VizMascotView.swift */,
+
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -429,7 +429,7 @@
 				A10046 /* ConfettiView.swift in Sources */,
 				A10047 /* AIPairsGame.swift in Sources */,
 				A10048 /* FunFacts.swift in Sources */,
-				A10049 /* VizMascotView.swift in Sources */,
+
 				A10050 /* CategoryContent11.swift in Sources */,
 				A10051 /* CategoryContent12.swift in Sources */,
 				A10052 /* CategoryContent13.swift in Sources */,
