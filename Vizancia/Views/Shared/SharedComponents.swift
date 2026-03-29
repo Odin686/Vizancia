@@ -142,36 +142,62 @@ struct CategoryCard: View {
         }
     }
     
+    private var isNew: Bool {
+        completedLessons == 0 && !isLocked
+    }
+
+    private var isComplete: Bool {
+        completedLessons == totalLessons && totalLessons > 0
+    }
+
     var body: some View {
         Button(action: onTap) {
-            VStack(alignment: .leading, spacing: 12) {
+            VStack(alignment: .leading, spacing: 10) {
                 HStack {
                     ZStack {
                         Circle()
                             .fill(categoryColor.opacity(0.15))
-                            .frame(width: 48, height: 48)
+                            .frame(width: 44, height: 44)
                         Image(systemName: category.icon)
-                            .font(.system(size: 22))
+                            .font(.system(size: 20))
                             .foregroundColor(isLocked ? .aiTextSecondary : categoryColor)
                     }
                     Spacer()
                     if isLocked {
                         Image(systemName: "lock.fill")
                             .foregroundColor(.aiTextSecondary)
-                    } else if completedLessons == totalLessons && totalLessons > 0 {
+                    } else if isComplete {
                         masteryBadge
+                    } else if isNew {
+                        Text("NEW")
+                            .font(.system(size: 9, weight: .bold, design: .rounded))
+                            .foregroundColor(.white)
+                            .padding(.horizontal, 7)
+                            .padding(.vertical, 3)
+                            .background(Capsule().fill(categoryColor))
                     } else {
-                        Text("\(completedLessons)/\(totalLessons)")
-                            .font(.aiCaption())
-                            .foregroundColor(.aiTextSecondary)
+                        // Progress ring
+                        ZStack {
+                            Circle()
+                                .stroke(categoryColor.opacity(0.2), lineWidth: 3)
+                                .frame(width: 28, height: 28)
+                            Circle()
+                                .trim(from: 0, to: progressFraction)
+                                .stroke(categoryColor, style: StrokeStyle(lineWidth: 3, lineCap: .round))
+                                .frame(width: 28, height: 28)
+                                .rotationEffect(.degrees(-90))
+                            Text("\(completedLessons)")
+                                .font(.system(size: 10, weight: .bold, design: .rounded))
+                                .foregroundColor(categoryColor)
+                        }
                     }
                 }
-                
+
                 Text(category.name)
                     .font(.aiHeadline())
                     .foregroundColor(isLocked ? .aiTextSecondary : .aiTextPrimary)
                     .lineLimit(1)
-                
+
                 Text(category.description)
                     .font(.aiCaption())
                     .foregroundColor(.aiTextSecondary)
@@ -187,21 +213,8 @@ struct CategoryCard: View {
                     .foregroundColor(.aiTextSecondary)
                     .lineLimit(1)
                 }
-
-                if !isLocked {
-                    GeometryReader { geo in
-                        ZStack(alignment: .leading) {
-                            RoundedRectangle(cornerRadius: 4)
-                                .fill(categoryColor.opacity(0.15))
-                            RoundedRectangle(cornerRadius: 4)
-                                .fill(categoryColor)
-                                .frame(width: geo.size.width * progressFraction)
-                        }
-                    }
-                    .frame(height: 6)
-                }
             }
-            .padding(16)
+            .padding(14)
             .background(
                 RoundedRectangle(cornerRadius: 16)
                     .fill(Color.aiCard)
@@ -209,7 +222,12 @@ struct CategoryCard: View {
             )
             .overlay(
                 RoundedRectangle(cornerRadius: 16)
-                    .stroke(isLocked ? Color.aiTextSecondary.opacity(0.1) : categoryColor.opacity(0.2), lineWidth: 1)
+                    .stroke(
+                        isComplete ? categoryColor.opacity(0.4) :
+                        isLocked ? Color.aiTextSecondary.opacity(0.1) :
+                        categoryColor.opacity(0.15),
+                        lineWidth: isComplete ? 2 : 1
+                    )
             )
             .opacity(isLocked ? 0.6 : 1)
         }

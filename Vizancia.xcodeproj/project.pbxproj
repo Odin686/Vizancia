@@ -61,6 +61,9 @@
 		A10052 /* CategoryContent13.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10052; };
 		A10053 /* JargonMatchGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10053; };
 		A10054 /* HeartEarnGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10054; };
+		A10055 /* AITimelineGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10055; };
+		A10056 /* FactOrFictionGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10056; };
+		A10057 /* WhoMadeItGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10057; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -119,6 +122,9 @@
 		B10052 /* CategoryContent13.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryContent13.swift; sourceTree = "<group>"; };
 		B10053 /* JargonMatchGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JargonMatchGame.swift; sourceTree = "<group>"; };
 		B10054 /* HeartEarnGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartEarnGameView.swift; sourceTree = "<group>"; };
+		B10055 /* AITimelineGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AITimelineGame.swift; sourceTree = "<group>"; };
+		B10056 /* FactOrFictionGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FactOrFictionGame.swift; sourceTree = "<group>"; };
+		B10057 /* WhoMadeItGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhoMadeItGame.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -266,6 +272,9 @@
 				B10047 /* AIPairsGame.swift */,
 				B10053 /* JargonMatchGame.swift */,
 				B10054 /* HeartEarnGameView.swift */,
+				B10055 /* AITimelineGame.swift */,
+				B10056 /* FactOrFictionGame.swift */,
+				B10057 /* WhoMadeItGame.swift */,
 			);
 			path = Games;
 			sourceTree = "<group>";
@@ -435,6 +444,9 @@
 				A10052 /* CategoryContent13.swift in Sources */,
 				A10053 /* JargonMatchGame.swift in Sources */,
 				A10054 /* HeartEarnGameView.swift in Sources */,
+				A10055 /* AITimelineGame.swift in Sources */,
+				A10056 /* FactOrFictionGame.swift in Sources */,
+				A10057 /* WhoMadeItGame.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

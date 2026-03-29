@@ -198,6 +198,9 @@ enum GameType: String, CaseIterable, Identifiable {
     case promptCraft
     case buzzwordBuster
     case jargonMatch
+    case aiTimeline
+    case factOrFiction
+    case whoMadeIt
     
     var id: String { rawValue }
     
@@ -209,6 +212,9 @@ enum GameType: String, CaseIterable, Identifiable {
         case .promptCraft: return "Prompt Craft"
         case .buzzwordBuster: return "Buzzword Buster"
         case .jargonMatch: return "Jargon Match"
+        case .aiTimeline: return "AI Timeline"
+        case .factOrFiction: return "Fact or Fiction"
+        case .whoMadeIt: return "Who Made It?"
         }
     }
 
@@ -220,6 +226,9 @@ enum GameType: String, CaseIterable, Identifiable {
         case .promptCraft: return "text.cursor"
         case .buzzwordBuster: return "target"
         case .jargonMatch: return "character.book.closed"
+        case .aiTimeline: return "clock.arrow.circlepath"
+        case .factOrFiction: return "hand.thumbsup.fill"
+        case .whoMadeIt: return "building.2.fill"
         }
     }
 
@@ -231,6 +240,9 @@ enum GameType: String, CaseIterable, Identifiable {
         case .promptCraft: return "Rank prompts from worst to best"
         case .buzzwordBuster: return "Real AI term or total nonsense?"
         case .jargonMatch: return "Match AI terms to definitions — fast!"
+        case .aiTimeline: return "Put AI milestones in the right order"
+        case .factOrFiction: return "Is this AI claim true or false?"
+        case .whoMadeIt: return "Match AI tools to the company that built them"
         }
     }
 
@@ -242,6 +254,9 @@ enum GameType: String, CaseIterable, Identifiable {
         case .promptCraft: return "#E17055"
         case .buzzwordBuster: return "#6C5CE7"
         case .jargonMatch: return "#00CEC9"
+        case .aiTimeline: return "#E17055"
+        case .factOrFiction: return "#00B894"
+        case .whoMadeIt: return "#0984E3"
         }
     }
 
@@ -253,6 +268,9 @@ enum GameType: String, CaseIterable, Identifiable {
         case .promptCraft: return 35
         case .buzzwordBuster: return 30
         case .jargonMatch: return 40
+        case .aiTimeline: return 50
+        case .factOrFiction: return 45
+        case .whoMadeIt: return 35
         }
     }
 }

@@ -10,7 +10,10 @@ struct GamesHubView: View {
         (.aiPairs, "AI Pairs", "Match AI concept cards by answering questions!", "square.grid.3x3.fill", .aiPrimary),
         (.promptCraft, "Prompt Craft", "Pick the best prompt for each scenario.", "text.cursor", .aiSuccess),
         (.buzzwordBuster, "Buzzword Buster", "True or false: Is this AI term real or made up?", "textformat.abc", .aiSecondary),
-        (.jargonMatch, "Jargon Match", "Match AI terms to definitions — fast!", "character.book.closed", .aiSecondary)
+        (.jargonMatch, "Jargon Match", "Match AI terms to definitions — fast!", "character.book.closed", .aiSecondary),
+        (.aiTimeline, "AI Timeline", "Put AI milestones in the right order!", "clock.arrow.circlepath", .aiOrange),
+        (.factOrFiction, "Fact or Fiction", "Is this AI claim true or false?", "hand.thumbsup.fill", .aiSuccess),
+        (.whoMadeIt, "Who Made It?", "Match AI tools to their creators!", "building.2.fill", .aiPrimary)
     ]
     
     var body: some View {
@@ -48,6 +51,9 @@ struct GamesHubView: View {
         case .promptCraft: PromptCraftGame(user: user)
         case .buzzwordBuster: BuzzwordBusterGame(user: user)
         case .jargonMatch: JargonMatchGame(user: user)
+        case .aiTimeline: AITimelineGame(user: user)
+        case .factOrFiction: FactOrFictionGame(user: user)
+        case .whoMadeIt: WhoMadeItGame(user: user)
         }
     }
 }

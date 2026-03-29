@@ -9,6 +9,8 @@ struct HomeView: View {
     @State private var showDailyChallenge = false
     @State private var showQuickPlay: LessonData?
     @State private var quickPlayCategory: CategoryData?
+    @State private var showContinueLesson: LessonData?
+    @State private var continueCategory: CategoryData?
 
     private let provider = LessonContentProvider.shared
     
@@ -16,17 +18,22 @@ struct HomeView: View {
         NavigationStack {
             ScrollView(showsIndicators: false) {
                 VStack(spacing: 20) {
+                    // Continue Learning
+                    if let continueInfo = continueWhere {
+                        continueCard(category: continueInfo.0, lesson: continueInfo.1)
+                    }
+
                     // Header Stats
                     headerSection
 
-                    // Daily Goal
-                    DailyGoalWidget(user: user)
-                        .padding(.horizontal)
-
-                    // Daily Challenge
-                    if !user.hasCompletedDailyChallenge {
-                        dailyChallengeCard
+                    // Daily Goal + Daily Challenge
+                    HStack(spacing: 12) {
+                        DailyGoalWidget(user: user)
+                        if !user.hasCompletedDailyChallenge {
+                            dailyChallengeCompact
+                        }
                     }
+                    .padding(.horizontal)
 
                     // Quick Play
                     quickPlayButton
@@ -61,6 +68,11 @@ struct HomeView: View {
             }
             .fullScreenCover(item: $showQuickPlay) { lesson in
                 if let cat = quickPlayCategory {
+                    LessonView(user: user, lesson: lesson, category: cat)
+                }
+            }
+            .fullScreenCover(item: $showContinueLesson) { lesson in
+                if let cat = continueCategory {
                     LessonView(user: user, lesson: lesson, category: cat)
                 }
             }
@@ -115,42 +127,142 @@ struct HomeView: View {
         let completedCount = categories.filter { cat in
             user.categoryProgressList.first { $0.categoryId == cat.id }?.isComplete ?? false
         }.count
+        let allComplete = completedCount == categories.count && categories.count > 0
 
         return VStack(alignment: .leading, spacing: 10) {
             HStack(spacing: 8) {
-                Image(systemName: track.icon)
+                Image(systemName: allComplete ? "checkmark.circle.fill" : track.icon)
                     .font(.system(size: 14))
-                    .foregroundColor(.aiPrimary)
+                    .foregroundColor(allComplete ? .aiSuccess : .aiPrimary)
                 Text(track.name)
                     .font(.aiTitle())
                 Text("\(completedCount)/\(categories.count)")
                     .font(.aiCaption())
-                    .foregroundColor(.aiTextSecondary)
+                    .foregroundColor(allComplete ? .aiSuccess : .aiTextSecondary)
+                if allComplete {
+                    Text("Complete!")
+                        .font(.system(size: 11, weight: .bold, design: .rounded))
+                        .foregroundColor(.aiSuccess)
+                }
+                Spacer()
             }
             .padding(.horizontal)
 
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: 14) {
-                    ForEach(categories) { category in
-                        let locked = isCategoryLocked(category)
-                        let progress = user.categoryProgressList.first { $0.categoryId == category.id }
-                        CategoryCard(
-                            category: category,
-                            progress: progress,
-                            isLocked: locked,
-                            unlockHint: unlockHint(for: category),
-                            categoryAccuracy: user.categoryAccuracy(for: category.id)
-                        ) {
-                            showCategoryDetail = category
+            if !allComplete {
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(spacing: 14) {
+                        ForEach(categories) { category in
+                            let locked = isCategoryLocked(category)
+                            let progress = user.categoryProgressList.first { $0.categoryId == category.id }
+                            CategoryCard(
+                                category: category,
+                                progress: progress,
+                                isLocked: locked,
+                                unlockHint: unlockHint(for: category),
+                                categoryAccuracy: user.categoryAccuracy(for: category.id)
+                            ) {
+                                showCategoryDetail = category
+                            }
+                            .frame(width: 170)
                         }
-                        .frame(width: 170)
                     }
+                    .padding(.horizontal)
                 }
-                .padding(.horizontal)
             }
         }
     }
     
+    // MARK: - Continue Learning
+    private var continueWhere: (CategoryData, LessonData)? {
+        guard user.totalLessonsCompleted > 0 else { return nil }
+        for cat in provider.allCategories {
+            if isCategoryLocked(cat) { continue }
+            let prog = user.categoryProgressList.first { $0.categoryId == cat.id }
+            if prog?.isComplete ?? false { continue }
+            if let nextLesson = cat.lessons.first(where: { lesson in
+                !(prog?.completedLessonIds.contains(lesson.id) ?? false)
+            }) {
+                return (cat, nextLesson)
+            }
+        }
+        return nil
+    }
+
+    private func continueCard(category: CategoryData, lesson: LessonData) -> some View {
+        Button {
+            continueCategory = category
+            showContinueLesson = lesson
+            HapticService.shared.mediumTap()
+        } label: {
+            HStack(spacing: 14) {
+                ZStack {
+                    RoundedRectangle(cornerRadius: 14)
+                        .fill(Color.aiSuccess.opacity(0.15))
+                        .frame(width: 50, height: 50)
+                    Image(systemName: "play.fill")
+                        .font(.title3)
+                        .foregroundColor(.aiSuccess)
+                }
+                VStack(alignment: .leading, spacing: 3) {
+                    Text("Continue Learning")
+                        .font(.system(size: 11, weight: .semibold, design: .rounded))
+                        .foregroundColor(.aiSuccess)
+                        .textCase(.uppercase)
+                        .tracking(0.5)
+                    Text(lesson.title)
+                        .font(.aiHeadline())
+                        .foregroundColor(.aiTextPrimary)
+                        .lineLimit(1)
+                    Text(category.name)
+                        .font(.aiCaption())
+                        .foregroundColor(.aiTextSecondary)
+                }
+                Spacer()
+                Image(systemName: "arrow.right.circle.fill")
+                    .font(.title3)
+                    .foregroundColor(.aiSuccess)
+            }
+            .padding(16)
+            .background(
+                RoundedRectangle(cornerRadius: 16)
+                    .fill(Color.aiSuccess.opacity(0.06))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 16)
+                            .stroke(Color.aiSuccess.opacity(0.2), lineWidth: 1)
+                    )
+            )
+        }
+        .padding(.horizontal)
+    }
+
+    // MARK: - Daily Challenge Compact
+    private var dailyChallengeCompact: some View {
+        Button { showDailyChallenge = true } label: {
+            VStack(spacing: 8) {
+                Image(systemName: "star.circle.fill")
+                    .font(.title2)
+                    .foregroundColor(.aiWarning)
+                Text("Daily")
+                    .font(.system(size: 11, weight: .semibold, design: .rounded))
+                    .foregroundColor(.aiTextPrimary)
+                Text("+25 XP")
+                    .font(.system(size: 10, weight: .bold, design: .rounded))
+                    .foregroundColor(.aiWarning)
+            }
+            .frame(width: 80)
+            .padding(.vertical, 12)
+            .background(
+                RoundedRectangle(cornerRadius: 16)
+                    .fill(Color.aiCard)
+                    .shadow(color: .black.opacity(0.05), radius: 6, y: 3)
+            )
+            .overlay(
+                RoundedRectangle(cornerRadius: 16)
+                    .stroke(Color.aiWarning.opacity(0.3), lineWidth: 1)
+            )
+        }
+    }
+
     // MARK: - Quick Play
     private var quickPlayButton: some View {
         Button {
@@ -256,50 +368,6 @@ struct HomeView: View {
                         RoundedRectangle(cornerRadius: 16)
                             .stroke(Color.aiPrimary.opacity(0.2), lineWidth: 1)
                     )
-            )
-        }
-        .padding(.horizontal)
-    }
-
-    // MARK: - Daily Challenge
-    private var dailyChallengeCard: some View {
-        Button { showDailyChallenge = true } label: {
-            HStack(spacing: 14) {
-                ZStack {
-                    RoundedRectangle(cornerRadius: 14)
-                        .fill(Color.aiWarning.opacity(0.15))
-                        .frame(width: 50, height: 50)
-                    Image(systemName: "star.circle.fill")
-                        .font(.title2)
-                        .foregroundColor(.aiWarning)
-                }
-                VStack(alignment: .leading, spacing: 3) {
-                    Text("Daily Challenge")
-                        .font(.aiHeadline())
-                        .foregroundColor(.aiTextPrimary)
-                    Text("Answer today's question for bonus XP!")
-                        .font(.aiCaption())
-                        .foregroundColor(.aiTextSecondary)
-                }
-                Spacer()
-                VStack(spacing: 2) {
-                    Text("+25")
-                        .font(.system(size: 16, weight: .bold, design: .rounded))
-                        .foregroundColor(.aiWarning)
-                    Text("XP")
-                        .font(.system(size: 10, weight: .medium, design: .rounded))
-                        .foregroundColor(.aiWarning)
-                }
-            }
-            .padding(16)
-            .background(
-                RoundedRectangle(cornerRadius: 16)
-                    .fill(Color.aiCard)
-                    .shadow(color: .black.opacity(0.05), radius: 6, y: 3)
-            )
-            .overlay(
-                RoundedRectangle(cornerRadius: 16)
-                    .stroke(Color.aiWarning.opacity(0.3), lineWidth: 1)
             )
         }
         .padding(.horizontal)
