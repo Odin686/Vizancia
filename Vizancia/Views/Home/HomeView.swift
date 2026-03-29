@@ -16,10 +16,6 @@ struct HomeView: View {
         NavigationStack {
             ScrollView(showsIndicators: false) {
                 VStack(spacing: 20) {
-                    // Viz Mascot
-                    vizSection
-                        .padding(.horizontal)
-
                     // Header Stats
                     headerSection
 
@@ -71,59 +67,6 @@ struct HomeView: View {
         }
     }
     
-    // MARK: - Viz Mascot
-    private var vizSection: some View {
-        HStack(spacing: 12) {
-            VizMascotView(size: 60, showMessage: false, enableEyePop: true)
-            VStack(alignment: .leading, spacing: 3) {
-                Text(vizGreeting)
-                    .font(.system(size: 15, weight: .semibold, design: .rounded))
-                    .foregroundColor(.aiTextPrimary)
-                Text(vizSubtext)
-                    .font(.system(size: 12, weight: .medium, design: .rounded))
-                    .foregroundColor(.aiTextSecondary)
-            }
-            Spacer()
-        }
-        .padding(14)
-        .background(
-            RoundedRectangle(cornerRadius: 16)
-                .fill(Color.aiPrimary.opacity(0.06))
-                .overlay(
-                    RoundedRectangle(cornerRadius: 16)
-                        .stroke(Color.aiPrimary.opacity(0.12), lineWidth: 1)
-                )
-        )
-    }
-
-    private var vizGreeting: String {
-        let name = user.userName.isEmpty ? user.name : user.userName
-        let displayName = (name == "Learner" || name.isEmpty) ? "there" : name
-        if user.totalLessonsCompleted == 0 {
-            return "Hey \(displayName)! Ready to start?"
-        } else if user.currentStreak >= 7 {
-            return "\(user.currentStreak)-day streak! Amazing, \(displayName)!"
-        } else if user.dailyGoalMet {
-            return "Daily goal crushed, \(displayName)!"
-        } else {
-            return "Welcome back, \(displayName)!"
-        }
-    }
-
-    private var vizSubtext: String {
-        if user.totalLessonsCompleted == 0 {
-            return "Tap a category below to begin your AI journey."
-        } else if user.currentStreak >= 7 {
-            return "You're on fire! Keep that momentum going."
-        } else if user.dailyGoalMet {
-            return "Try a game or explore a new topic?"
-        } else if !user.missedQuestionIds.isEmpty && user.missedQuestionIds.count >= 3 {
-            return "\(user.missedQuestionIds.count) questions to review — practice makes perfect!"
-        } else {
-            return "Let's learn something new about AI today."
-        }
-    }
-
     // MARK: - Header
     private var headerSection: some View {
         VStack(spacing: 12) {
