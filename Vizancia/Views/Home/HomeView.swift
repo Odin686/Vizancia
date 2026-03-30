@@ -76,10 +76,16 @@ struct HomeView: View {
         }()
 
         return VStack(spacing: 12) {
-            HStack {
-                Text(greeting)
-                    .font(.system(size: 22, weight: .bold, design: .rounded))
-                    .foregroundColor(.aiTextPrimary)
+            HStack(spacing: 12) {
+                VizMascotView(size: 50)
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(greeting)
+                        .font(.system(size: 20, weight: .bold, design: .rounded))
+                        .foregroundColor(.aiTextPrimary)
+                    Text("What shall we learn today?")
+                        .font(.system(size: 13, weight: .medium, design: .rounded))
+                        .foregroundColor(.aiTextSecondary)
+                }
                 Spacer()
                 if user.currentStreak > 0 {
                     StreakBadge(streak: user.currentStreak)
