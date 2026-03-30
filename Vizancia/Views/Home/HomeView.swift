@@ -43,8 +43,17 @@ struct HomeView: View {
                 .padding(.bottom, 30)
             }
             .background(Color.aiBackground.ignoresSafeArea())
-            .navigationTitle("Vizancia")
-            .navigationBarTitleDisplayMode(.large)
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    HStack(spacing: 8) {
+                        VizMascotView(size: 32)
+                        Text("Vizancia")
+                            .font(.system(size: 22, weight: .bold, design: .rounded))
+                            .foregroundColor(.aiTextPrimary)
+                    }
+                }
+            }
             .fullScreenCover(isPresented: $showDailyChallenge) {
                 DailyChallengeView(user: user)
             }
@@ -67,32 +76,25 @@ struct HomeView: View {
     // MARK: - Greeting + Stats
     private var greetingSection: some View {
         let name = user.userName.isEmpty ? user.name : user.userName
-        let displayName = (name == "Learner" || name.isEmpty) ? "" : ", \(name)"
+        let displayName = (name == "Learner" || name.isEmpty) ? "there" : name
         let greeting: String = {
             let hour = Calendar.current.component(.hour, from: Date())
-            if hour < 12 { return "Good morning\(displayName)!" }
-            if hour < 17 { return "Good afternoon\(displayName)!" }
-            return "Good evening\(displayName)!"
+            if hour < 12 { return "Good morning, \(displayName)" }
+            if hour < 17 { return "Good afternoon, \(displayName)" }
+            return "Good evening, \(displayName)"
         }()
 
-        return VStack(spacing: 12) {
-            HStack(spacing: 12) {
-                VizMascotView(size: 50)
-                VStack(alignment: .leading, spacing: 2) {
-                    Text(greeting)
-                        .font(.system(size: 20, weight: .bold, design: .rounded))
-                        .foregroundColor(.aiTextPrimary)
-                    Text("What shall we learn today?")
-                        .font(.system(size: 13, weight: .medium, design: .rounded))
-                        .foregroundColor(.aiTextSecondary)
-                }
+        return VStack(spacing: 10) {
+            HStack {
+                Text(greeting)
+                    .font(.system(size: 17, weight: .semibold, design: .rounded))
+                    .foregroundColor(.aiTextPrimary)
                 Spacer()
                 if user.currentStreak > 0 {
                     StreakBadge(streak: user.currentStreak)
                 }
             }
 
-            // Compact stats
             HStack(spacing: 0) {
                 Label("\(user.totalXP) XP", systemImage: "star.fill")
                     .font(.system(size: 12, weight: .semibold, design: .rounded))
