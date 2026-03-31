@@ -46,10 +46,12 @@ struct HomeView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
-                    HStack(spacing: 8) {
-                        VizMascotView(size: 32)
-                        Text("Vizancia")
-                            .font(.system(size: 22, weight: .bold, design: .rounded))
+                    HStack(spacing: 0) {
+                        Text("Viz")
+                            .font(.system(size: 24, weight: .bold, design: .rounded))
+                            .foregroundColor(.aiPrimary)
+                        Text("ancia")
+                            .font(.system(size: 24, weight: .bold, design: .rounded))
                             .foregroundColor(.aiTextPrimary)
                     }
                 }

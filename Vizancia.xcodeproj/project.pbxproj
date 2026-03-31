@@ -65,7 +65,6 @@
 		A10056 /* FactOrFictionGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10056; };
 		A10057 /* WhoMadeItGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10057; };
 		A10058 /* LearnView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10058; };
-		A10059 /* VizMascotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10059; };
 		A10060 /* CategoryContent14.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10060; };
 		A10061 /* CategoryContent15.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10061; };
 		A10062 /* CategoryContent16.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10062; };
@@ -131,7 +130,6 @@
 		B10056 /* FactOrFictionGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FactOrFictionGame.swift; sourceTree = "<group>"; };
 		B10057 /* WhoMadeItGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhoMadeItGame.swift; sourceTree = "<group>"; };
 		B10058 /* LearnView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearnView.swift; sourceTree = "<group>"; };
-		B10059 /* VizMascotView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VizMascotView.swift; sourceTree = "<group>"; };
 		B10060 /* CategoryContent14.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryContent14.swift; sourceTree = "<group>"; };
 		B10061 /* CategoryContent15.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryContent15.swift; sourceTree = "<group>"; };
 		B10062 /* CategoryContent16.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryContent16.swift; sourceTree = "<group>"; };
@@ -323,7 +321,6 @@
 				B10040 /* SharedComponents.swift */,
 				B10042 /* LaunchScreenView.swift */,
 				B10046 /* ConfettiView.swift */,
-				B10059 /* VizMascotView.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -462,7 +459,6 @@
 				A10056 /* FactOrFictionGame.swift in Sources */,
 				A10057 /* WhoMadeItGame.swift in Sources */,
 				A10058 /* LearnView.swift in Sources */,
-				A10059 /* VizMascotView.swift in Sources */,
 				A10060 /* CategoryContent14.swift in Sources */,
 				A10061 /* CategoryContent15.swift in Sources */,
 				A10062 /* CategoryContent16.swift in Sources */,
