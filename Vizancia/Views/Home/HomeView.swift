@@ -43,19 +43,8 @@ struct HomeView: View {
                 .padding(.bottom, 30)
             }
             .background(Color.aiBackground.ignoresSafeArea())
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
-                    HStack(spacing: 0) {
-                        Text("Viz")
-                            .font(.system(size: 24, weight: .bold, design: .rounded))
-                            .foregroundColor(.aiPrimary)
-                        Text("ancia")
-                            .font(.system(size: 24, weight: .bold, design: .rounded))
-                            .foregroundColor(.aiTextPrimary)
-                    }
-                }
-            }
+            .navigationTitle("Vizancia")
+            .navigationBarTitleDisplayMode(.large)
             .fullScreenCover(isPresented: $showDailyChallenge) {
                 DailyChallengeView(user: user)
             }
