@@ -194,12 +194,15 @@ enum DailyGoalTier: String, Codable, CaseIterable {
 enum GameType: String, CaseIterable, Identifiable {
     case speedRound
     case aiPairs
-    case promptCraft
     case buzzwordBuster
     case jargonMatch
     case aiTimeline
     case factOrFiction
     case whoMadeIt
+    case wordScramble
+    case fallingWords
+    case memoryGrid
+    case wordSearch
     
     var id: String { rawValue }
     
@@ -207,12 +210,15 @@ enum GameType: String, CaseIterable, Identifiable {
         switch self {
         case .speedRound: return "Speed Round"
         case .aiPairs: return "AI Pairs"
-        case .promptCraft: return "Prompt Craft"
         case .buzzwordBuster: return "Buzzword Buster"
         case .jargonMatch: return "Jargon Match"
         case .aiTimeline: return "AI Timeline"
         case .factOrFiction: return "Fact or Fiction"
         case .whoMadeIt: return "Who Made It?"
+        case .wordScramble: return "Word Scramble"
+        case .fallingWords: return "Falling Words"
+        case .memoryGrid: return "Memory Grid"
+        case .wordSearch: return "Word Search"
         }
     }
 
@@ -220,12 +226,15 @@ enum GameType: String, CaseIterable, Identifiable {
         switch self {
         case .speedRound: return "bolt.fill"
         case .aiPairs: return "square.grid.3x3.fill"
-        case .promptCraft: return "text.cursor"
         case .buzzwordBuster: return "target"
         case .jargonMatch: return "character.book.closed"
         case .aiTimeline: return "clock.arrow.circlepath"
         case .factOrFiction: return "hand.thumbsup.fill"
         case .whoMadeIt: return "building.2.fill"
+        case .wordScramble: return "textformat.abc.dottedunderline"
+        case .fallingWords: return "arrow.down.circle.fill"
+        case .memoryGrid: return "square.grid.3x3.topleft.filled"
+        case .wordSearch: return "magnifyingglass"
         }
     }
 
@@ -233,12 +242,15 @@ enum GameType: String, CaseIterable, Identifiable {
         switch self {
         case .speedRound: return "20 rapid-fire questions in 5 seconds each!"
         case .aiPairs: return "Match AI concept cards!"
-        case .promptCraft: return "Rank prompts from worst to best"
         case .buzzwordBuster: return "Real AI term or total nonsense?"
         case .jargonMatch: return "Match AI terms to definitions — fast!"
         case .aiTimeline: return "Put AI milestones in the right order"
         case .factOrFiction: return "Is this AI claim true or false?"
         case .whoMadeIt: return "Match AI tools to the company that built them"
+        case .wordScramble: return "Unscramble AI terms before time runs out!"
+        case .fallingWords: return "Tap the right words before they fall!"
+        case .memoryGrid: return "Flip cards and match AI pairs!"
+        case .wordSearch: return "Find hidden AI terms in the grid!"
         }
     }
 
@@ -246,12 +258,15 @@ enum GameType: String, CaseIterable, Identifiable {
         switch self {
         case .speedRound: return "#FDCB6E"
         case .aiPairs: return "#6C5CE7"
-        case .promptCraft: return "#E17055"
         case .buzzwordBuster: return "#6C5CE7"
         case .jargonMatch: return "#00CEC9"
         case .aiTimeline: return "#E17055"
         case .factOrFiction: return "#00B894"
         case .whoMadeIt: return "#0984E3"
+        case .wordScramble: return "#E17055"
+        case .fallingWords: return "#FDCB6E"
+        case .memoryGrid: return "#00CEC9"
+        case .wordSearch: return "#6C5CE7"
         }
     }
 
@@ -259,12 +274,15 @@ enum GameType: String, CaseIterable, Identifiable {
         switch self {
         case .speedRound: return 40
         case .aiPairs: return 50
-        case .promptCraft: return 35
         case .buzzwordBuster: return 30
         case .jargonMatch: return 40
         case .aiTimeline: return 50
         case .factOrFiction: return 45
         case .whoMadeIt: return 35
+        case .wordScramble: return 40
+        case .fallingWords: return 45
+        case .memoryGrid: return 50
+        case .wordSearch: return 40
         }
     }
 }

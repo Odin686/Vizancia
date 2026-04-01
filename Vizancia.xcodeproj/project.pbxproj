@@ -39,7 +39,6 @@
 		A10030 /* LessonCompleteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10030; };
 		A10031 /* GamesHubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10031; };
 		A10032 /* SpeedRoundGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10032; };
-		A10035 /* PromptCraftGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10035; };
 		A10036 /* BuzzwordBusterGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10036; };
 		A10037 /* ProgressDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10037; };
 		A10039 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10039; };
@@ -65,6 +64,10 @@
 		A10060 /* CategoryContent14.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10060; };
 		A10061 /* CategoryContent15.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10061; };
 		A10062 /* CategoryContent16.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10062; };
+		A10063 /* WordScrambleGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10063; };
+		A10064 /* FallingWordsGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10064; };
+		A10065 /* MemoryGridGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10065; };
+		A10066 /* WordSearchGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10066; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -101,7 +104,6 @@
 		B10030 /* LessonCompleteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonCompleteView.swift; sourceTree = "<group>"; };
 		B10031 /* GamesHubView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamesHubView.swift; sourceTree = "<group>"; };
 		B10032 /* SpeedRoundGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedRoundGame.swift; sourceTree = "<group>"; };
-		B10035 /* PromptCraftGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromptCraftGame.swift; sourceTree = "<group>"; };
 		B10036 /* BuzzwordBusterGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuzzwordBusterGame.swift; sourceTree = "<group>"; };
 		B10037 /* ProgressDashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressDashboardView.swift; sourceTree = "<group>"; };
 		B10039 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
@@ -127,6 +129,10 @@
 		B10060 /* CategoryContent14.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryContent14.swift; sourceTree = "<group>"; };
 		B10061 /* CategoryContent15.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryContent15.swift; sourceTree = "<group>"; };
 		B10062 /* CategoryContent16.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryContent16.swift; sourceTree = "<group>"; };
+		B10063 /* WordScrambleGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordScrambleGame.swift; sourceTree = "<group>"; };
+		B10064 /* FallingWordsGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FallingWordsGame.swift; sourceTree = "<group>"; };
+		B10065 /* MemoryGridGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryGridGame.swift; sourceTree = "<group>"; };
+		B10066 /* WordSearchGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordSearchGame.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -270,13 +276,16 @@
 			children = (
 				B10031 /* GamesHubView.swift */,
 				B10032 /* SpeedRoundGame.swift */,
-				B10035 /* PromptCraftGame.swift */,
 				B10036 /* BuzzwordBusterGame.swift */,
 				B10043 /* GameTutorialView.swift */,
 				B10047 /* AIPairsGame.swift */,
 				B10053 /* JargonMatchGame.swift */,
 				B10054 /* HeartEarnGameView.swift */,
 				B10055 /* AITimelineGame.swift */,
+				B10063 /* WordScrambleGame.swift */,
+				B10064 /* FallingWordsGame.swift */,
+				B10065 /* MemoryGridGame.swift */,
+				B10066 /* WordSearchGame.swift */,
 				B10056 /* FactOrFictionGame.swift */,
 				B10057 /* WhoMadeItGame.swift */,
 			);
@@ -425,7 +434,6 @@
 				A10030 /* LessonCompleteView.swift in Sources */,
 				A10031 /* GamesHubView.swift in Sources */,
 				A10032 /* SpeedRoundGame.swift in Sources */,
-				A10035 /* PromptCraftGame.swift in Sources */,
 				A10036 /* BuzzwordBusterGame.swift in Sources */,
 				A10037 /* ProgressDashboardView.swift in Sources */,
 				A10039 /* OnboardingView.swift in Sources */,
@@ -450,6 +458,10 @@
 				A10060 /* CategoryContent14.swift in Sources */,
 				A10061 /* CategoryContent15.swift in Sources */,
 				A10062 /* CategoryContent16.swift in Sources */,
+				A10063 /* WordScrambleGame.swift in Sources */,
+				A10064 /* FallingWordsGame.swift in Sources */,
+				A10065 /* MemoryGridGame.swift in Sources */,
+				A10066 /* WordSearchGame.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
