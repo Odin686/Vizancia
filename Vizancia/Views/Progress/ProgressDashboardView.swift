@@ -273,13 +273,18 @@ struct SettingsSheet: View {
                     HStack {
                         Label("Version", systemImage: "info.circle")
                         Spacer()
-                        Text("2.0.0").foregroundColor(.aiTextSecondary)
+                        Text(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "2.0")
+                            .foregroundColor(.aiTextSecondary)
                     }
-                    Link(destination: URL(string: "https://odin686.github.io/Vizancia/privacy-policy.html")!) {
-                        Label("Privacy Policy", systemImage: "hand.raised.fill")
+                    if let url = URL(string: "https://odin686.github.io/Vizancia/privacy-policy.html") {
+                        Link(destination: url) {
+                            Label("Privacy Policy", systemImage: "hand.raised.fill")
+                        }
                     }
-                    Link(destination: URL(string: "https://odin686.github.io/Vizancia/terms-of-service.html")!) {
-                        Label("Terms of Service", systemImage: "doc.text.fill")
+                    if let url = URL(string: "https://odin686.github.io/Vizancia/terms-of-service.html") {
+                        Link(destination: url) {
+                            Label("Terms of Service", systemImage: "doc.text.fill")
+                        }
                     }
                     Button {
                         if let url = URL(string: "mailto:info@vizancia.ca") {

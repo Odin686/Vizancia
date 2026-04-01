@@ -41,8 +41,10 @@ struct LearnView: View {
         NavigationStack {
             ScrollView(showsIndicators: false) {
                 VStack(spacing: 14) {
-                    // Today's Pick
-                    if let pick = todaysPickCategory, filter == .all {
+                    // Celebration or Today's Pick
+                    if allCategoriesComplete && filter == .all {
+                        allCompleteCard
+                    } else if let pick = todaysPickCategory, filter == .all {
                         todaysPickCard(pick)
                     }
 
@@ -51,10 +53,14 @@ struct LearnView: View {
                         .padding(.horizontal)
 
                     // Category list
-                    ForEach(filteredCategories) { category in
-                        let locked = isCategoryLocked(category)
-                        let progress = user.categoryProgressList.first { $0.categoryId == category.id }
-                        fullCategoryCard(category: category, progress: progress, isLocked: locked)
+                    if filteredCategories.isEmpty {
+                        emptyFilterState
+                    } else {
+                        ForEach(filteredCategories) { category in
+                            let locked = isCategoryLocked(category)
+                            let progress = user.categoryProgressList.first { $0.categoryId == category.id }
+                            fullCategoryCard(category: category, progress: progress, isLocked: locked)
+                        }
                     }
                 }
                 .padding(.bottom, 30)
@@ -67,6 +73,52 @@ struct LearnView: View {
                 CategoryDetailView(user: user, category: cat)
             }
         }
+    }
+
+    // MARK: - All Complete
+    private var allCategoriesComplete: Bool {
+        provider.allCategories.allSatisfy { cat in
+            user.categoryProgressList.first { $0.categoryId == cat.id }?.isComplete ?? false
+        }
+    }
+
+    private var allCompleteCard: some View {
+        VStack(spacing: 14) {
+            Image(systemName: "trophy.fill")
+                .font(.system(size: 44))
+                .foregroundColor(.aiWarning)
+            Text("You've completed everything!")
+                .font(.system(size: 20, weight: .bold, design: .rounded))
+                .foregroundColor(.aiTextPrimary)
+            Text("All \(provider.allCategories.count) categories mastered. Replay any category to improve your mastery tier!")
+                .font(.system(size: 13, weight: .medium, design: .rounded))
+                .foregroundColor(.aiTextSecondary)
+                .multilineTextAlignment(.center)
+        }
+        .padding(24)
+        .frame(maxWidth: .infinity)
+        .background(
+            RoundedRectangle(cornerRadius: 18)
+                .fill(Color.aiWarning.opacity(0.08))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 18)
+                        .stroke(Color.aiWarning.opacity(0.2), lineWidth: 1)
+                )
+        )
+        .padding(.horizontal)
+    }
+
+    private var emptyFilterState: some View {
+        VStack(spacing: 10) {
+            Image(systemName: "tray")
+                .font(.system(size: 30))
+                .foregroundColor(.aiTextSecondary.opacity(0.4))
+            Text("No categories here yet")
+                .font(.system(size: 14, weight: .medium, design: .rounded))
+                .foregroundColor(.aiTextSecondary)
+        }
+        .frame(maxWidth: .infinity)
+        .padding(.vertical, 40)
     }
 
     // MARK: - Filter Bar

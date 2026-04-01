@@ -139,8 +139,9 @@ struct AchievementData: Identifiable {
             id: "survivor",
             name: "Survivor",
             icon: "❤️",
-            description: "Complete a lesson with only 1 heart remaining",
-            condition: { $0.hearts == 1 && $0.totalLessonsCompleted > 0 }
+            description: "Complete 10 lessons",
+            condition: { $0.totalLessonsCompleted >= 10 },
+            progressInfo: { (current: min($0.totalLessonsCompleted, 10), target: 10) }
         ),
         AchievementData(
             id: "century_club",

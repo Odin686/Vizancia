@@ -40,11 +40,9 @@
 		A10031 /* GamesHubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10031; };
 		A10032 /* SpeedRoundGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10032; };
 		A10033 /* AIOrNotGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10033; };
-		A10034 /* EthicsCourtGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10034; };
 		A10035 /* PromptCraftGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10035; };
 		A10036 /* BuzzwordBusterGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10036; };
 		A10037 /* ProgressDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10037; };
-		A10038 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10038; };
 		A10039 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10039; };
 		A10040 /* SharedComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10040; };
 		A10041 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B10041; };
@@ -105,11 +103,9 @@
 		B10031 /* GamesHubView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamesHubView.swift; sourceTree = "<group>"; };
 		B10032 /* SpeedRoundGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedRoundGame.swift; sourceTree = "<group>"; };
 		B10033 /* AIOrNotGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIOrNotGame.swift; sourceTree = "<group>"; };
-		B10034 /* EthicsCourtGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EthicsCourtGame.swift; sourceTree = "<group>"; };
 		B10035 /* PromptCraftGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromptCraftGame.swift; sourceTree = "<group>"; };
 		B10036 /* BuzzwordBusterGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuzzwordBusterGame.swift; sourceTree = "<group>"; };
 		B10037 /* ProgressDashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressDashboardView.swift; sourceTree = "<group>"; };
-		B10038 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		B10039 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		B10040 /* SharedComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedComponents.swift; sourceTree = "<group>"; };
 		B10041 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -277,7 +273,6 @@
 				B10031 /* GamesHubView.swift */,
 				B10032 /* SpeedRoundGame.swift */,
 				B10033 /* AIOrNotGame.swift */,
-				B10034 /* EthicsCourtGame.swift */,
 				B10035 /* PromptCraftGame.swift */,
 				B10036 /* BuzzwordBusterGame.swift */,
 				B10043 /* GameTutorialView.swift */,
@@ -302,7 +297,6 @@
 		G10012 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
-				B10038 /* ProfileView.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -435,11 +429,9 @@
 				A10031 /* GamesHubView.swift in Sources */,
 				A10032 /* SpeedRoundGame.swift in Sources */,
 				A10033 /* AIOrNotGame.swift in Sources */,
-				A10034 /* EthicsCourtGame.swift in Sources */,
 				A10035 /* PromptCraftGame.swift in Sources */,
 				A10036 /* BuzzwordBusterGame.swift in Sources */,
 				A10037 /* ProgressDashboardView.swift in Sources */,
-				A10038 /* ProfileView.swift in Sources */,
 				A10039 /* OnboardingView.swift in Sources */,
 				A10040 /* SharedComponents.swift in Sources */,
 				A10042 /* LaunchScreenView.swift in Sources */,
