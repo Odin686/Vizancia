@@ -79,10 +79,10 @@ VizanciaApp → RootView
 ├── OnboardingView (if !onboardingCompleted)
 │   └── 7 pages: welcome, name, experience, role, occupation, goal, ready
 └── ContentView (TabView)
-    ├── HomeView → CategoryDetailView → LessonView → LessonCompleteView
-    ├── GamesHubView → [7 game views]
-    ├── ProgressDashboardView
-    └── ProfileView
+    ├── HomeView (dashboard) → LessonView → LessonCompleteView
+    ├── LearnView (category browser) → CategoryDetailView → LessonView
+    ├── GamesHubView → [10 game views]
+    └── ProgressDashboardView (stats + gear icon → SettingsSheet)
 ```
 
 ### Data Model (UserProfile)
@@ -97,8 +97,8 @@ SwiftData @Model with these key properties:
 **Important**: When adding new properties to UserProfile, ALWAYS add inline default values (e.g., `var newProp: String = ""`) or SwiftData migration will fail silently → blank screen.
 
 ### Content Structure
-- 13 categories, 6 lessons each, 6 questions per lesson = ~468 questions
-- 4 tracks: Foundations, Skills, Deep Dive, Big Picture
+- 16 categories, 6 lessons each, 6 questions per lesson = ~576 questions
+- 5 tracks: Start Here, Level Up, Go Deeper, Real World, Explore
 - 6 question types: multipleChoice, trueFalse, fillInBlank, matchPairs, sortOrder, scenarioJudgment
 - Questions reference diverse AI models (Claude, GPT, Gemini, Llama, Mistral) and companies
 
@@ -138,21 +138,40 @@ SwiftData @Model with these key properties:
 - Cards: 16pt corner radius, aiCard background, subtle shadow
 - Haptics: lightTap (select), success (correct), error (wrong), comboPulse, levelUp, perfectScore
 
+## UX Principles
+- **Never add extra taps** between the user and their goal — every screen should have a clear single action
+- **Sounds should be subtle and infrequent** — no whooshes on navigation, only earned moments (correct, combo, level-up)
+- **Tips/fun facts must be inline** — never blocking overlays or popups that require extra taps to dismiss
+- **Fun facts show once per lesson max** — triggered on first correct answer, disappears on Continue
+- **Progress must always be saved** when user exits mid-lesson — resume from where they left off
+- **Every action card must launch correctly** — never use separate state variables for lesson + category; use a combined struct to avoid nil race conditions
+- **No floating/blocking UI** that pauses the user — if info is supplementary, show it inline
+- **Animations should be subtle** — spring effects on interactions, no constant bobbing or movement
+- **When adding new UserProfile properties**, ALWAYS add inline default values or SwiftData migration fails silently → blank screen
+- **Haptics: lightTap for selections, success/error for answers** — comboPulse and perfectScore for milestones only
+- **Test every navigation path** after changes — especially fullScreenCover and sheet presentations
+
 ## Testing Checklist
 - [ ] Delete app from simulator before testing (SwiftData schema changes)
 - [ ] Complete onboarding flow (all 7 pages)
-- [ ] Play at least 1 lesson per track
+- [ ] Play at least 1 lesson — verify fun fact shows once, inline
+- [ ] Exit mid-lesson and re-enter — verify resume from saved position
 - [ ] Trigger combo streak (3+ correct)
-- [ ] Complete a lesson perfectly (verify confetti + XP counting)
+- [ ] Complete a lesson perfectly (verify confetti + XP counting animation)
 - [ ] Level up (verify banner + sound)
 - [ ] Run out of hearts (verify "Play for Hearts" flow)
-- [ ] Play each mini-game
+- [ ] Play each mini-game (10 games)
 - [ ] Check daily challenge
-- [ ] Verify all 13 categories load in horizontal carousels
+- [ ] Tap "Continue Learning" on home — verify no white screen
+- [ ] Tap "Quick Play" — verify lesson launches correctly
+- [ ] Check all 16 categories load on Learn page
+- [ ] Check filter chips (All/Started/New/Complete)
+- [ ] Check Progress tab — stats, achievements, activity heatmap
+- [ ] Check Settings (gear icon) — all toggles, name, daily goal, links
 
 ## App Store
 - **Bundle ID**: ca.vizancia.app
-- **Version**: 2.0.0 (pending)
-- **Contact**: info@vizancia.com
+- **Version**: 2.0.0
+- **Contact**: info@vizancia.ca
 - **Privacy**: https://odin686.github.io/Vizancia/privacy-policy.html
 - **Terms**: https://odin686.github.io/Vizancia/terms-of-service.html
