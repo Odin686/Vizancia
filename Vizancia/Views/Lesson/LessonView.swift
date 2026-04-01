@@ -25,6 +25,7 @@ struct LessonView: View {
     @State private var comboText = ""
     @State private var showFunFact = false
     @State private var currentFunFact = ""
+    @State private var funFactShown = false
     @State private var showHeartGame = false
     @State private var showIntro = true
     
@@ -87,36 +88,6 @@ struct LessonView: View {
                         .font(.aiXP())
                         .foregroundColor(.aiSuccess)
                         .transition(.move(edge: .bottom).combined(with: .opacity))
-                }
-
-                // Fun fact card
-                if showFunFact {
-                    VStack {
-                        Spacer()
-                        HStack(spacing: 10) {
-                            Image(systemName: "lightbulb.fill")
-                                .font(.system(size: 16))
-                                .foregroundColor(.aiWarning)
-                            Text(currentFunFact)
-                                .font(.system(size: 13, weight: .medium, design: .rounded))
-                                .foregroundColor(.aiTextPrimary)
-                                .fixedSize(horizontal: false, vertical: true)
-                        }
-                        .padding(14)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .background(
-                            RoundedRectangle(cornerRadius: 14)
-                                .fill(Color.aiWarning.opacity(0.1))
-                                .overlay(
-                                    RoundedRectangle(cornerRadius: 14)
-                                        .stroke(Color.aiWarning.opacity(0.2), lineWidth: 1)
-                                )
-                        )
-                        .padding(.horizontal)
-                        .padding(.bottom, 120)
-                        .transition(.move(edge: .bottom).combined(with: .opacity))
-                    }
-                    .allowsHitTesting(false)
                 }
 
                 // Combo streak banner
@@ -342,11 +313,29 @@ struct LessonView: View {
                     .foregroundColor(isCorrect ? .aiSuccess : .aiError)
                 Spacer()
             }
-            
+
             Text(currentQuestion.explanation)
                 .font(.aiBody())
                 .foregroundColor(.aiTextSecondary)
                 .fixedSize(horizontal: false, vertical: true)
+
+            // Fun fact — once per lesson, only on correct
+            if showFunFact {
+                HStack(spacing: 8) {
+                    Image(systemName: "lightbulb.fill")
+                        .font(.system(size: 13))
+                        .foregroundColor(.aiWarning)
+                    Text(currentFunFact)
+                        .font(.system(size: 12, weight: .medium, design: .rounded))
+                        .foregroundColor(.aiTextSecondary)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
+                .padding(10)
+                .background(
+                    RoundedRectangle(cornerRadius: 10)
+                        .fill(Color.aiWarning.opacity(0.06))
+                )
+            }
         }
         .padding(16)
         .background(
@@ -424,6 +413,13 @@ struct LessonView: View {
             HapticService.shared.success()
             SoundService.shared.play(.correct)
 
+            // Fun fact — once per lesson, on correct only
+            if !funFactShown {
+                currentFunFact = FunFacts.random()
+                showFunFact = true
+                funFactShown = true
+            }
+
             // Combo celebration
             if comboCount >= 3 {
                 comboText = comboCount == 3 ? "3 in a row!" : comboCount == 4 ? "4 in a row!" : comboCount == 5 ? "5 in a row! On fire!" : "\(comboCount)x Combo!"
@@ -449,33 +445,14 @@ struct LessonView: View {
     }
     
     private func moveToNext() {
+        showFunFact = false
         if currentIndex < questions.count - 1 {
-            let nextIndex = currentIndex + 1
-            // Show fun fact after questions 2 and 4 (indices 1 and 3)
-            if (currentIndex == 1 || currentIndex == 3) && currentIndex < questions.count - 1 {
-                showFunFactBriefly {
-                    withAnimation(.easeInOut(duration: 0.25)) {
-                        currentIndex = nextIndex
-                        resetQuestionState()
-                    }
-                }
-            } else {
-                withAnimation(.easeInOut(duration: 0.25)) {
-                    currentIndex = nextIndex
-                    resetQuestionState()
-                }
+            withAnimation(.easeInOut(duration: 0.25)) {
+                currentIndex += 1
+                resetQuestionState()
             }
         } else {
             completeLessonAndShow()
-        }
-    }
-
-    private func showFunFactBriefly(then action: @escaping () -> Void) {
-        currentFunFact = FunFacts.random()
-        withAnimation(.spring(response: 0.4)) { showFunFact = true }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
-            withAnimation { showFunFact = false }
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { action() }
         }
     }
     
