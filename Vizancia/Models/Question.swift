@@ -193,7 +193,6 @@ enum DailyGoalTier: String, Codable, CaseIterable {
 // MARK: - Game Type
 enum GameType: String, CaseIterable, Identifiable {
     case speedRound
-    case aiOrNot
     case aiPairs
     case promptCraft
     case buzzwordBuster
@@ -207,7 +206,6 @@ enum GameType: String, CaseIterable, Identifiable {
     var displayName: String {
         switch self {
         case .speedRound: return "Speed Round"
-        case .aiOrNot: return "AI or Not?"
         case .aiPairs: return "AI Pairs"
         case .promptCraft: return "Prompt Craft"
         case .buzzwordBuster: return "Buzzword Buster"
@@ -221,7 +219,6 @@ enum GameType: String, CaseIterable, Identifiable {
     var icon: String {
         switch self {
         case .speedRound: return "bolt.fill"
-        case .aiOrNot: return "questionmark.circle.fill"
         case .aiPairs: return "square.grid.3x3.fill"
         case .promptCraft: return "text.cursor"
         case .buzzwordBuster: return "target"
@@ -235,7 +232,6 @@ enum GameType: String, CaseIterable, Identifiable {
     var description: String {
         switch self {
         case .speedRound: return "20 rapid-fire questions in 5 seconds each!"
-        case .aiOrNot: return "Can AI really do this today?"
         case .aiPairs: return "Match AI concept cards!"
         case .promptCraft: return "Rank prompts from worst to best"
         case .buzzwordBuster: return "Real AI term or total nonsense?"
@@ -249,7 +245,6 @@ enum GameType: String, CaseIterable, Identifiable {
     var color: String {
         switch self {
         case .speedRound: return "#FDCB6E"
-        case .aiOrNot: return "#00CEC9"
         case .aiPairs: return "#6C5CE7"
         case .promptCraft: return "#E17055"
         case .buzzwordBuster: return "#6C5CE7"
@@ -263,7 +258,6 @@ enum GameType: String, CaseIterable, Identifiable {
     var xpReward: Int {
         switch self {
         case .speedRound: return 40
-        case .aiOrNot: return 30
         case .aiPairs: return 50
         case .promptCraft: return 35
         case .buzzwordBuster: return 30

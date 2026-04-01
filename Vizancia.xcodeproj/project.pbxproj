@@ -39,7 +39,6 @@
 		A10030 /* LessonCompleteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10030; };
 		A10031 /* GamesHubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10031; };
 		A10032 /* SpeedRoundGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10032; };
-		A10033 /* AIOrNotGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10033; };
 		A10035 /* PromptCraftGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10035; };
 		A10036 /* BuzzwordBusterGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10036; };
 		A10037 /* ProgressDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10037; };
@@ -102,7 +101,6 @@
 		B10030 /* LessonCompleteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonCompleteView.swift; sourceTree = "<group>"; };
 		B10031 /* GamesHubView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamesHubView.swift; sourceTree = "<group>"; };
 		B10032 /* SpeedRoundGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedRoundGame.swift; sourceTree = "<group>"; };
-		B10033 /* AIOrNotGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIOrNotGame.swift; sourceTree = "<group>"; };
 		B10035 /* PromptCraftGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromptCraftGame.swift; sourceTree = "<group>"; };
 		B10036 /* BuzzwordBusterGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuzzwordBusterGame.swift; sourceTree = "<group>"; };
 		B10037 /* ProgressDashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressDashboardView.swift; sourceTree = "<group>"; };
@@ -272,7 +270,6 @@
 			children = (
 				B10031 /* GamesHubView.swift */,
 				B10032 /* SpeedRoundGame.swift */,
-				B10033 /* AIOrNotGame.swift */,
 				B10035 /* PromptCraftGame.swift */,
 				B10036 /* BuzzwordBusterGame.swift */,
 				B10043 /* GameTutorialView.swift */,
@@ -428,7 +425,6 @@
 				A10030 /* LessonCompleteView.swift in Sources */,
 				A10031 /* GamesHubView.swift in Sources */,
 				A10032 /* SpeedRoundGame.swift in Sources */,
-				A10033 /* AIOrNotGame.swift in Sources */,
 				A10035 /* PromptCraftGame.swift in Sources */,
 				A10036 /* BuzzwordBusterGame.swift in Sources */,
 				A10037 /* ProgressDashboardView.swift in Sources */,
