@@ -40,6 +40,7 @@ class UserProfile {
     var inProgressQuestionIndex: Int = 0
     var inProgressCorrectCount: Int = 0
     var inProgressXPEarned: Int = 0
+    var inProgressQuestionOrder: [String] = []
     var experienceLevelRaw: String = "beginner"
     var userRoleRaw: String = "curious"
     var userName: String = ""
@@ -170,11 +171,12 @@ class UserProfile {
         missedQuestionIds.removeAll { $0 == questionId }
     }
 
-    func saveLessonProgress(lessonId: String, questionIndex: Int, correctCount: Int, xpEarned: Int) {
+    func saveLessonProgress(lessonId: String, questionIndex: Int, correctCount: Int, xpEarned: Int, questionOrder: [String]) {
         inProgressLessonId = lessonId
         inProgressQuestionIndex = questionIndex
         inProgressCorrectCount = correctCount
         inProgressXPEarned = xpEarned
+        inProgressQuestionOrder = questionOrder
     }
 
     func clearLessonProgress() {
@@ -182,6 +184,7 @@ class UserProfile {
         inProgressQuestionIndex = 0
         inProgressCorrectCount = 0
         inProgressXPEarned = 0
+        inProgressQuestionOrder = []
     }
 
     func recordCategoryAnswer(categoryId: String, correct: Bool) {

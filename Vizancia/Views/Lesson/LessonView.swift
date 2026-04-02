@@ -115,13 +115,22 @@ struct LessonView: View {
             .navigationBarHidden(true)
             .onAppear {
                 if shuffledQuestions.isEmpty {
-                    shuffledQuestions = buildQuestionList()
-                    // Resume if we have saved progress for this lesson
-                    if user.inProgressLessonId == lesson.id && user.inProgressQuestionIndex > 0 {
+                    // Resume with saved question order if available
+                    if user.inProgressLessonId == lesson.id && !user.inProgressQuestionOrder.isEmpty {
+                        let allQuestions = buildQuestionList()
+                        shuffledQuestions = user.inProgressQuestionOrder.compactMap { id in
+                            allQuestions.first(where: { $0.id == id })
+                        }
+                        // Fallback if saved order doesn't match
+                        if shuffledQuestions.count != allQuestions.count {
+                            shuffledQuestions = allQuestions
+                        }
                         currentIndex = min(user.inProgressQuestionIndex, questions.count - 1)
                         correctCount = user.inProgressCorrectCount
                         xpEarned = user.inProgressXPEarned
                         showIntro = false
+                    } else {
+                        shuffledQuestions = buildQuestionList()
                     }
                 }
             }
@@ -132,7 +141,8 @@ struct LessonView: View {
                         lessonId: lesson.id,
                         questionIndex: currentIndex,
                         correctCount: correctCount,
-                        xpEarned: xpEarned
+                        xpEarned: xpEarned,
+                        questionOrder: questions.map { $0.id }
                     )
                 }
             }
