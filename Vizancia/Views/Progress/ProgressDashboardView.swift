@@ -3,6 +3,7 @@ import SwiftUI
 struct ProgressDashboardView: View {
     @Bindable var user: UserProfile
     @State private var showSettings = false
+    @State private var showDictionary = false
 
     private let provider = LessonContentProvider.shared
 
@@ -40,14 +41,23 @@ struct ProgressDashboardView: View {
             .navigationTitle("Progress")
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
-                    Button { showSettings = true } label: {
-                        Image(systemName: "gearshape.fill")
-                            .foregroundColor(.aiTextSecondary)
+                    HStack(spacing: 16) {
+                        Button { showDictionary = true } label: {
+                            Image(systemName: "character.book.closed.fill")
+                                .foregroundColor(.aiTextSecondary)
+                        }
+                        Button { showSettings = true } label: {
+                            Image(systemName: "gearshape.fill")
+                                .foregroundColor(.aiTextSecondary)
+                        }
                     }
                 }
             }
             .sheet(isPresented: $showSettings) {
                 SettingsSheet(user: user)
+            }
+            .sheet(isPresented: $showDictionary) {
+                DictionaryView()
             }
         }
     }

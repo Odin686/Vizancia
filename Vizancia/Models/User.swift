@@ -1,6 +1,15 @@
 import Foundation
 import SwiftData
 
+// MARK: - Spaced Repetition Card
+struct SpacedRepetitionCard: Codable {
+    var box: Int              // 1-5 (Leitner box)
+    var lastReviewDate: Date?
+    var correctCount: Int
+    var incorrectCount: Int
+    var totalReviews: Int
+}
+
 @Model
 class UserProfile {
     var name: String
@@ -44,6 +53,11 @@ class UserProfile {
     var experienceLevelRaw: String = "beginner"
     var userRoleRaw: String = "curious"
     var userName: String = ""
+    var duelWins: Int = 0
+    var duelLosses: Int = 0
+    var duelTies: Int = 0
+    var totalDuelsPlayed: Int = 0
+    var spacedRepetitionCardsData: Data = Data()
 
     init(
         name: String = "Learner",
@@ -125,6 +139,19 @@ class UserProfile {
     var accuracyRate: Double {
         guard totalQuestionsAnswered > 0 else { return 0 }
         return Double(totalCorrectAnswers) / Double(totalQuestionsAnswered)
+    }
+
+    // MARK: - Spaced Repetition Cards (stored as Data for SwiftData)
+    var spacedRepetitionCards: [String: SpacedRepetitionCard] {
+        get {
+            guard !spacedRepetitionCardsData.isEmpty,
+                  let decoded = try? JSONDecoder().decode([String: SpacedRepetitionCard].self, from: spacedRepetitionCardsData)
+            else { return [:] }
+            return decoded
+        }
+        set {
+            spacedRepetitionCardsData = (try? JSONEncoder().encode(newValue)) ?? Data()
+        }
     }
 
     // MARK: - Methods

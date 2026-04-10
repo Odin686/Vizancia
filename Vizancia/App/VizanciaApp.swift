@@ -37,6 +37,18 @@ struct RootView: View {
             }
         }
         .onAppear {
+            GameKitService.shared.authenticate()
+
+            // Schedule smart notifications
+            if let user = users.first, user.notificationsEnabled {
+                NotificationService.shared.scheduleSmartNotifications(for: user)
+            }
+
+            // Sync widget data
+            if let user = users.first {
+                WidgetSyncService.shared.syncToWidget(user: user)
+            }
+
             DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
                 withAnimation(.easeInOut(duration: 0.5)) {
                     showLaunchScreen = false

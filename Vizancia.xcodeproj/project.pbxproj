@@ -68,6 +68,21 @@
 		A10064 /* FallingWordsGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10064; };
 		A10065 /* MemoryGridGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10065; };
 		A10066 /* WordSearchGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10066; };
+		A10070 /* DictionaryData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10070; };
+		A10071 /* DictionaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10071; };
+		A10080 /* GameKitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10080; };
+		A10081 /* DuelService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10081; };
+		A10082 /* DuelMatchData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10082; };
+		A10083 /* LeaderboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10083; };
+		A10084 /* DuelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10084; };
+		A10085 /* DuelResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10085; };
+		A10090 /* TrainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10090; };
+		A10091 /* CommunityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10091; };
+		A10092 /* MascotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10092; };
+		A10093 /* SpacedRepetitionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10093; };
+		A10094 /* WidgetSyncService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10094; };
+		A10095 /* SmartReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10095; };
+		A10096 /* ShareCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10096; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -133,6 +148,21 @@
 		B10064 /* FallingWordsGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FallingWordsGame.swift; sourceTree = "<group>"; };
 		B10065 /* MemoryGridGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryGridGame.swift; sourceTree = "<group>"; };
 		B10066 /* WordSearchGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordSearchGame.swift; sourceTree = "<group>"; };
+		B10070 /* DictionaryData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictionaryData.swift; sourceTree = "<group>"; };
+		B10071 /* DictionaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictionaryView.swift; sourceTree = "<group>"; };
+		B10080 /* GameKitService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameKitService.swift; sourceTree = "<group>"; };
+		B10081 /* DuelService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DuelService.swift; sourceTree = "<group>"; };
+		B10082 /* DuelMatchData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DuelMatchData.swift; sourceTree = "<group>"; };
+		B10083 /* LeaderboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardView.swift; sourceTree = "<group>"; };
+		B10084 /* DuelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DuelView.swift; sourceTree = "<group>"; };
+		B10085 /* DuelResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DuelResultView.swift; sourceTree = "<group>"; };
+		B10090 /* TrainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainView.swift; sourceTree = "<group>"; };
+		B10091 /* CommunityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityView.swift; sourceTree = "<group>"; };
+		B10092 /* MascotView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MascotView.swift; sourceTree = "<group>"; };
+		B10093 /* SpacedRepetitionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpacedRepetitionService.swift; sourceTree = "<group>"; };
+		B10094 /* WidgetSyncService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetSyncService.swift; sourceTree = "<group>"; };
+		B10095 /* SmartReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmartReviewView.swift; sourceTree = "<group>"; };
+		B10096 /* ShareCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareCardView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -183,6 +213,7 @@
 				B10007 /* User.swift */,
 				B10008 /* Question.swift */,
 				B10009 /* Achievement.swift */,
+				B10082 /* DuelMatchData.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -208,6 +239,7 @@
 				B10050 /* CategoryContent11.swift */,
 				B10051 /* CategoryContent12.swift */,
 				B10052 /* CategoryContent13.swift */,
+				B10070 /* DictionaryData.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -220,6 +252,10 @@
 				B10023 /* SoundService.swift */,
 				B10024 /* StreakService.swift */,
 				B10025 /* XPService.swift */,
+				B10080 /* GameKitService.swift */,
+				B10081 /* DuelService.swift */,
+				B10093 /* SpacedRepetitionService.swift */,
+				B10094 /* WidgetSyncService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -245,6 +281,8 @@
 				G10012 /* Profile */,
 				G10013 /* Onboarding */,
 				G10014 /* Shared */,
+				G10020 /* Train */,
+				G10021 /* Community */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -288,6 +326,9 @@
 				B10066 /* WordSearchGame.swift */,
 				B10056 /* FactOrFictionGame.swift */,
 				B10057 /* WhoMadeItGame.swift */,
+				B10083 /* LeaderboardView.swift */,
+				B10084 /* DuelView.swift */,
+				B10085 /* DuelResultView.swift */,
 			);
 			path = Games;
 			sourceTree = "<group>";
@@ -315,12 +356,32 @@
 			path = Onboarding;
 			sourceTree = "<group>";
 		};
+		G10020 /* Train */ = {
+			isa = PBXGroup;
+			children = (
+				B10090 /* TrainView.swift */,
+				B10095 /* SmartReviewView.swift */,
+			);
+			path = Train;
+			sourceTree = "<group>";
+		};
+		G10021 /* Community */ = {
+			isa = PBXGroup;
+			children = (
+				B10091 /* CommunityView.swift */,
+			);
+			path = Community;
+			sourceTree = "<group>";
+		};
 		G10014 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
 				B10040 /* SharedComponents.swift */,
 				B10042 /* LaunchScreenView.swift */,
 				B10046 /* ConfettiView.swift */,
+				B10071 /* DictionaryView.swift */,
+				B10092 /* MascotView.swift */,
+				B10096 /* ShareCardView.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -462,6 +523,21 @@
 				A10064 /* FallingWordsGame.swift in Sources */,
 				A10065 /* MemoryGridGame.swift in Sources */,
 				A10066 /* WordSearchGame.swift in Sources */,
+				A10070 /* DictionaryData.swift in Sources */,
+				A10071 /* DictionaryView.swift in Sources */,
+				A10080 /* GameKitService.swift in Sources */,
+				A10081 /* DuelService.swift in Sources */,
+				A10082 /* DuelMatchData.swift in Sources */,
+				A10083 /* LeaderboardView.swift in Sources */,
+				A10084 /* DuelView.swift in Sources */,
+				A10085 /* DuelResultView.swift in Sources */,
+				A10090 /* TrainView.swift in Sources */,
+				A10091 /* CommunityView.swift in Sources */,
+				A10092 /* MascotView.swift in Sources */,
+				A10093 /* SpacedRepetitionService.swift in Sources */,
+				A10094 /* WidgetSyncService.swift in Sources */,
+				A10095 /* SmartReviewView.swift in Sources */,
+				A10096 /* ShareCardView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -592,6 +668,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Vizancia/Vizancia.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = JJRSMHZ4YQ;
@@ -623,6 +700,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Vizancia/Vizancia.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = JJRSMHZ4YQ;

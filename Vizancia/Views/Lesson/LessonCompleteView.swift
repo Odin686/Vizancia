@@ -190,6 +190,18 @@ struct LessonCompleteView: View {
                         .padding(.horizontal)
                     }
 
+                    // Share Button
+                    ShareButton(
+                        cardType: .lessonComplete(
+                            lessonTitle: lesson.title,
+                            score: correctAnswers,
+                            total: lesson.questions.count,
+                            xp: xpEarned
+                        ),
+                        userName: user.userName,
+                        totalXP: user.totalXP
+                    )
+
                     Spacer(minLength: 30)
                 }
             }
@@ -233,6 +245,18 @@ struct LessonCompleteView: View {
                         withAnimation { showLevelUp = false }
                     }
                 }
+            }
+
+            // Submit scores to Game Center leaderboards
+            GameKitService.shared.submitTotalXP(user.totalXP)
+            GameKitService.shared.submitWeeklyXP(user.todayXP)
+
+            // Sync widget data
+            WidgetSyncService.shared.syncToWidget(user: user)
+
+            // Add missed questions to spaced repetition
+            for id in user.missedQuestionIds {
+                SpacedRepetitionService.shared.addQuestion(id, for: user)
             }
         }
         .overlay {

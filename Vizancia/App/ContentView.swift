@@ -6,9 +6,9 @@ struct ContentView: View {
 
     var body: some View {
         TabView(selection: $selectedTab) {
-            HomeView(user: user)
+            GamesHubView(user: user)
                 .tabItem {
-                    Label("Home", systemImage: "house.fill")
+                    Label("Play", systemImage: "gamecontroller.fill")
                 }
                 .tag(0)
 
@@ -18,17 +18,23 @@ struct ContentView: View {
                 }
                 .tag(1)
 
-            GamesHubView(user: user)
+            TrainView(user: user)
                 .tabItem {
-                    Label("Games", systemImage: "gamecontroller.fill")
+                    Label("Train", systemImage: "figure.strengthtraining.traditional")
                 }
                 .tag(2)
+
+            CommunityView(user: user)
+                .tabItem {
+                    Label("Community", systemImage: "person.2.fill")
+                }
+                .tag(3)
 
             ProgressDashboardView(user: user)
                 .tabItem {
                     Label("Progress", systemImage: "chart.bar.fill")
                 }
-                .tag(3)
+                .tag(4)
         }
         .tint(Color.aiPrimary)
         .onAppear {
