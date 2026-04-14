@@ -191,5 +191,72 @@ struct AchievementData: Identifiable {
             condition: { $0.currentLevel >= 12 },
             progressInfo: { (current: min($0.currentLevel, 12), target: 12) }
         ),
+
+        // MARK: - Duel Achievements
+
+        AchievementData(
+            id: "first_blood",
+            name: "First Blood",
+            icon: "⚔️",
+            description: "Win your first duel",
+            condition: { $0.duelWins >= 1 },
+            progressInfo: { (current: min($0.duelWins, 1), target: 1) }
+        ),
+        AchievementData(
+            id: "duel_streak_3",
+            name: "Hat Trick",
+            icon: "🎩",
+            description: "Win 3 duels",
+            condition: { $0.duelWins >= 3 },
+            progressInfo: { (current: min($0.duelWins, 3), target: 3) }
+        ),
+        AchievementData(
+            id: "duel_streak_5",
+            name: "AI Gladiator",
+            icon: "🛡️",
+            description: "Win 5 duels",
+            condition: { $0.duelWins >= 5 },
+            progressInfo: { (current: min($0.duelWins, 5), target: 5) }
+        ),
+        AchievementData(
+            id: "duel_streak_10",
+            name: "Knowledge Knight",
+            icon: "🏰",
+            description: "Win 10 duels",
+            condition: { $0.duelWins >= 10 },
+            progressInfo: { (current: min($0.duelWins, 10), target: 10) }
+        ),
+        AchievementData(
+            id: "duel_streak_20",
+            name: "Quiz Champion",
+            icon: "🏆",
+            description: "Win 20 duels",
+            condition: { $0.duelWins >= 20 },
+            progressInfo: { (current: min($0.duelWins, 20), target: 20) }
+        ),
+        AchievementData(
+            id: "duel_streak_35",
+            name: "Grand Master",
+            icon: "👑",
+            description: "Win 35 duels",
+            condition: { $0.duelWins >= 35 },
+            progressInfo: { (current: min($0.duelWins, 35), target: 35) }
+        ),
+        AchievementData(
+            id: "duel_streak_50",
+            name: "Duel Legend",
+            icon: "🐉",
+            description: "Win 50 duels",
+            condition: { $0.duelWins >= 50 },
+            progressInfo: { (current: min($0.duelWins, 50), target: 50) }
+        ),
+        AchievementData(
+            id: "duel_streak_100",
+            name: "Legendary Duelist",
+            icon: "💎",
+            description: "Win 100 duels",
+            condition: { $0.duelWins >= 100 },
+            progressInfo: { (current: min($0.duelWins, 100), target: 100) }
+        ),
     ]
 }
