@@ -227,6 +227,7 @@ struct SettingsSheet: View {
     @Bindable var user: UserProfile
     @Environment(\.dismiss) private var dismiss
     @State private var showResetAlert = false
+    @AppStorage("appColorScheme") private var appColorScheme: String = "system"
 
     var body: some View {
         NavigationStack {
@@ -257,6 +258,18 @@ struct SettingsSheet: View {
                 }
                 .listRowBackground(Color.aiCard)
 
+                Section("Appearance") {
+                    Picker(selection: $appColorScheme) {
+                        Text("System").tag("system")
+                        Text("Light").tag("light")
+                        Text("Dark").tag("dark")
+                    } label: {
+                        Label("Theme", systemImage: "moon.circle.fill")
+                    }
+                    .pickerStyle(.menu)
+                }
+                .listRowBackground(Color.aiCard)
+
                 Section("Preferences") {
                     Toggle(isOn: $user.soundEnabled) {
                         Label("Sounds", systemImage: "speaker.wave.2.fill")
@@ -283,9 +296,17 @@ struct SettingsSheet: View {
                     HStack {
                         Label("Version", systemImage: "info.circle")
                         Spacer()
-                        Text(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "2.0")
+                        Text(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "3.0")
                             .foregroundColor(.aiTextSecondary)
                     }
+
+                    Button {
+                        AppReviewService.requestReview()
+                    } label: {
+                        Label("Rate Vizancia ⭐", systemImage: "star.fill")
+                            .foregroundColor(.aiWarning)
+                    }
+
                     if let url = URL(string: "https://odin686.github.io/Vizancia/privacy-policy.html") {
                         Link(destination: url) {
                             Label("Privacy Policy", systemImage: "hand.raised.fill")

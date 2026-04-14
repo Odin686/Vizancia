@@ -82,6 +82,8 @@
 		A10094 /* WidgetSyncService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10094; };
 		A10095 /* SmartReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10095; };
 		A10096 /* ShareCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10096; };
+		A10097 /* AppReviewService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10097; };
+		A10098 /* EmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10098; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -161,6 +163,8 @@
 		B10094 /* WidgetSyncService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetSyncService.swift; sourceTree = "<group>"; };
 		B10095 /* SmartReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmartReviewView.swift; sourceTree = "<group>"; };
 		B10096 /* ShareCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareCardView.swift; sourceTree = "<group>"; };
+		B10097 /* AppReviewService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppReviewService.swift; sourceTree = "<group>"; };
+		B10098 /* EmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -254,6 +258,7 @@
 				B10081 /* DuelService.swift */,
 				B10093 /* SpacedRepetitionService.swift */,
 				B10094 /* WidgetSyncService.swift */,
+				B10097 /* AppReviewService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -379,6 +384,7 @@
 				B10046 /* ConfettiView.swift */,
 				B10071 /* DictionaryView.swift */,
 				B10096 /* ShareCardView.swift */,
+				B10098 /* EmptyStateView.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -534,6 +540,8 @@
 				A10094 /* WidgetSyncService.swift in Sources */,
 				A10095 /* SmartReviewView.swift in Sources */,
 				A10096 /* ShareCardView.swift in Sources */,
+				A10097 /* AppReviewService.swift in Sources */,
+				A10098 /* EmptyStateView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

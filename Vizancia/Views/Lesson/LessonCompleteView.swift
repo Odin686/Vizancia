@@ -254,6 +254,9 @@ struct LessonCompleteView: View {
             // Sync widget data
             WidgetSyncService.shared.syncToWidget(user: user)
 
+            // Track positive moment for App Store review prompt
+            AppReviewService.shared.recordPositiveMoment()
+
             // Add missed questions to spaced repetition
             for id in user.missedQuestionIds {
                 SpacedRepetitionService.shared.addQuestion(id, for: user)

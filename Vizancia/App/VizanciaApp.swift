@@ -15,6 +15,15 @@ struct RootView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var users: [UserProfile]
     @State private var showLaunchScreen = true
+    @AppStorage("appColorScheme") private var appColorScheme: String = "system"
+
+    private var colorScheme: ColorScheme? {
+        switch appColorScheme {
+        case "light": return .light
+        case "dark": return .dark
+        default: return nil
+        }
+    }
     
     var body: some View {
         ZStack {
@@ -55,6 +64,7 @@ struct RootView: View {
                 }
             }
         }
+        .preferredColorScheme(colorScheme)
     }
     
     private func createUser() {
