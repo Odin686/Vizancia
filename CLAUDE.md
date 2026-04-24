@@ -216,7 +216,7 @@ SwiftData @Model with these key properties:
 
 ## App Store
 - **Bundle ID**: ca.vizancia.app
-- **Version**: 2.0.0
+- **Version**: 3.1
 - **Contact**: info@vizancia.ca
 - **Privacy**: https://odin686.github.io/Vizancia/privacy-policy.html
 - **Terms**: https://odin686.github.io/Vizancia/terms-of-service.html

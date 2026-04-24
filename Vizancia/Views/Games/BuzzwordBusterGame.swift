@@ -13,26 +13,52 @@ struct BuzzwordBusterGame: View {
     private let totalRounds = 10
     
     private let terms: [(term: String, isReal: Bool, explanation: String)] = [
+        // Real terms
         ("Transformer", true, "The Transformer is the architecture behind GPT, BERT, and most modern language models."),
         ("Neural Network", true, "Neural networks are computing systems inspired by biological neural networks in the brain."),
         ("Gradient Descent", true, "An optimization algorithm used to minimize the error in machine learning models."),
-        ("Quantum Cognition Engine", false, "This is made up! There's no AI technology called a Quantum Cognition Engine."),
         ("Hallucination", true, "When AI generates confident but incorrect or fabricated information."),
         ("Backpropagation", true, "The algorithm used to train neural networks by propagating errors backward through the network."),
-        ("Synapse Fusion Protocol", false, "This sounds technical but it's completely made up!"),
         ("Tokenization", true, "Breaking text into smaller units (tokens) that AI models can process."),
-        ("Recursive Empathy Module", false, "AI doesn't have empathy modules — this is a fake buzzword!"),
         ("Overfitting", true, "When a model learns training data too well and fails to generalize to new data."),
         ("Attention Mechanism", true, "A key component that helps models focus on relevant parts of the input."),
-        ("Neural Entanglement Layer", false, "This combines real terms but isn't an actual AI concept."),
         ("Hyperparameter", true, "Configuration settings that control the learning process, set before training begins."),
-        ("Cognitive Mesh Architecture", false, "Sounds impressive but it's not a real AI architecture!"),
         ("Few-Shot Learning", true, "Training a model to learn from just a few examples."),
-        ("Awareness Gradient", false, "AI doesn't have awareness — this term is made up."),
         ("Embedding", true, "A numerical representation of data (words, images) in a format AI can process."),
-        ("Sentience Protocol", false, "AI doesn't have sentience — there's no such protocol!"),
         ("Epoch", true, "One complete pass through the entire training dataset during model training."),
-        ("Deep Intuition Framework", false, "AI doesn't have intuition — this is a fabricated buzzword.")
+        ("Diffusion Model", true, "AI that creates images by gradually removing noise from random pixels."),
+        ("Reinforcement Learning", true, "Training AI through trial-and-error with rewards and penalties."),
+        ("Latent Space", true, "A compressed representation where AI encodes the essential features of data."),
+        ("Fine-Tuning", true, "Training a pre-built model further on specific data to specialize it."),
+        ("Inference", true, "When a trained model generates predictions or output from new input."),
+        ("Perceptron", true, "The simplest type of neural network — a single artificial neuron."),
+        ("Dropout", true, "Randomly turning off neurons during training to prevent overfitting."),
+        ("Batch Normalization", true, "A technique that stabilizes and speeds up neural network training."),
+        ("Transfer Learning", true, "Reusing a model trained on one task as the starting point for a different task."),
+        ("RLHF", true, "Reinforcement Learning from Human Feedback — training AI using human preferences."),
+        // Fake terms
+        ("Quantum Cognition Engine", false, "This is made up! There's no AI technology called a Quantum Cognition Engine."),
+        ("Synapse Fusion Protocol", false, "This sounds technical but it's completely made up!"),
+        ("Recursive Empathy Module", false, "AI doesn't have empathy modules — this is a fake buzzword!"),
+        ("Neural Entanglement Layer", false, "This combines real terms but isn't an actual AI concept."),
+        ("Cognitive Mesh Architecture", false, "Sounds impressive but it's not a real AI architecture!"),
+        ("Awareness Gradient", false, "AI doesn't have awareness — this term is made up."),
+        ("Sentience Protocol", false, "AI doesn't have sentience — there's no such protocol!"),
+        ("Deep Intuition Framework", false, "AI doesn't have intuition — this is a fabricated buzzword."),
+        ("Neural Resonance Field", false, "This sounds like science fiction — there's no such thing in AI."),
+        ("Autonomous Conscience Layer", false, "AI has no conscience or consciousness — completely made up!"),
+        ("Synthetic Memory Cortex", false, "AI doesn't have a cortex — this mixes neuroscience with fiction."),
+        ("Predictive Empathy Network", false, "AI can predict patterns but not empathy — this is fake!"),
+        ("Quantum Thought Matrix", false, "Quantum computing and AI are separate fields — this term is fake."),
+        ("Holistic Reasoning Kernel", false, "Sounds smart but doesn't exist — AI uses specific algorithms, not holistic reasoning."),
+        ("Bio-Neural Convergence", false, "This mashes together biology and AI terms — it's not real."),
+        ("Semantic Consciousness Engine", false, "AI processes semantics but has no consciousness — made up!"),
+        ("Adaptive Intuition Core", false, "AI doesn't have intuition — this is a fabricated buzzword."),
+        ("Neural Telepathy Protocol", false, "AI can't read minds — this is pure science fiction!"),
+        ("Deep Emotion Synthesis", false, "AI can simulate emotional language but doesn't synthesize real emotions."),
+        ("Recursive Dream Engine", false, "AI doesn't dream — this combines real terms into something fake."),
+        ("Consciousness Gradient Descent", false, "Gradient descent is real, but consciousness gradient descent is totally made up!"),
+        ("Self-Aware Feedback Loop", false, "Feedback loops exist in AI, but self-awareness does not — fake term!"),
     ]
     
     @State private var shuffled: [(term: String, isReal: Bool, explanation: String)] = []
@@ -125,7 +151,7 @@ struct BuzzwordBusterGame: View {
     
     private func answer(real: Bool) {
         lastCorrect = shuffled[round].isReal == real
-        if lastCorrect { score += 1; HapticService.shared.success() } else { HapticService.shared.error() }
+        if lastCorrect { score += 1; HapticService.shared.success(); SoundService.shared.play(.correct) } else { HapticService.shared.error(); SoundService.shared.play(.wrong) }
         showResult = true
     }
     

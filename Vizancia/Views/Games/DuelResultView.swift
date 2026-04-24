@@ -38,11 +38,32 @@ struct DuelResultView: View {
     }
 
     private var xpEarned: Int {
-        DuelService.shared.xpReward(
+        if isBot, let difficultyStr = duelData.player2Id?.replacingOccurrences(of: "bot_", with: ""),
+           let difficulty = BotDifficulty(rawValue: difficultyStr) {
+            var xp: Int
+            if isTie {
+                xp = DuelRewards.botTieXP(difficulty: difficulty)
+            } else if isWinner {
+                xp = DuelRewards.botWinXP(difficulty: difficulty)
+            } else {
+                xp = DuelRewards.botLoseXP(difficulty: difficulty)
+            }
+            if isPerfect { xp += DuelRewards.botPerfectBonusXP(difficulty: difficulty) }
+            return xp
+        }
+        return DuelService.shared.xpReward(
             for: duelData,
             isWinner: isTie ? nil : isWinner,
             isPerfect: isPerfect
         )
+    }
+
+    private var perfectBonusAmount: Int {
+        if isBot, let difficultyStr = duelData.player2Id?.replacingOccurrences(of: "bot_", with: ""),
+           let difficulty = BotDifficulty(rawValue: difficultyStr) {
+            return DuelRewards.botPerfectBonusXP(difficulty: difficulty)
+        }
+        return DuelRewards.perfectBonusXP
     }
 
     var body: some View {
@@ -153,7 +174,7 @@ struct DuelResultView: View {
                             .font(.system(size: 13, weight: .medium, design: .rounded))
                             .foregroundColor(.aiTextSecondary)
                         if isPerfect {
-                            Text("Perfect Score Bonus! +\(DuelRewards.perfectBonusXP) XP")
+                            Text("Perfect Score Bonus! +\(perfectBonusAmount) XP")
                                 .font(.system(size: 12, weight: .semibold, design: .rounded))
                                 .foregroundColor(.aiWarning)
                         }

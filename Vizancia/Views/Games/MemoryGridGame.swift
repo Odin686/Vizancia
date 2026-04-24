@@ -46,8 +46,8 @@ struct MemoryGridGame: View {
                     color: .aiSecondary,
                     rules: [
                         "Flip two cards at a time to find matching pairs",
-                        "Match all 8 pairs to complete the game",
-                        "Fewer moves = higher score",
+                    "Match all 8 pairs to complete the game",
+                        "Fewer moves and faster time = higher score",
                         "Matched pairs stay face-up in green"
                     ]
                 ) { showTutorial = false; startGame() }
@@ -139,7 +139,7 @@ struct MemoryGridGame: View {
     }
 
     private var gameOverView: some View {
-        let score = max(pairsFound * 10 - moves, 0)
+        let score = calculateScore()
 
         return VStack(spacing: 24) {
             Image(systemName: "square.grid.3x3.topleft.filled")
@@ -151,18 +151,44 @@ struct MemoryGridGame: View {
                 .font(.system(size: 40, weight: .bold, design: .rounded))
                 .foregroundColor(.aiSecondary)
 
-            VStack(spacing: 6) {
-                Text("Moves: \(moves)")
-                    .font(.aiBody())
-                    .foregroundColor(.aiTextSecondary)
-                Text("Time: \(elapsedSeconds)s")
-                    .font(.aiBody())
-                    .foregroundColor(.aiTextSecondary)
+            HStack(spacing: 20) {
+                VStack(spacing: 4) {
+                    Image(systemName: "hand.tap.fill")
+                        .font(.system(size: 14))
+                        .foregroundColor(.aiWarning)
+                    Text("\(moves)")
+                        .font(.system(size: 20, weight: .bold, design: .rounded))
+                        .foregroundColor(.aiTextPrimary)
+                    Text("Moves")
+                        .font(.system(size: 10, weight: .medium, design: .rounded))
+                        .foregroundColor(.aiTextSecondary)
+                }
+                VStack(spacing: 4) {
+                    Image(systemName: "clock.fill")
+                        .font(.system(size: 14))
+                        .foregroundColor(.aiSecondary)
+                    Text("\(elapsedSeconds)s")
+                        .font(.system(size: 20, weight: .bold, design: .rounded))
+                        .foregroundColor(.aiTextPrimary)
+                    Text("Time")
+                        .font(.system(size: 10, weight: .medium, design: .rounded))
+                        .foregroundColor(.aiTextSecondary)
+                }
+                VStack(spacing: 4) {
+                    Image(systemName: "star.fill")
+                        .font(.system(size: 14))
+                        .foregroundColor(.aiPrimary)
+                    Text("\(score)")
+                        .font(.system(size: 20, weight: .bold, design: .rounded))
+                        .foregroundColor(.aiTextPrimary)
+                    Text("Score")
+                        .font(.system(size: 10, weight: .medium, design: .rounded))
+                        .foregroundColor(.aiTextSecondary)
+                }
             }
 
-            let previousBest = user.gameHighScores["memoryGrid"] ?? Int.max
-            if previousBest == Int.max || moves < previousBest {
-                Text("New Best!")
+            if score > (user.gameHighScores["memoryGrid"] ?? 0) {
+                Text("🎉 New High Score!")
                     .font(.aiHeadline())
                     .foregroundColor(.aiWarning)
             }
@@ -185,6 +211,13 @@ struct MemoryGridGame: View {
             }
             .padding(.horizontal, 30)
         }
+    }
+
+    private func calculateScore() -> Int {
+        // Base 100, minus 2 per move over 8 (perfect), minus 1 per second over 15
+        let movesPenalty = max(0, (moves - 8) * 2)
+        let timePenalty = max(0, (elapsedSeconds - 15))
+        return max(10, 100 - movesPenalty - timePenalty)
     }
 
     private func startGame() {
@@ -255,12 +288,12 @@ struct MemoryGridGame: View {
 
     private func endGame() {
         timer?.invalidate()
-        let xp = max(80 - moves, 10)
+        let score = calculateScore()
+        let xp = score / 2
         user.addXP(xp)
         user.todayXP += xp
-        let previousBest = user.gameHighScores["memoryGrid"] ?? Int.max
-        if previousBest == Int.max || moves < previousBest {
-            user.gameHighScores["memoryGrid"] = moves
+        if score > (user.gameHighScores["memoryGrid"] ?? 0) {
+            user.gameHighScores["memoryGrid"] = score
         }
         user.gamesPlayed += 1
         GameKitService.shared.submitTotalXP(user.totalXP)

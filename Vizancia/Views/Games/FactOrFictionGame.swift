@@ -30,7 +30,26 @@ struct FactOrFictionGame: View {
         ("All AI is based on neural networks", false, "Many AI techniques exist including decision trees, SVMs, and rule-based systems."),
         ("DALL-E is named after Salvador Dalí and WALL-E", true, "The name combines the surrealist artist with Pixar's robot character."),
         ("AI can write music that sounds like a specific artist", true, "AI voice cloning and style transfer can mimic specific musical styles."),
-        ("Training GPT-3 used more energy than a car uses in its lifetime", false, "Training used significant energy but not more than a car's lifetime fuel consumption.")
+        ("Training GPT-3 used more energy than a car uses in its lifetime", false, "Training used significant energy but not more than a car's lifetime fuel consumption."),
+        // New claims
+        ("GitHub Copilot uses AI to suggest code", true, "Copilot is powered by OpenAI's models to autocomplete code in real time."),
+        ("AI can perfectly translate any language", false, "AI translation is impressive but still makes errors, especially with idioms and rare languages."),
+        ("Tesla's Autopilot is fully self-driving", false, "Despite the name, Autopilot is a driver-assistance system that still requires human supervision."),
+        ("AI can compose an entire symphony", true, "AI tools like AIVA and MuseNet can compose long-form classical music."),
+        ("Siri was one of the first mainstream voice assistants", true, "Apple launched Siri in 2011, bringing voice assistants to millions of iPhones."),
+        ("AI can read your emotions through your screen", false, "While emotion recognition AI exists for cameras, it can't read emotions through a screen."),
+        ("DeepMind's AlphaFold solved a 50-year-old biology problem", true, "AlphaFold predicted the 3D structure of proteins, a grand challenge in biology."),
+        ("AI models get smarter every time you use them", false, "Trained models are static — they don't learn from individual user interactions without retraining."),
+        ("The first AI program was written in the 1950s", true, "The Logic Theorist, created in 1956, is considered the first AI program."),
+        ("AI can create fake videos of real people", true, "Deepfake technology can generate convincing but fake videos of real individuals."),
+        ("All AI models require the internet to work", false, "Many AI models can run completely offline on local devices."),
+        ("GPT stands for 'General Purpose Technology'", false, "GPT stands for 'Generative Pre-trained Transformer.'"),
+        ("AI is used to detect fraud in banking", true, "Banks use ML algorithms to flag suspicious transactions in real time."),
+        ("AI can accurately predict earthquakes", false, "Despite research, AI cannot reliably predict when earthquakes will occur."),
+        ("The Turing Test was proposed before computers existed", false, "Alan Turing proposed it in 1950, after early computers were already built."),
+        ("AI powers the filters on Instagram and Snapchat", true, "Face detection and AR filters use neural networks to track and modify faces."),
+        ("Larger AI models are always more accurate", false, "Bigger isn't always better — smaller, specialized models can outperform larger general ones."),
+        ("AI can help discover new medicines", true, "AI is used in drug discovery to predict molecular interactions and speed up research."),
     ]
 
     var body: some View {
@@ -126,6 +145,23 @@ struct FactOrFictionGame: View {
                                 .padding(.horizontal, 24)
                         }
                         .transition(.opacity)
+
+                        // Next button
+                        Button {
+                            showResult = false
+                            currentIndex += 1
+                            if currentIndex >= totalQuestions {
+                                endGame()
+                            }
+                        } label: {
+                            Text(currentIndex + 1 >= totalQuestions ? "See Results" : "Next")
+                                .font(.aiHeadline())
+                                .foregroundColor(.white)
+                                .frame(maxWidth: .infinity)
+                                .padding(.vertical, 14)
+                                .background(RoundedRectangle(cornerRadius: 14).fill(Color.aiPrimaryGradient))
+                        }
+                        .padding(.horizontal)
                     } else {
                         // Fact / Fiction buttons
                         HStack(spacing: 16) {
@@ -230,21 +266,15 @@ struct FactOrFictionGame: View {
             score += 1
             flashColor = .aiSuccess
             HapticService.shared.success()
+            SoundService.shared.play(.correct)
         } else {
             flashColor = .aiError
             HapticService.shared.error()
+            SoundService.shared.play(.wrong)
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { flashColor = .clear }
 
         withAnimation { showResult = true }
-
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-            showResult = false
-            currentIndex += 1
-            if currentIndex >= totalQuestions {
-                endGame()
-            }
-        }
     }
 
     private func endGame() {

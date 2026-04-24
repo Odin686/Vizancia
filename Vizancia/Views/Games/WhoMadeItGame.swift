@@ -211,9 +211,11 @@ struct WhoMadeItGame: View {
             score += 1
             flashColor = .aiSuccess
             HapticService.shared.success()
+            SoundService.shared.play(.correct)
         } else {
             flashColor = .aiError
             HapticService.shared.error()
+            SoundService.shared.play(.wrong)
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { flashColor = .clear }
 

@@ -258,11 +258,8 @@ struct WordSearchGame: View {
         // Directions: horizontal, vertical, diagonal down-right, diagonal down-left
         let directions = [(0, 1), (1, 0), (1, 1), (1, -1)]
 
-        // Also try reversed words for extra difficulty
-        let variants: [[Character]] = [chars, chars.reversed()]
-
         for _ in 0..<200 {
-            let variant = variants.randomElement()!
+            let variant = chars
             let dir = directions.randomElement()!
             let row = Int.random(in: 0..<gridSize)
             let col = Int.random(in: 0..<gridSize)
